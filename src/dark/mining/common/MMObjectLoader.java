@@ -3,9 +3,10 @@ package dark.mining.common;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
 import dark.core.registration.ModObjectRegistry;
-import dark.mining.common.block.BlockMM;
 
 /**
  * @author Archadia
@@ -24,15 +25,21 @@ public class MMObjectLoader {
 	 * @param blockClass
 	 * @param canDisable
 	 */
-	public void addMMObject(String name, String modID, Class <? extends Block> blockClass, boolean canDisable) {
+	public void addMMObject(String name, Class <? extends Block> blockClass, Class <? extends TileEntity> tileClass) {
 		Block block;
 		int blockID;
 		
-		block = ModObjectRegistry.createNewBlock(name, modID, blockClass, canDisable);
+		block = ModObjectRegistry.createNewBlock(name, MechanizedMining.MOD_ID, blockClass, true);
 		block.setUnlocalizedName(name);
 		bnameList.put(block, name);
 		list.add(block);
+		
+		if(tileClass != null) {
+			String tilename = "tileEntity" + name.toUpperCase();
+			GameRegistry.registerTileEntity(tileClass, tilename);
+		}
 	}
+
 	
 	/**
 	 * Method to get block via name
