@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.vector.Vector3;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 import dark.mining.common.privateutils.TripleContainer;
 
@@ -16,9 +17,12 @@ public class TileEntityScanner extends TileEntityEnergyMachine
 
     public boolean enabled = true;
 
+    Vector3[] vex = new Vector3[3];
+    
     public TileEntityScanner()
     {
         super(0.5f); //500W
+        
     }
 
     @Override
