@@ -5,6 +5,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeDirection;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 import dark.mining.TripleContainer;
 
@@ -23,7 +24,7 @@ public class TileEntityScanner extends TileEntityEnergyMachine {
 	public void updateEntity() {
 		short tries = 0;
 		if(!worldObj.isRemote) {
-			while(/*this.getEnergyStored() > 5000 &&*/ enabled) {
+			while(this.getEnergyStored() > 5000 && enabled) {
 				tries++;
 				if(tries > 5) {
 					return;
@@ -35,7 +36,7 @@ public class TileEntityScanner extends TileEntityEnergyMachine {
 	}
 	
 	private void scanArea() {
-		//setEnergyStored(getEnergyStored() - 100);
+		consumePower(100, true);
 		
 		int targetX = xCoord - 150;
 		int targetZ = zCoord - 150;
@@ -49,7 +50,7 @@ public class TileEntityScanner extends TileEntityEnergyMachine {
 		if(!usedTarget.getAList().contains(targetX) && !usedTarget.getBList().contains(targetY) && !usedTarget.getCList().contains(targetZ)) {
 			if(isTargetValid(targetId)) {
 				printResult(targetId);
-				//setEnergyStored(getEnergyStored() - 50);
+				consumePower(50, true);
 				usedTarget.put(targetX, targetY, targetZ);
 			}
 		}
@@ -68,4 +69,13 @@ public class TileEntityScanner extends TileEntityEnergyMachine {
 	private void printResult(int id) {
 		System.out.println("Found " + id);
 	}
+	
+	public float getRequest(ForgeDirection dir) {
+		return 5000;
+	}
+	
+	public boolean canConnect(ForgeDirection dir) {
+		return true;
+	}
+	
 }
