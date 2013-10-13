@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.ForgeDirection;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
-import dark.mining.TripleContainer;
+import dark.mining.common.privateutils.TripleContainer;
 
 /** @author Archadia */
 public class TileEntityScanner extends TileEntityEnergyMachine
