@@ -1,17 +1,17 @@
 package dark.mining.common.block;
 
-import net.minecraft.creativetab.CreativeTabs;
-import dark.core.prefab.ModPrefab;
-import dark.mining.common.MMConfig;
+import net.minecraft.block.material.Material;
+import dark.core.common.DMCreativeTab;
+import dark.mining.common.MechanizedMining;
 
 /** @author Archadia */
 public class BlockMechanized extends BlockMM
 {
 
-    public BlockMechanized()
+    public BlockMechanized(String blockName, Material material)
     {
-        super(MMConfig.config.getBlock("mechanizedBlock", ModPrefab.getNextID()).getInt());
-        setCreativeTab(CreativeTabs.tabBlock);
+        super(MechanizedMining.config, blockName, material);
+        setCreativeTab(DMCreativeTab.tabIndustrial);
         setIconMax(2);
     }
 }

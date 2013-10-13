@@ -1,4 +1,4 @@
-package dark.mining.common.proxy;
+package dark.mining.common;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

@@ -1,25 +1,21 @@
 package dark.mining.common.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
-import dark.mining.common.MMObjectLoader;
+import net.minecraftforge.common.Configuration;
+import dark.core.prefab.machine.BlockMachine;
 
 /** @author Archadia */
-public class BlockMM extends Block
+public class BlockMM extends BlockMachine
 {
-
-    protected static MMObjectLoader objLoader = new MMObjectLoader();
     private Icon[] icons = new Icon[1];
     private String iconPath;
     private boolean isMultiTextured = false;
 
-    /** @param par1
-     * @param par2Material */
-    public BlockMM(int i)
+    public BlockMM(Configuration config, String blockName, Material material)
     {
-        super(i, Material.iron);
+        super(config, blockName, material);
     }
 
     protected String getName()

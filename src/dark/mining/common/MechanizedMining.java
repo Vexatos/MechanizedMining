@@ -1,5 +1,11 @@
 package dark.mining.common;
 
+import java.io.File;
+
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.Configuration;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -7,14 +13,19 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import dark.mining.common.proxy.CommonProxy;
+import cpw.mods.fml.common.registry.GameRegistry;
+import dark.core.prefab.ModPrefab;
+import dark.core.registration.ModObjectRegistry;
+import dark.mining.common.block.BlockMechanized;
+import dark.mining.common.machines.scanner.BlockScanner;
+import dark.mining.common.machines.scanner.TileEntityScanner;
 
 /** Main Mod class for MechanizedMining.
- * 
+ *
  * @author Archadia */
-@Mod(modid = MechanizedMining.MOD_ID, name = MechanizedMining.MOD_NAME, version = MechanizedMining.MOD_VERSION)
+@Mod(modid = MechanizedMining.MOD_ID, name = MechanizedMining.MOD_NAME, version = MechanizedMining.VERSION)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
-public class MechanizedMining
+public class MechanizedMining extends ModPrefab
 {
 
     @Instance(MechanizedMining.MOD_ID)
@@ -25,15 +36,63 @@ public class MechanizedMining
 
     public static final String MOD_ID = "MechanizedMining";
     public static final String MOD_NAME = "Mechanized-Mining";
-    public static final String MOD_VERSION = "0.0.1";
 
-    MMConfig config = new MMConfig();
+    /** Version #s are handled by the jenkins server */
+    public static final String MAJOR_VERSION = "@MAJOR@";
+    public static final String MINOR_VERSION = "@MINOR@";
+    public static final String REVIS_VERSION = "@REVIS@";
+    public static final String BUILD_VERSION = "@BUILD@";
+    public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVIS_VERSION + "." + BUILD_VERSION;
+
+    public static Configuration config = new Configuration(new File(Loader.instance().getConfigDir() + "/Dark/MechanizedMining.cfg"));
+
 
     @EventHandler
     public void Init(FMLInitializationEvent e)
     {
-        config.addConfigBlocks();
-
         NetworkRegistry.instance().registerGuiHandler(this, proxy);
     }
+
+    @Override
+    public String getDomain()
+    {
+        return this.MOD_ID;
+    }
+
+    @Override
+    public void registerObjects()
+    {
+        config.load();
+        addMMObject("mechanizedBlock", BlockMechanized.class, null);
+        addMMObject("scanner", BlockScanner.class, TileEntityScanner.class);
+        config.save();
+    }
+
+    @Override
+    public void loadModMeta()
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    /** Method to add a MM block, uses CoreMachines' loader mixed with Archadia's personal loader.
+    *
+    * @param name
+    * @param modID
+    * @param blockClass
+    * @param canDisable */
+   public void addMMObject(String name, Class<? extends Block> blockClass, Class<? extends TileEntity> tileClass)
+   {
+       Block block;
+       int blockID;
+
+       block = ModObjectRegistry.createNewBlock(name, MechanizedMining.MOD_ID, blockClass, true);
+       block.setUnlocalizedName(name);
+
+       if (tileClass != null)
+       {
+           String tilename = "tileEntity" + name.toUpperCase();
+           GameRegistry.registerTileEntity(tileClass, tilename);
+       }
+   }
 }

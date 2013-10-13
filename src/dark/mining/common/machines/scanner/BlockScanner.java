@@ -4,18 +4,17 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import dark.core.prefab.ModPrefab;
-import dark.mining.common.MMConfig;
+import universalelectricity.core.UniversalElectricity;
 import dark.mining.common.MechanizedMining;
-import dark.mining.common.block.BlockMM;
+import dark.mining.common.block.BlockMechanized;
 
 /** @author Archadia */
-public class BlockScanner extends BlockMM
+public class BlockScanner extends BlockMechanized
 {
 
     public BlockScanner()
     {
-        super(MMConfig.config.getBlock("scanner", ModPrefab.getNextID()).getInt());
+        super("OreScanner", UniversalElectricity.machine);
         setCreativeTab(CreativeTabs.tabBlock);
         setIconMax(2);
     }

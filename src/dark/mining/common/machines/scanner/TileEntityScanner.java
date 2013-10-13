@@ -16,29 +16,32 @@ public class TileEntityScanner extends TileEntityEnergyMachine
 
     public boolean enabled = true;
 
+    public TileEntityScanner()
+    {
+        super(0.5f); //500W
+    }
+
     @Override
     public void updateEntity()
     {
-        short tries = 0;
         if (!worldObj.isRemote)
         {
-            while (this.getEnergyStored() > 5000 && enabled)
+            for (byte i = 0; i < 5 && this.canFunction(); i++)
             {
-                tries++;
-                if (tries > 5)
-                {
-                    return;
-                }
-
                 scanArea();
             }
         }
     }
 
-    private void scanArea()
+    @Override
+    public boolean canFunction()
     {
-        consumePower(100, true);
+        return super.canFunction() && this.enabled;
+    }
 
+    /** Scans the area for valid blocks */
+    protected void scanArea()
+    {
         int targetX = xCoord - 150;
         int targetZ = zCoord - 150;
         int targetY = this.worldObj.rand.nextInt(15) + 5;
@@ -53,13 +56,12 @@ public class TileEntityScanner extends TileEntityEnergyMachine
             if (isTargetValid(targetId))
             {
                 printResult(targetId);
-                consumePower(50, true);
                 usedTarget.put(targetX, targetY, targetZ);
             }
         }
     }
 
-    private boolean isTargetValid(int id)
+    protected boolean isTargetValid(int id)
     {
         for (Block block : Block.blocksList)
         {
@@ -73,15 +75,9 @@ public class TileEntityScanner extends TileEntityEnergyMachine
         return false;
     }
 
-    private void printResult(int id)
+    protected void printResult(int id)
     {
         System.out.println("Found " + id);
-    }
-
-    @Override
-    public float getRequest(ForgeDirection dir)
-    {
-        return 5000;
     }
 
     @Override
