@@ -28,6 +28,7 @@ public class TileEntityScanner extends TileEntityEnergyMachine
     @Override
     public void updateEntity()
     {
+        super.updateEntity();
         if (!worldObj.isRemote)
         {
             for (byte i = 0; i < 5 && this.canFunction(); i++)
