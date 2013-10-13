@@ -19,6 +19,7 @@ public class TileEntityScanner extends TileEntityEnergyMachine
     private Vector3 coord;
     private Vector3 coordDown;
     private Vector3 scanSize = new Vector3(15, 1, 15);
+    private Vector3 scanLocation;
 
     public boolean enabled = true;
 
@@ -42,7 +43,7 @@ public class TileEntityScanner extends TileEntityEnergyMachine
             for (byte i = 0; i < 5 && this.canFunction(); i++)
             {
                 //System.out.println("Hello come again!");
-                //scanArea();
+                scanArea();
             }
         }
     }
@@ -56,8 +57,18 @@ public class TileEntityScanner extends TileEntityEnergyMachine
     /** Scans the area for valid blocks */
     protected void scanArea()
     {
+        if(scanLocation == null)
+        {
+            this.scanLocation = this.coordDown.clone();
+        }
         @SuppressWarnings("unchecked")
         List<Pair<Integer, Integer>> blocks = BlockMapUtil.getBlocksInGrid(this.worldObj, this.coordDown, this.scanSize);
+        //Update pos logic
+        this.scanLocation.translate(new Vector3(0,-1,0));
+        if(this.scanLocation.intY() == 0)
+        {
+            this.scanLocation = this.coordDown.clone();
+        }
         //Do logic here to sort out the returned blocks with what you want
     }
 

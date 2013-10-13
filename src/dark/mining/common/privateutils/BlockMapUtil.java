@@ -19,7 +19,6 @@ public class BlockMapUtil
 
     public static List<Pair<Integer, Integer>> getBlocksInGrid(World world, Vector3 center, Vector3 size, Pair<Integer, Integer>... pairs)
     {
-        int x = 0, y = 0, z = 0;
         int startX = (int) (center.x - (size.x / 2));
         int startY = (int) (center.y - (size.y / 2));
         int startZ = (int) (center.z - (size.z / 2));
@@ -32,13 +31,11 @@ public class BlockMapUtil
                 filter.add(pairs[i]);
             }
         }
-        System.out.println("Center: " + center.toString());
-        System.out.println("Start: " + startX + "x" + startY + "y" + startZ + "z");
-        for (y = startY; y >= startY && y < center.y + (size.y / 2) - 1; y++)
+        for (int y = startY; y >= startY && y < center.y + (size.y / 2) - 1; y++)
         {
-            for (x = startX; y >= startX && x < center.x + (size.x / 2) - 1; x++)
+            for (int x = startX; y >= startX && x < center.x + (size.x / 2) - 1; x++)
             {
-                for (z = startZ; z >= startZ && z < center.z + (size.z / 2) - 1; z++)
+                for (int z = startZ; z >= startZ && z < center.z + (size.z / 2) - 1; z++)
                 {
                     Pair<Integer, Integer> block = new Pair<Integer, Integer>(world.getBlockId(x, y, z), world.getBlockMetadata(x, y, z));
                     //System.out.println("Loc: "+x+"x"+y+"y"+z+"z  Scanning: "+block.left()+"@"+block.right());
@@ -50,7 +47,6 @@ public class BlockMapUtil
                 }
             }
         }
-        System.out.println("End: " + x + "x" + y + "y" + z + "z");
 
         return mapping;
     }

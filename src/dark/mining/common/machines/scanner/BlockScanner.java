@@ -29,13 +29,7 @@ public class BlockScanner extends BlockMechanized
     {
         System.out.println("PROOF!");
 
-        //player.openGui(MechanizedMining.instance, 0, world, x, y, z);
-
-        //temp
-        if(world.getBlockTileEntity(x, y, z) instanceof TileEntityScanner)
-        {
-            ((TileEntityScanner) world.getBlockTileEntity(x, y, z)).scanArea();
-        }
+        player.openGui(MechanizedMining.instance, 0, world, x, y, z);
 
         return true;
     }
