@@ -2,6 +2,8 @@ package dark.mining.common;
 
 import java.io.File;
 
+import org.modstats.Modstats;
+
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.Configuration;
@@ -11,6 +13,8 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -46,11 +50,29 @@ public class MechanizedMining extends ModPrefab
 
     public static Configuration config = new Configuration(new File(Loader.instance().getConfigDir() + "/Dark/MechanizedMining.cfg"));
 
-
     @EventHandler
     public void Init(FMLInitializationEvent e)
     {
+
+    }
+
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        super.preInit(event);
+    }
+
+    @EventHandler
+    public void init(FMLInitializationEvent event)
+    {
+        super.init(event);
         NetworkRegistry.instance().registerGuiHandler(this, proxy);
+    }
+
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        super.postInit(event);
     }
 
     @Override
@@ -63,7 +85,6 @@ public class MechanizedMining extends ModPrefab
     public void registerObjects()
     {
         config.load();
-        addMMObject("mechanizedBlock", BlockMechanized.class, null);
         addMMObject("scanner", BlockScanner.class, TileEntityScanner.class);
         config.save();
     }
@@ -75,23 +96,19 @@ public class MechanizedMining extends ModPrefab
     }
 
     /** Method to add a MM block, uses CoreMachines' loader mixed with Archadia's personal loader.
-    *
-    * @param name
-    * @param modID
-    * @param blockClass
-    * @param canDisable */
-   public void addMMObject(String name, Class<? extends Block> blockClass, Class<? extends TileEntity> tileClass)
-   {
-       Block block;
-       int blockID;
+     *
+     * @param name
+     * @param modID
+     * @param blockClass
+     * @param canDisable */
+    public void addMMObject(String name, Class<? extends Block> blockClass, Class<? extends TileEntity> tileClass)
+    {
+        Block block = ModObjectRegistry.createNewBlock(name, MechanizedMining.MOD_ID, blockClass, true);
 
-       block = ModObjectRegistry.createNewBlock(name, MechanizedMining.MOD_ID, blockClass, true);
-       block.setUnlocalizedName(name);
-
-       if (tileClass != null)
-       {
-           String tilename = "tileEntity" + name.toUpperCase();
-           GameRegistry.registerTileEntity(tileClass, tilename);
-       }
-   }
+        if (tileClass != null)
+        {
+            String tilename = "tileEntity" + name.toUpperCase();
+            GameRegistry.registerTileEntity(tileClass, tilename);
+        }
+    }
 }
