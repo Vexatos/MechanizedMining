@@ -45,12 +45,12 @@ public class TileEntityScanner extends TileEntityEnergyMachine {
     	int firstY = this.yCoord - 1;
     	int firstZ = this.zCoord - 8;
     	
-    	int curZ = 0;
+    	float curZ = 0;
     	
     	for(int i = 0; i < vec3.length; i++) {
-    		curZ = (int) vec3[i].z;
-    		if(curZ < firstZ + 15) {
 	    		vec3[i] = new Vector3((this.xCoord - 8) + i, firstY, firstZ);
+	    		curZ = vec3[i].floatZ();
+	    	if(curZ < firstZ + 15) {
 	    		if(isTargetValid(vec3[i].getBlockID(worldObj))) {
 	    			printResult(vec3[i].getBlockID(worldObj));
 	    		}
@@ -64,15 +64,9 @@ public class TileEntityScanner extends TileEntityEnergyMachine {
     }
 
     protected boolean isTargetValid(int id) {
-        for (Block block : Block.blocksList)
-        {
-            if (block.blockID == id)
-            {
-                if (block.getUnlocalizedName().contains("ore"))
-                    return true;
-            }
-            return false;
-        }
+    	if(id == Block.stone.blockID) {
+    		return true;
+    	}
         return false;
     }
 
