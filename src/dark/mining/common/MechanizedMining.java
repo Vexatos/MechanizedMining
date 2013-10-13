@@ -78,14 +78,14 @@ public class MechanizedMining extends ModPrefab
     @Override
     public String getDomain()
     {
-        return this.MOD_ID;
+        return MechanizedMining.MOD_ID;
     }
 
     @Override
     public void registerObjects()
     {
         config.load();
-        addMMObject("scanner", BlockScanner.class, TileEntityScanner.class);
+        addMMObject("scanner", BlockScanner.class);
         config.save();
     }
 
@@ -101,14 +101,8 @@ public class MechanizedMining extends ModPrefab
      * @param modID
      * @param blockClass
      * @param canDisable */
-    public void addMMObject(String name, Class<? extends Block> blockClass, Class<? extends TileEntity> tileClass)
+    public void addMMObject(String name, Class<? extends Block> blockClass)
     {
         Block block = ModObjectRegistry.createNewBlock(name, MechanizedMining.MOD_ID, blockClass, true);
-
-        if (tileClass != null)
-        {
-            String tilename = "tileEntity" + name.toUpperCase();
-            GameRegistry.registerTileEntity(tileClass, tilename);
-        }
     }
 }
