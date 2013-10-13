@@ -6,6 +6,7 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import dark.mining.common.proxy.CommonProxy;
 
 /**
@@ -31,5 +32,7 @@ public class MechanizedMining {
 	@EventHandler
 	public void Init(FMLInitializationEvent e) {
 		config.addConfigBlocks();
+		
+		NetworkRegistry.instance().registerGuiHandler(this, proxy);
 	}
 }
