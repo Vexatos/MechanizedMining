@@ -63,6 +63,8 @@ public class TileEntityScanner extends TileEntityEnergyMachine
         }
         @SuppressWarnings("unchecked")
         List<Pair<Integer, Integer>> blocks = BlockMapUtil.getBlocksInGrid(this.worldObj, this.coordDown, this.scanSize);
+
+
         //Update pos logic
         this.scanLocation.translate(new Vector3(0,-1,0));
         if(this.scanLocation.intY() == 0)
