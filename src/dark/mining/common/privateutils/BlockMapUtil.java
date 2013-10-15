@@ -8,6 +8,10 @@ import universalelectricity.core.vector.Vector3;
 
 import com.builtbroken.common.Pair;
 
+/**
+ * @author DarkCow
+ *
+ */
 public class BlockMapUtil
 {
     public static List<Pair<Integer, Integer>> getBlocksInArea(World world, Vector3 start, Vector3 end)
@@ -38,7 +42,6 @@ public class BlockMapUtil
                 for (int z = startZ; z >= startZ && z < center.z + (size.z / 2) - 1; z++)
                 {
                     Pair<Integer, Integer> block = new Pair<Integer, Integer>(world.getBlockId(x, y, z), world.getBlockMetadata(x, y, z));
-                    //System.out.println("Loc: "+x+"x"+y+"y"+z+"z  Scanning: "+block.left()+"@"+block.right());
                     if (pairs == null || filter.contains(block))
                     {
 

@@ -2,8 +2,6 @@ package dark.mining.common;
 
 import java.io.File;
 
-import org.modstats.Modstats;
-
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.Configuration;
@@ -20,7 +18,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
-import dark.mining.common.block.BlockMechanized;
+import dark.mining.common.machines.groundradar.BlockGroundRadar;
+import dark.mining.common.machines.groundradar.TileEntityGroundRadar;
 import dark.mining.common.machines.scanner.BlockScanner;
 import dark.mining.common.machines.scanner.TileEntityScanner;
 
@@ -85,7 +84,8 @@ public class MechanizedMining extends ModPrefab
     public void registerObjects()
     {
         config.load();
-        addMMObject("scanner", BlockScanner.class);
+	        addMMObject("scanner", BlockScanner.class, TileEntityScanner.class);
+	        addMMObject("groundradar", BlockGroundRadar.class, TileEntityGroundRadar.class);
         config.save();
     }
 
@@ -95,14 +95,13 @@ public class MechanizedMining extends ModPrefab
 
     }
 
-    /** Method to add a MM block, uses CoreMachines' loader mixed with Archadia's personal loader.
-     *
-     * @param name
-     * @param modID
-     * @param blockClass
-     * @param canDisable */
-    public void addMMObject(String name, Class<? extends Block> blockClass)
+    /** Method to add a MM block, uses CoreMachines' loader mixed with Archadia's personal loader. */
+    public void addMMObject(String name, Class<? extends Block> blockClass, Class<? extends TileEntity> tileClass)
     {
         Block block = ModObjectRegistry.createNewBlock(name, MechanizedMining.MOD_ID, blockClass, true);
+        if(tileClass != null) {
+        	String tileName = "tileEntity" + name.toUpperCase();
+        	GameRegistry.registerTileEntity(tileClass, tileName);
+        }
     }
 }

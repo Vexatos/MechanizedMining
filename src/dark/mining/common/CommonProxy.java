@@ -4,6 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
+import dark.mining.common.machines.groundradar.ContainerGroundRadar;
+import dark.mining.common.machines.groundradar.GuiGroundRadar;
+import dark.mining.common.machines.groundradar.TileEntityGroundRadar;
 import dark.mining.common.machines.scanner.ContainerScanner;
 import dark.mining.common.machines.scanner.GuiScanner;
 import dark.mining.common.machines.scanner.TileEntityScanner;
@@ -20,6 +23,8 @@ public class CommonProxy implements IGuiHandler
         {
             case 0:
                 return new ContainerScanner(player.inventory, (TileEntityScanner) tile_entity);
+            case 1:
+                return new ContainerGroundRadar(player.inventory, (TileEntityGroundRadar) tile_entity);
         }
         return null;
     }
@@ -32,6 +37,8 @@ public class CommonProxy implements IGuiHandler
         {
             case 0:
                 return new GuiScanner(player.inventory, (TileEntityScanner) tile_entity);
+            case 1:
+                return new GuiGroundRadar(player.inventory, (TileEntityGroundRadar) tile_entity);
         }
         return null;
     }

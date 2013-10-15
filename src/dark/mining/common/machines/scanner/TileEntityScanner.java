@@ -3,15 +3,19 @@ package dark.mining.common.machines.scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.builtbroken.common.Pair;
-
 import net.minecraft.block.Block;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
+
+import com.builtbroken.common.Pair;
+
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 import dark.mining.common.privateutils.BlockMapUtil;
 
-/** @author Archadia */
+/**
+ * @author Archadia, DarkCow
+ *
+ */
 public class TileEntityScanner extends TileEntityEnergyMachine
 {
 
@@ -63,8 +67,6 @@ public class TileEntityScanner extends TileEntityEnergyMachine
         }
         @SuppressWarnings("unchecked")
         List<Pair<Integer, Integer>> blocks = BlockMapUtil.getBlocksInGrid(this.worldObj, this.coordDown, this.scanSize);
-
-
         //Update pos logic
         this.scanLocation.translate(new Vector3(0,-1,0));
         if(this.scanLocation.intY() == 0)
@@ -74,13 +76,9 @@ public class TileEntityScanner extends TileEntityEnergyMachine
         //Do logic here to sort out the returned blocks with what you want
     }
 
-    protected boolean isTargetValid(int id)
+    protected boolean isTargetValid(List list)
     {
-        if (id == Block.stone.blockID)
-        {
-            return true;
-        }
-        return false;
+    	return false;
     }
 
     protected void printResult(int id)
