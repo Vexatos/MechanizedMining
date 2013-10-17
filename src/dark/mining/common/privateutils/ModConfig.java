@@ -13,7 +13,7 @@ import cpw.mods.fml.common.Loader;
 public class ModConfig {
 	
 	
-	private static HashMap<String, Configuration> configs;
+	private static HashMap<String, Configuration> configs = new HashMap<String, Configuration>();
     
     public static void addConfig(String name) {
     	Configuration config = new Configuration(new File(Loader.instance().getConfigDir() + "/Dark/MechanizedMining/" + name + ".cfg"));
