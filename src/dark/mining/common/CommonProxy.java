@@ -1,15 +1,22 @@
 package dark.mining.common;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
-import dark.mining.common.machines.groundradar.ContainerGroundRadar;
-import dark.mining.common.machines.groundradar.GuiGroundRadar;
-import dark.mining.common.machines.groundradar.TileEntityGroundRadar;
-import dark.mining.common.machines.scanner.ContainerScanner;
-import dark.mining.common.machines.scanner.GuiScanner;
-import dark.mining.common.machines.scanner.TileEntityScanner;
+import cpw.mods.fml.common.registry.GameRegistry;
+import dark.core.registration.ModObjectRegistry;
+import dark.mining.common.mech.block.groundradar.BlockGroundRadar;
+import dark.mining.common.mech.block.groundradar.ContainerGroundRadar;
+import dark.mining.common.mech.block.groundradar.GuiGroundRadar;
+import dark.mining.common.mech.block.groundradar.TileEntityGroundRadar;
+import dark.mining.common.mech.block.scanner.BlockScanner;
+import dark.mining.common.mech.block.scanner.ContainerScanner;
+import dark.mining.common.mech.block.scanner.GuiScanner;
+import dark.mining.common.mech.block.scanner.TileEntityScanner;
 
 /** @author Archadia */
 public class CommonProxy implements IGuiHandler
@@ -42,5 +49,4 @@ public class CommonProxy implements IGuiHandler
         }
         return null;
     }
-
 }

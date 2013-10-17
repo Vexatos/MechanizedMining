@@ -1,4 +1,4 @@
-package dark.mining.common.machines.groundradar;
+package dark.mining.common.mech.block.groundradar;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

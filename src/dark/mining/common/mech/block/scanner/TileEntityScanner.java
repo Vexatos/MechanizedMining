@@ -1,4 +1,4 @@
-package dark.mining.common.machines.scanner;
+package dark.mining.common.mech.block.scanner;
 
 import java.util.ArrayList;
 import java.util.List;

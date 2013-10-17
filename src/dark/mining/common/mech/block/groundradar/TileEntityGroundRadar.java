@@ -1,4 +1,4 @@
-package dark.mining.common.machines.groundradar;
+package dark.mining.common.mech.block.groundradar;
 
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 

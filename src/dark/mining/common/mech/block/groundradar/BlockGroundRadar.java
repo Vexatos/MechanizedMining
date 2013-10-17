@@ -1,4 +1,4 @@
-package dark.mining.common.machines.groundradar;
+package dark.mining.common.mech.block.groundradar;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import com.builtbroken.common.Pair;
 
 import dark.mining.common.MechanizedMining;
 import dark.mining.common.block.BlockMechanized;
-import dark.mining.common.machines.scanner.TileEntityScanner;
+import dark.mining.common.mech.block.scanner.TileEntityScanner;
 
 /**
  * @author Archadia

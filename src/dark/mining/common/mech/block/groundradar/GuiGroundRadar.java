@@ -1,4 +1,4 @@
-package dark.mining.common.machines.groundradar;
+package dark.mining.common.mech.block.groundradar;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -6,8 +6,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import dark.mining.common.machines.scanner.ContainerScanner;
-import dark.mining.common.machines.scanner.TileEntityScanner;
+import dark.mining.common.mech.block.scanner.ContainerScanner;
+import dark.mining.common.mech.block.scanner.TileEntityScanner;
 
 /**
  * @author Archadia
