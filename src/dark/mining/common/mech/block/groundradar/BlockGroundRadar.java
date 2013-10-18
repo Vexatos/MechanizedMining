@@ -23,7 +23,6 @@ public class BlockGroundRadar extends BlockMechanized
 
     public BlockGroundRadar() {
         super("GroundRadar", UniversalElectricity.machine);
-        setCreativeTab(CreativeTabs.tabBlock);
         setIconMax(2);
     }
 
