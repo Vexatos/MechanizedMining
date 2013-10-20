@@ -44,7 +44,6 @@ public class MechanizedMining extends ModPrefab
     public void Init(FMLInitializationEvent es)
     {
     	ModConfig.addConfig("Objects");
-    	ModConfig.addConfig("General");
     	
     	ModConfig.getConfig("Objects").load();
     	ModObjectHandler.addBlockObj("scanner", BlockScanner.class, true);
