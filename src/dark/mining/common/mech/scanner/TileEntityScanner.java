@@ -1,9 +1,9 @@
 package dark.mining.common.mech.scanner;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
-import net.minecraft.block.Block;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
 
@@ -12,10 +12,7 @@ import com.builtbroken.common.Pair;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 import dark.mining.common.privateutils.BlockMapUtil;
 
-/**
- * @author Archadia, DarkCow
- *
- */
+/** @author Archadia, DarkCow */
 public class TileEntityScanner extends TileEntityEnergyMachine
 {
 
@@ -61,21 +58,26 @@ public class TileEntityScanner extends TileEntityEnergyMachine
     /** Scans the area for valid blocks */
     protected void scanArea()
     {
-        if(scanLocation == null)
+        if (scanLocation == null)
         {
             this.scanLocation = this.coordDown.clone();
         }
         @SuppressWarnings("unchecked")
-        List<Pair<Integer, Integer>> blocks = BlockMapUtil.getBlocksInGrid(this.worldObj, this.coordDown, this.scanSize);
+        HashMap<Vector3, Pair<Integer, Integer>> blocks = BlockMapUtil.getBlocksInGrid(this.worldObj, this.coordDown, this.scanSize);
+        for (Entry<Vector3, Pair<Integer, Integer>> entry : blocks.entrySet())
+        {
+            int blockID = entry.getValue().left();
+            int meta = entry.getValue().right();
+        }
         //Update pos logic
-        this.scanLocation.translate(new Vector3(0,-1,0));
-        if(this.scanLocation.intY() == 0)
+        this.scanLocation.translate(new Vector3(0, -1, 0));
+        if (this.scanLocation.intY() == 0)
         {
             this.scanLocation = this.coordDown.clone();
         }
         //Do logic here to sort out the returned blocks with what you want
     }
-    
+
     @Override
     public boolean canConnect(ForgeDirection dir)
     {

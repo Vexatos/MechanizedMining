@@ -1,6 +1,7 @@
 package dark.mining.common.privateutils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.world.World;
@@ -8,10 +9,7 @@ import universalelectricity.core.vector.Vector3;
 
 import com.builtbroken.common.Pair;
 
-/**
- * @author DarkCow
- *
- */
+/** @author DarkGuardsman */
 public class BlockMapUtil
 {
     public static List<Pair<Integer, Integer>> getBlocksInArea(World world, Vector3 start, Vector3 end)
@@ -21,12 +19,12 @@ public class BlockMapUtil
         return null;
     }
 
-    public static List<Pair<Integer, Integer>> getBlocksInGrid(World world, Vector3 center, Vector3 size, Pair<Integer, Integer>... pairs)
+    public static HashMap<Vector3, Pair<Integer, Integer>> getBlocksInGrid(World world, Vector3 center, Vector3 size, Pair<Integer, Integer>... pairs)
     {
         int startX = (int) (center.x - (size.x / 2));
         int startY = (int) (center.y - (size.y / 2));
         int startZ = (int) (center.z - (size.z / 2));
-        List<Pair<Integer, Integer>> mapping = new ArrayList<Pair<Integer, Integer>>();
+        HashMap<Vector3, Pair<Integer, Integer>> mapping = new HashMap();
         List<Pair<Integer, Integer>> filter = new ArrayList<Pair<Integer, Integer>>();
         if (pairs != null)
         {
@@ -45,7 +43,7 @@ public class BlockMapUtil
                     if (pairs == null || filter.contains(block))
                     {
 
-                        mapping.add(block);
+                        mapping.put(new Vector3(x, y, z), block);
                     }
                 }
             }
