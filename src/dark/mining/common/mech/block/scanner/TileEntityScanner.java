@@ -75,17 +75,7 @@ public class TileEntityScanner extends TileEntityEnergyMachine
         }
         //Do logic here to sort out the returned blocks with what you want
     }
-
-    protected boolean isTargetValid(List list)
-    {
-    	return false;
-    }
-
-    protected void printResult(int id)
-    {
-        System.out.println("Found " + id);
-    }
-
+    
     @Override
     public boolean canConnect(ForgeDirection dir)
     {

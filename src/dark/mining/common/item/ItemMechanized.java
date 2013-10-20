@@ -36,7 +36,6 @@ public abstract class ItemMechanized extends ItemElectric {
         iconPath = "MM_" + path;
     }
 
-    @Override
     public void registerIcons(IconRegister ir)
     {
     	itemIcon = ir.registerIcon("mechanizedmining:" + iconPath);
@@ -55,6 +54,6 @@ public abstract class ItemMechanized extends ItemElectric {
     	return false;
     }
 
-    /** Automatically called on right click.
+    /** Automatically called on right click. */
 	public abstract void useAbility();
 }

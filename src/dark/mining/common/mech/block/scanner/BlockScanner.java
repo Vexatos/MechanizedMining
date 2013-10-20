@@ -11,24 +11,21 @@ import universalelectricity.core.UniversalElectricity;
 import com.builtbroken.common.Pair;
 
 import dark.mining.common.MechanizedMining;
-import dark.mining.common.block.BlockMechanized;
+import dark.mining.common.block.BlockMM;
 
 /** @author Archadia */
-public class BlockScanner extends BlockMechanized
+public class BlockScanner extends BlockMM
 {
 
     public BlockScanner()
     {
-        super("OreScanner", UniversalElectricity.machine);
-        setCreativeTab(CreativeTabs.tabBlock);
+        super("Machine_OreScanner", UniversalElectricity.machine);
         setIconMax(2);
     }
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d)
     {
-        System.out.println("PROOF!");
-
         player.openGui(MechanizedMining.instance, 0, world, x, y, z);
 
         return true;

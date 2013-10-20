@@ -2,9 +2,12 @@ package dark.mining.common.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.Icon;
 import net.minecraftforge.common.Configuration;
+import dark.core.common.DMCreativeTab;
 import dark.core.prefab.machine.BlockMachine;
+import dark.mining.common.privateutils.ModConfig;
 
 /** @author Archadia */
 public class BlockMM extends BlockMachine
@@ -13,9 +16,11 @@ public class BlockMM extends BlockMachine
     private String iconPath;
     private boolean isMultiTextured = false;
 
-    public BlockMM(Configuration config, String blockName, Material material)
+    public BlockMM(String blockName, Material material)
     {
-        super(config, blockName, material);
+        super(ModConfig.getConfig("Objects"), blockName, material);
+        setCreativeTab(CreativeTabs.tabBlock);
+
     }
 
     protected String getName()
@@ -39,7 +44,7 @@ public class BlockMM extends BlockMachine
     {
         if (!isMultiTextured)
         {
-            this.icons[0] = ir.registerIcon("mechanizedmining:" + iconPath);
+            this.blockIcon = ir.registerIcon("mechanizedmining:" + iconPath);
         }
         else
         {
@@ -59,6 +64,6 @@ public class BlockMM extends BlockMachine
             }
             return icons[1];
         }
-        return icons[0];
+        return this.blockIcon;
     }
 }

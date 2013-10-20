@@ -1,9 +1,5 @@
 package dark.mining.common;
 
-import java.io.File;
-
-import net.minecraftforge.common.Configuration;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -14,10 +10,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import dark.core.prefab.ModPrefab;
-import dark.mining.common.mech.block.groundradar.BlockGroundRadar;
-import dark.mining.common.mech.block.groundradar.TileEntityGroundRadar;
+import dark.mining.common.block.BlockRubble;
 import dark.mining.common.mech.block.scanner.BlockScanner;
-import dark.mining.common.mech.block.scanner.TileEntityScanner;
+import dark.mining.common.mech.item.ItemHandDrill;
 import dark.mining.common.privateutils.ModConfig;
 import dark.mining.common.privateutils.ModObjectHandler;
 
@@ -46,13 +41,16 @@ public class MechanizedMining extends ModPrefab
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVIS_VERSION + "." + BUILD_VERSION;
 
     @EventHandler
-    public void Init(FMLInitializationEvent e)
+    public void Init(FMLInitializationEvent es)
     {
     	ModConfig.addConfig("Objects");
     	ModConfig.addConfig("General");
     	
     	ModConfig.getConfig("Objects").load();
-    	ModObjectHandler.registerObjects();
+    	ModObjectHandler.addBlockObj("scanner", BlockScanner.class, true);
+    	ModObjectHandler.addBlockObj("rubble", BlockRubble.class, true);
+
+    	ModObjectHandler.addItemObj("handDrill", ItemHandDrill.class, true);
     	ModConfig.getConfig("Objects").save();
     }
 
