@@ -12,7 +12,7 @@ import dark.mining.common.privateutils.ModConfig;
 /** @author Archadia */
 public class BlockMM extends BlockMachine
 {
-    private Icon[] icons = new Icon[1];
+    private Icon[] icons;
     private String iconPath;
     private boolean isMultiTextured = false;
 
