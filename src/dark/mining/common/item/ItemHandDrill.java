@@ -1,7 +1,6 @@
-package dark.mining.common.mech.item;
+package dark.mining.common.item;
 
 import net.minecraft.item.ItemStack;
-import dark.mining.common.item.ItemMechanized;
 
 /**
  * @author Archadia

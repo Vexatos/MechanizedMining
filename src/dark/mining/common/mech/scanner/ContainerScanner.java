@@ -1,4 +1,4 @@
-package dark.mining.common.mech.block.scanner;
+package dark.mining.common.mech.scanner;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
