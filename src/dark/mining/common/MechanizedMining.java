@@ -20,6 +20,7 @@ import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.common.block.BlockRubble;
 import dark.mining.common.item.ItemHandDrill;
+import dark.mining.common.item.ItemInstaHole;
 import dark.mining.common.mech.scanner.BlockScanner;
 import dark.mining.common.privateutils.ModConfig;
 
@@ -48,7 +49,7 @@ public class MechanizedMining extends ModPrefab
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVIS_VERSION + "." + BUILD_VERSION;
 
     public static Block blockScanner, blockRubble;
-    public static Item itemDrill;
+    public static Item itemDrill, itemHoleCreator;
 
     @Metadata(MOD_ID)
     public static ModMetadata meta;
@@ -95,6 +96,7 @@ public class MechanizedMining extends ModPrefab
         blockRubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
         //Items
         itemDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
+        itemHoleCreator = ModObjectRegistry.createNewItem("itemHoleCreator", MOD_ID, ItemInstaHole.class, true);
         ModConfig.getConfig("Objects").save();
     }
 
@@ -117,9 +119,9 @@ public class MechanizedMining extends ModPrefab
     @Override
     public void loadRecipes()
     {
-        if(blockScanner instanceof BlockScanner)
+        if (blockScanner instanceof BlockScanner)
         {
-            //load recipe here
+            //load recipe here and make sure to do the same per item since they can be disabled by the user
         }
 
     }

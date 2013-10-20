@@ -9,21 +9,19 @@ import universalelectricity.core.item.ItemElectric;
 import dark.core.prefab.ModPrefab;
 import dark.mining.common.privateutils.ModConfig;
 
-/**
- * @author Archadia
- *
- */
-public abstract class ItemMechanized extends ItemElectric {
-	
+/** @author Archadia */
+public abstract class ItemMechanized extends ItemElectric
+{
+
     private String iconPath;
     private boolean hasAbility = false;
 
     public ItemMechanized(String itemName, boolean ability)
     {
         super(ModConfig.getConfig("Objects").getItem(itemName, ModPrefab.getNextID()).getInt());
-		setCreativeTab(CreativeTabs.tabBlock);
-		setUnlocalizedName(itemName);
-		hasAbility = ability;
+        setCreativeTab(CreativeTabs.tabBlock);
+        setUnlocalizedName(itemName);
+        hasAbility = ability;
     }
 
     protected String getName()
@@ -38,22 +36,26 @@ public abstract class ItemMechanized extends ItemElectric {
 
     public void registerIcons(IconRegister ir)
     {
-    	itemIcon = ir.registerIcon("mechanizedmining:" + iconPath);
+        itemIcon = ir.registerIcon("mechanizedmining:" + iconPath);
     }
 
-	@Override
-	public float getMaxElectricityStored(ItemStack theItem) {
-		return 0;
-	}
-	
-    public boolean onItemUse(ItemStack item, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
-    	if(hasAbility) {
-	    	useAbility();
-	    	return true;
-    	}
-    	return false;
+    @Override
+    public float getMaxElectricityStored(ItemStack theItem)
+    {
+        return 0;
+    }
+
+    @Override
+    public boolean onItemUse(ItemStack item, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10)
+    {
+        if (hasAbility)
+        {
+            useAbility();
+            return true;
+        }
+        return false;
     }
 
     /** Automatically called on right click. */
-	public abstract void useAbility();
+    public abstract void useAbility();
 }
