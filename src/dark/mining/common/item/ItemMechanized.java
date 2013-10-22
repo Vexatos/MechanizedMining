@@ -34,6 +34,7 @@ public abstract class ItemMechanized extends ItemElectric
         iconPath = "MM_" + path;
     }
 
+    @Override
     public void registerIcons(IconRegister ir)
     {
         itemIcon = ir.registerIcon("mechanizedmining:" + iconPath);

@@ -25,7 +25,7 @@ import dark.mining.common.mech.scanner.BlockScanner;
 import dark.mining.common.privateutils.ModConfig;
 
 /** Main Mod class for MechanizedMining.
- *
+ * 
  * @author Archadia */
 @Mod(modid = MechanizedMining.MOD_ID, name = MechanizedMining.MOD_NAME, version = MechanizedMining.VERSION)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
@@ -54,6 +54,7 @@ public class MechanizedMining extends ModPrefab
     @Metadata(MOD_ID)
     public static ModMetadata meta;
 
+    @Override
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -63,6 +64,7 @@ public class MechanizedMining extends ModPrefab
         instance = this;
     }
 
+    @Override
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
@@ -73,6 +75,7 @@ public class MechanizedMining extends ModPrefab
 
     }
 
+    @Override
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {

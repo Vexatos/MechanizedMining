@@ -2,7 +2,6 @@ package dark.mining.common.mech.scanner;
 
 import java.util.Set;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -40,6 +39,6 @@ public class BlockScanner extends BlockMM
     @Override
     public void getTileEntities(int blockID, Set<Pair<String, Class<? extends TileEntity>>> list)
     {
-        list.add(new Pair<String, Class<? extends TileEntity>>("TileOreScanner",TileEntityScanner.class));
+        list.add(new Pair<String, Class<? extends TileEntity>>("TileOreScanner", TileEntityScanner.class));
     }
 }

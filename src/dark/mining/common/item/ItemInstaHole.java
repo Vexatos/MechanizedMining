@@ -1,12 +1,12 @@
 package dark.mining.common.item;
 
-import dark.core.prefab.ModPrefab;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import dark.core.prefab.ModPrefab;
 
 public class ItemInstaHole extends Item
 {
