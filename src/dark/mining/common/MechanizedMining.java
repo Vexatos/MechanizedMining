@@ -110,7 +110,7 @@ public class MechanizedMining extends ModPrefab
         meta.modId = MOD_ID;
         meta.name = MOD_NAME;
         meta.description = "Mining done on a scale that shacks the earth to rubble.";
-        meta.url = "http://www.http://universalelectricity.com/coremachine";
+        meta.url = "http://universalelectricity.com/coremachine";
 
         meta.logoFile = ModPrefab.TEXTURE_DIRECTORY + "MM_Banner.png";
         meta.version = DarkMain.VERSION;
@@ -120,12 +120,9 @@ public class MechanizedMining extends ModPrefab
     }
 
     @Override
-    public void loadRecipes()
-    {
-        if (blockScanner instanceof BlockScanner)
-        {
+    public void loadRecipes() {
+        if (blockScanner instanceof BlockScanner) {
             //load recipe here and make sure to do the same per item since they can be disabled by the user
         }
-
     }
 }
