@@ -8,13 +8,16 @@ import dark.mining.common.block.BlockMM;
 import universalelectricity.core.UniversalElectricity;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 /**
  * @author Archadia
  *
  */
 public class BlockNaturalGas extends BlockMM {
-
+	
 	public BlockNaturalGas() {
 		super("World_NaturalGas", UniversalElectricity.machine);
 		setBlockPath("naturalgas");
@@ -40,5 +43,10 @@ public class BlockNaturalGas extends BlockMM {
     public boolean renderAsNormalBlock()
     {
         return false;
+    }
+    
+    public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    {
+        return true;
     }
 }

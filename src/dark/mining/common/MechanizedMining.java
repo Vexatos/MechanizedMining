@@ -19,7 +19,7 @@ import dark.core.common.DarkMain;
 import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.common.block.BlockRubble;
-import dark.mining.common.gas.GasTypes;
+import dark.mining.common.gas.BlockNaturalGas;
 import dark.mining.common.item.ItemHandDrill;
 import dark.mining.common.item.ItemInstaHole;
 import dark.mining.common.mech.scanner.BlockScanner;
@@ -49,7 +49,7 @@ public class MechanizedMining extends ModPrefab
     public static final String BUILD_VERSION = "@BUILD@";
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVIS_VERSION + "." + BUILD_VERSION;
 
-    public static Block blockScanner, blockRubble;
+    public static Block blockScanner, blockRubble, blockNaturalGas;
     public static Item itemDrill, itemHoleCreator;
 
     @Metadata(MOD_ID)
@@ -95,7 +95,8 @@ public class MechanizedMining extends ModPrefab
         ModConfig.addConfig("Objects");
         ModConfig.getConfig("Objects").load();
         //Blocks
-        blockScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
+        blockNaturalGas = ModObjectRegistry.createNewBlock("naturalGas", MOD_ID, BlockNaturalGas.class, true);
+        blockScanner = ModObjectRegistry.createNewBlock("scansner", MOD_ID, BlockScanner.class, true);
         blockRubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
         //Items
         itemDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
