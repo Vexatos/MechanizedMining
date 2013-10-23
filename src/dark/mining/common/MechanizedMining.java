@@ -19,6 +19,7 @@ import dark.core.common.DarkMain;
 import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.common.block.BlockRubble;
+import dark.mining.common.gas.GasTypes;
 import dark.mining.common.item.ItemHandDrill;
 import dark.mining.common.item.ItemInstaHole;
 import dark.mining.common.mech.scanner.BlockScanner;
@@ -72,7 +73,6 @@ public class MechanizedMining extends ModPrefab
         //register object in the object call
         //Handle ore names here or in the blocks
         //handle world generators here
-
     }
 
     @Override
@@ -121,7 +121,7 @@ public class MechanizedMining extends ModPrefab
 
     @Override
     public void loadRecipes() {
-        if (blockScanner instanceof BlockScanner) {
+        if (blockScanner instanceof BlockScanner){
             //load recipe here and make sure to do the same per item since they can be disabled by the user
         }
     }
