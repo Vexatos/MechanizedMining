@@ -1,10 +1,7 @@
 package dark.mining.common;
 
-import gaswork.gas.GasButane;
-import gaswork.gas.GasMethane;
-import gaswork.gas.GasPropane;
-import gaswork.system.Gas;
-import gaswork.system.GasRegistry;
+import gas.system.Gas;
+import gas.system.GasRegistry;
 
 import java.util.Arrays;
 
@@ -26,7 +23,9 @@ import dark.core.common.DarkMain;
 import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.common.block.BlockRubble;
-import dark.mining.common.gas.BlockNaturalGas;
+import dark.mining.common.gas.GasButane;
+import dark.mining.common.gas.GasMethane;
+import dark.mining.common.gas.GasPropane;
 import dark.mining.common.item.ItemHandDrill;
 import dark.mining.common.item.ItemInstaHole;
 import dark.mining.common.mech.scanner.BlockScanner;
@@ -56,7 +55,7 @@ public class MechanizedMining extends ModPrefab
     public static final String BUILD_VERSION = "@BUILD@";
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVIS_VERSION + "." + BUILD_VERSION;
 
-    public static Block blockScanner, blockRubble, blockNaturalGas;
+    public static Block blockScanner, blockRubble;
     public static Item itemDrill, itemHoleCreator;
 
     @Metadata(MOD_ID)
@@ -85,10 +84,6 @@ public class MechanizedMining extends ModPrefab
 		methane = new GasMethane(0, "methane");
 		butane = new GasButane(1, "butane");
 		propane = new GasPropane(2, "propane");
-		
-		GasRegistry.registerGas(methane);
-		GasRegistry.registerGas(butane);
-		GasRegistry.registerGas(propane);
     }
 
     @Override
@@ -97,7 +92,6 @@ public class MechanizedMining extends ModPrefab
     {
         super.postInit(event);
         //register recipes in the recipe call
-        System.out.println(FluidRegistry.getRegisteredFluids());
     }
 
     @Override
@@ -112,7 +106,6 @@ public class MechanizedMining extends ModPrefab
         ModConfig.addConfig("Objects");
         ModConfig.getConfig("Objects").load();
         //Blocks
-        blockNaturalGas = ModObjectRegistry.createNewBlock("naturalGas", MOD_ID, BlockNaturalGas.class, true);
         blockScanner = ModObjectRegistry.createNewBlock("scansner", MOD_ID, BlockScanner.class, true);
         blockRubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
         //Items
