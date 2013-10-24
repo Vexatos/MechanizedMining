@@ -42,7 +42,7 @@ public class TileEntityRefinery extends TileFluidHandler {
 	
 	public BiMap chooseOutput() {
 		BiMap<GasTypes, Integer> output = HashBiMap.create();
-		for(Gas gas : GasTypes.values()) {
+		for(Gas gas : GasTypes) {
 			output.put(gas, gas.getRarity());
 		}
 		return output;
