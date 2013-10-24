@@ -29,15 +29,15 @@ public class GasRegistry {
     	return true;
     }
 
-    public Fluid getGas(String name) {
+    public static Fluid getGas(String name) {
     	return storedGas.get(name);
     }
     
-    public String getGasName(int id) {
+    public static String getGasName(int id) {
     	return gasIDs.inverse().get(id);
     }
     
-    public int getGasID(String name) {
+    public static int getGasID(String name) {
     	return gasIDs.get(name);
     }
 }

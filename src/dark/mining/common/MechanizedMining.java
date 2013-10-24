@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -20,6 +22,9 @@ import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.common.block.BlockRubble;
 import dark.mining.common.gas.BlockNaturalGas;
+import dark.mining.common.gas.GasRecipeHandler;
+import dark.mining.common.gas.GasRegistry;
+import dark.mining.common.gas.GasTypes;
 import dark.mining.common.item.ItemHandDrill;
 import dark.mining.common.item.ItemInstaHole;
 import dark.mining.common.mech.scanner.BlockScanner;
@@ -73,6 +78,7 @@ public class MechanizedMining extends ModPrefab
         //register object in the object call
         //Handle ore names here or in the blocks
         //handle world generators here
+      
     }
 
     @Override
@@ -81,6 +87,8 @@ public class MechanizedMining extends ModPrefab
     {
         super.postInit(event);
         //register recipes in the recipe call
+        GasRecipeHandler.addGasRecipe(blockNaturalGas.blockID, GasRegistry.getGas("Methane"));
+        System.out.println(FluidRegistry.getRegisteredFluids());
     }
 
     @Override
@@ -102,6 +110,10 @@ public class MechanizedMining extends ModPrefab
         itemDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
         itemHoleCreator = ModObjectRegistry.createNewItem("itemHoleCreator", MOD_ID, ItemInstaHole.class, true);
         ModConfig.getConfig("Objects").save();
+        
+        for(GasTypes gas : GasTypes.values()) {
+	        GasRegistry.registerGas(new Fluid(gas.getFriendlyName()));
+        }
     }
 
     @Override
