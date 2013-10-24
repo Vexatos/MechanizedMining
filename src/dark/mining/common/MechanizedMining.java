@@ -87,7 +87,6 @@ public class MechanizedMining extends ModPrefab
     {
         super.postInit(event);
         //register recipes in the recipe call
-        GasRecipeHandler.addGasRecipe(blockNaturalGas.blockID, GasRegistry.getGas("Methane"));
         System.out.println(FluidRegistry.getRegisteredFluids());
     }
 

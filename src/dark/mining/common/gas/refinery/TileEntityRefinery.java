@@ -1,18 +1,24 @@
 package dark.mining.common.gas.refinery;
 
+import java.util.HashMap;
+import java.util.Random;
+
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fluids.FluidStack;
-import dark.mining.common.gas.GasRecipeHandler;
+import net.minecraftforge.fluids.TileFluidHandler;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
+import dark.mining.common.MechanizedMining;
+import dark.mining.common.gas.GasTypes;
 
 /**
  * @author Archadia
  *
  */
-public class TileEntityRefinery extends TileEntity {
+public class TileEntityRefinery extends TileFluidHandler {
 
 	ItemStack[] inputInventory = new ItemStack[1];
-	FluidStack[] outputInventory = new FluidStack[1];
 	
 	public void updateEntity() {
 		super.updateEntity();
@@ -22,10 +28,23 @@ public class TileEntityRefinery extends TileEntity {
 		if(inputInventory[0] == null) {
 			return false;
 		}
-		return true;
+		if(inputInventory[0].itemID == MechanizedMining.blockNaturalGas.blockID) {
+			return true;
+		}
+		return false;
     }
 	
 	public void processItems() {
-		
+		if(canProcess()) {
+			System.out.println(chooseOutput());
+		}
+	}
+	
+	public BiMap chooseOutput() {
+		BiMap<GasTypes, Integer> output = HashBiMap.create();
+		for(Gas gas : GasTypes.values()) {
+			output.put(gas, gas.getRarity());
+		}
+		return output;
 	}
 }
