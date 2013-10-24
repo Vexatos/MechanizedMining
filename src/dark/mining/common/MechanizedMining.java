@@ -22,7 +22,6 @@ import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.common.block.BlockRubble;
 import dark.mining.common.gas.BlockNaturalGas;
-import dark.mining.common.gas.GasRecipeHandler;
 import dark.mining.common.gas.GasRegistry;
 import dark.mining.common.gas.GasTypes;
 import dark.mining.common.item.ItemHandDrill;
