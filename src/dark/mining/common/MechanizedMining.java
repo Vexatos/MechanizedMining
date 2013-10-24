@@ -1,10 +1,15 @@
 package dark.mining.common;
 
+import gaswork.gas.GasButane;
+import gaswork.gas.GasMethane;
+import gaswork.gas.GasPropane;
+import gaswork.system.Gas;
+import gaswork.system.GasRegistry;
+
 import java.util.Arrays;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -22,8 +27,6 @@ import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.common.block.BlockRubble;
 import dark.mining.common.gas.BlockNaturalGas;
-import dark.mining.common.gas.GasRegistry;
-import dark.mining.common.gas.GasTypes;
 import dark.mining.common.item.ItemHandDrill;
 import dark.mining.common.item.ItemInstaHole;
 import dark.mining.common.mech.scanner.BlockScanner;
@@ -59,6 +62,10 @@ public class MechanizedMining extends ModPrefab
     @Metadata(MOD_ID)
     public static ModMetadata meta;
 
+    public static Gas methane;
+    public static Gas butane;
+    public static Gas propane;
+    
     @Override
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -74,10 +81,14 @@ public class MechanizedMining extends ModPrefab
     public void init(FMLInitializationEvent event)
     {
         super.init(event);
-        //register object in the object call
-        //Handle ore names here or in the blocks
-        //handle world generators here
-      
+        
+		methane = new GasMethane(0, "methane");
+		butane = new GasButane(1, "butane");
+		propane = new GasPropane(2, "propane");
+		
+		GasRegistry.registerGas(methane);
+		GasRegistry.registerGas(butane);
+		GasRegistry.registerGas(propane);
     }
 
     @Override
@@ -108,10 +119,6 @@ public class MechanizedMining extends ModPrefab
         itemDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
         itemHoleCreator = ModObjectRegistry.createNewItem("itemHoleCreator", MOD_ID, ItemInstaHole.class, true);
         ModConfig.getConfig("Objects").save();
-        
-        for(GasTypes gas : GasTypes.values()) {
-	        GasRegistry.registerGas(new Fluid(gas.getFriendlyName()));
-        }
     }
 
     @Override
