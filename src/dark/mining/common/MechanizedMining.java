@@ -1,13 +1,12 @@
 package dark.mining.common;
 
 import gas.system.Gas;
-import gas.system.GasRegistry;
 
 import java.util.Arrays;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -65,6 +64,8 @@ public class MechanizedMining extends ModPrefab
     public static Gas butane;
     public static Gas propane;
     
+    Configuration confObj;
+    
     @Override
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -73,6 +74,9 @@ public class MechanizedMining extends ModPrefab
         super.preInit(event);
         NetworkRegistry.instance().registerGuiHandler(this, proxy);
         instance = this;
+        ModConfig.addConfig("Objects");
+        
+        confObj = ModConfig.getConfig("Objects");
     }
 
     @Override
@@ -81,9 +85,11 @@ public class MechanizedMining extends ModPrefab
     {
         super.init(event);
         
+        confObj.load();
 		methane = new GasMethane(0, "methane");
 		butane = new GasButane(1, "butane");
 		propane = new GasPropane(2, "propane");
+		confObj.save();
     }
 
     @Override
@@ -103,15 +109,14 @@ public class MechanizedMining extends ModPrefab
     @Override
     public void registerObjects()
     {
-        ModConfig.addConfig("Objects");
-        ModConfig.getConfig("Objects").load();
+    	confObj.load();
         //Blocks
         blockScanner = ModObjectRegistry.createNewBlock("scansner", MOD_ID, BlockScanner.class, true);
         blockRubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
         //Items
         itemDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
         itemHoleCreator = ModObjectRegistry.createNewItem("itemHoleCreator", MOD_ID, ItemInstaHole.class, true);
-        ModConfig.getConfig("Objects").save();
+        confObj.save();
     }
 
     @Override
