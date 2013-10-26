@@ -12,10 +12,11 @@ public class ModConfig
 
     private static HashMap<String, Configuration> configs = new HashMap<String, Configuration>();
 
-    public static void addConfig(String name)
+    public static Configuration addConfig(String name)
     {
         Configuration config = new Configuration(new File(Loader.instance().getConfigDir() + "/Dark/MechanizedMining/" + name + ".cfg"));
         configs.put(name, config);
+        return configs.get(name);
     }
 
     public static Configuration getConfig(String name)

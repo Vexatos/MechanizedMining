@@ -74,9 +74,7 @@ public class MechanizedMining extends ModPrefab
         super.preInit(event);
         NetworkRegistry.instance().registerGuiHandler(this, proxy);
         instance = this;
-        ModConfig.addConfig("Objects");
-        
-        confObj = ModConfig.getConfig("Objects");
+        confObj = ModConfig.addConfig("Objects");        
     }
 
     @Override
