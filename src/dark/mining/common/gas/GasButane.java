@@ -1,7 +1,7 @@
 package dark.mining.common.gas;
 
-import gas.system.Gas;
 import gas.system.GasRegistry;
+import gas.system.core.Gas;
 
 
 /**
