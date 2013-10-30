@@ -1,7 +1,7 @@
 package dark.mining.common.gas;
 
-import gas.system.GasRegistry;
-import gas.system.core.Gas;
+import dark.mining.common.gas.system.GasRegistry;
+import dark.mining.common.gas.system.core.Gas;
 
 
 /**
@@ -10,9 +10,8 @@ import gas.system.core.Gas;
  */
 public class GasMethane extends Gas {
 
-	public GasMethane(int id, String type) {
-		super(id, type);
-		setDensity(660);
+	public GasMethane(int id, String type, float density) {
+		super(id, density, type);
 		GasRegistry.registerGas(this);
 	}
 

@@ -1,7 +1,5 @@
 package dark.mining.common;
 
-import gas.system.core.Gas;
-
 import java.util.Arrays;
 
 import net.minecraft.block.Block;
@@ -25,6 +23,7 @@ import dark.mining.common.block.BlockRubble;
 import dark.mining.common.gas.GasButane;
 import dark.mining.common.gas.GasMethane;
 import dark.mining.common.gas.GasPropane;
+import dark.mining.common.gas.system.core.Gas;
 import dark.mining.common.item.ItemHandDrill;
 import dark.mining.common.item.ItemInstaHole;
 import dark.mining.common.mech.gastank.BlockGasTank;
@@ -83,9 +82,9 @@ public class MechanizedMining extends ModPrefab
         super.init(event);
         
         confObj.load();
-		methane = new GasMethane(0, "methane");
-		butane = new GasButane(1, "butane");
-		propane = new GasPropane(2, "propane");
+		methane = new GasMethane(0, "methane", 660f);
+		butane = new GasButane(1, "butane", 0.00248f);
+		propane = new GasPropane(2, "propane", 493000f);
 		confObj.save();
     }
 
