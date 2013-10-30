@@ -62,18 +62,26 @@ public class GasTank implements IGasTank, IPacketReceiver {
 
     public void setGasStored(Gas gas, int amt) {
     	if(gas != null) {
-	    	if(getGas() == null || gas.getName() == this.stack.getGas().getName()) {
+	    	if(getGas() == null) {
+	    		if(getGasAmount() < capacity) {
+	    			setGas(new GasStack(gas, amt));
+	    			return;
+	    		}	
+	    	}
+	    	if(gas.getName() == this.stack.getGas().getName()) {
 	    		if(getGasAmount() < capacity) {
 	    			setGas(new GasStack(gas, getGasAmount() + amt));
-	    		} else {
 	    			return;
 	    		}
-	    	}
+			}
     	}
     }
     
     public Gas getGas() {
-    	return stack.getGas();
+    	if(getStack() == null) {
+    		return null;
+    	}
+    	return getStack().getGas();
     }
 
 	

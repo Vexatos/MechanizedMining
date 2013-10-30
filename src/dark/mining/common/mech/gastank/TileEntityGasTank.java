@@ -20,12 +20,6 @@ public class TileEntityGasTank extends TileEntity implements ITileGasTank {
 
     public void updateEntity() {
     	super.updateEntity();
-    	
-    	if(!worldObj.isRemote) {
-    		if(worldObj.getWorldTime()%100==0) {
-    			System.out.println("Gas Stored: " + tank.getGasAmount() + ", " + tank.getGas());
-    		}
-    	}
     }
 
 	@Override
