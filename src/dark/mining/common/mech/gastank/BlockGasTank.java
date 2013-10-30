@@ -1,8 +1,5 @@
 package dark.mining.common.mech.gastank;
 
-import gas.system.GasRegistry;
-import gas.system.core.GasStack;
-
 import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,8 +9,8 @@ import universalelectricity.core.UniversalElectricity;
 
 import com.builtbroken.common.Pair;
 
-import dark.mining.common.MechanizedMining;
 import dark.mining.common.block.BlockMM;
+import dark.mining.common.gas.system.GasRegistry;
 
 /**
  * @author Archadia
