@@ -1,4 +1,4 @@
-package dark.mining.common.item;
+package dark.mining.common.item.tool;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,7 +14,7 @@ public class ItemInstaHole extends Item
     public ItemInstaHole()
     {
         super(ModPrefab.getNextItemId());
-        this.setUnlocalizedName("InstHole");
+        this.setUnlocalizedName("InstaHole");
         this.setCreativeTab(CreativeTabs.tabTools);
     }
 

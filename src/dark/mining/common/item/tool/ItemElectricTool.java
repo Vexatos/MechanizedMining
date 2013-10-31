@@ -1,4 +1,4 @@
-package dark.mining.common.item;
+package dark.mining.common.item.tool;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -10,13 +10,13 @@ import dark.core.prefab.ModPrefab;
 import dark.mining.common.privateutils.ModConfig;
 
 /** @author Archadia */
-public abstract class ItemMechanized extends ItemElectric
+public abstract class ItemElectricTool extends ItemElectric
 {
 
     private String iconPath;
     private boolean hasAbility = false;
 
-    public ItemMechanized(String itemName, boolean ability)
+    public ItemElectricTool(String itemName, boolean ability)
     {
         super(ModConfig.getConfig("Objects").getItem(itemName, ModPrefab.getNextID()).getInt());
         setCreativeTab(CreativeTabs.tabBlock);
