@@ -22,6 +22,7 @@ import dark.core.registration.ModObjectRegistry;
 import dark.mining.common.block.BlockRubble;
 import dark.mining.common.gas.GasButane;
 import dark.mining.common.gas.GasMethane;
+import dark.mining.common.gas.GasNatural;
 import dark.mining.common.gas.GasPropane;
 import dark.mining.common.gas.system.core.Gas;
 import dark.mining.common.item.tool.ItemHandDrill;
@@ -61,7 +62,7 @@ public class MechanizedMining extends ModPrefab
     @Metadata(MOD_ID)
     public static ModMetadata meta;
 
-    public static Gas methane, butane, propane;
+    public static Gas methane, butane, propane, naturalGas;
     
     Configuration confObj;
     
@@ -113,6 +114,7 @@ public class MechanizedMining extends ModPrefab
 		methane = new GasMethane(0, "methane", 660f);
 		butane = new GasButane(1, "butane", 0.00248f);
 		propane = new GasPropane(2, "propane", 493000f);
+		naturalGas = new GasNatural(3, "naturalGas", 0);
         confObj.save();
     }
 
