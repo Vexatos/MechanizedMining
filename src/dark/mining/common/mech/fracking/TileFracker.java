@@ -1,5 +1,6 @@
 package dark.mining.common.mech.fracking;
 
+import net.minecraft.block.Block;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 import dark.mining.common.block.BlockNaturalGas;
 import dark.mining.common.gas.machines.interfaces.ITileGasTank;
@@ -33,8 +34,12 @@ public class TileFracker extends TileEntityEnergyMachine implements ITileGasTank
 			target = yCoord;
 			target--;
 			
-			if(!(WorldHelper.getBlock(worldObj, xCoord, target, zCoord) instanceof BlockNaturalGas)) {
-				worldObj.setBlock(xCoord, target, zCoord, 0);
+			Block blockUsing = WorldHelper.getBlock(worldObj, xCoord, target, zCoord);
+			
+			if(!(blockUsing instanceof BlockNaturalGas)) {
+				if(!(blockUsing == Block.bedrock)) {
+					worldObj.setBlock(xCoord, target, zCoord, 0);
+				}
 			} else {
 				//etc etc etc
 			}
