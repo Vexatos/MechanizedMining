@@ -18,22 +18,17 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import dark.core.common.DarkMain;
 import dark.core.prefab.ModPrefab;
+import dark.core.prefab.gas.Gas;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.common.block.BlockRubble;
-import dark.mining.common.gas.GasButane;
-import dark.mining.common.gas.GasMethane;
-import dark.mining.common.gas.GasNatural;
-import dark.mining.common.gas.GasPropane;
-import dark.mining.common.gas.system.core.Gas;
 import dark.mining.common.item.tool.ItemHandDrill;
 import dark.mining.common.item.tool.ItemInstaHole;
 import dark.mining.common.item.tool.ItemMiningLaser;
-import dark.mining.common.mech.gastank.BlockGasTank;
 import dark.mining.common.mech.scanner.BlockScanner;
 import dark.mining.common.privateutils.ModConfig;
 
 /** Main Mod class for MechanizedMining.
- * 
+ *
  * @author Archadia */
 @Mod(modid = MechanizedMining.MOD_ID, name = MechanizedMining.MOD_NAME, version = MechanizedMining.VERSION)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
@@ -63,9 +58,9 @@ public class MechanizedMining extends ModPrefab
     public static ModMetadata meta;
 
     public static Gas methane, butane, propane, naturalGas;
-    
+
     Configuration confObj;
-    
+
     @Override
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -74,7 +69,7 @@ public class MechanizedMining extends ModPrefab
         super.preInit(event);
         NetworkRegistry.instance().registerGuiHandler(this, proxy);
         instance = this;
-        confObj = ModConfig.addConfig("Objects");        
+        confObj = ModConfig.addConfig("Objects");
     }
 
     @Override
@@ -101,20 +96,15 @@ public class MechanizedMining extends ModPrefab
     @Override
     public void registerObjects()
     {
-    	confObj.load();
+        confObj.load();
         //Blocks
-    	gasTank = ModObjectRegistry.createNewBlock("gasTank", MOD_ID, BlockGasTank.class, true);
         machineScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
         rubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
         //Items
         toolDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
         toolHoleCreator = ModObjectRegistry.createNewItem("toolHoleCreator", MOD_ID, ItemInstaHole.class, true);
         toolMiningLaser = ModObjectRegistry.createNewItem("toolMiningLaser", MOD_ID, ItemMiningLaser.class, true);
-        //Gas
-		methane = new GasMethane(0, "methane", 660f);
-		butane = new GasButane(1, "butane", 0.00248f);
-		propane = new GasPropane(2, "propane", 493000f);
-		naturalGas = new GasNatural(3, "naturalGas", 0);
+
         confObj.save();
     }
 
@@ -135,8 +125,10 @@ public class MechanizedMining extends ModPrefab
     }
 
     @Override
-    public void loadRecipes() {
-        if (machineScanner instanceof BlockScanner){
+    public void loadRecipes()
+    {
+        if (machineScanner instanceof BlockScanner)
+        {
             //load recipe here and make sure to do the same per item since they can be disabled by the user
         }
     }
