@@ -1,10 +1,13 @@
-package dark.mining.common.mech.scanner;
+package dark.mining.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import dark.mining.machines.ContainerScanner;
+import dark.mining.machines.TileEntityScanner;
 
 /** @author Archadia */
 public class GuiScanner extends GuiContainer

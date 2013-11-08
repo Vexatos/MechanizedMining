@@ -1,4 +1,4 @@
-package dark.mining.common.mech.scanner;
+package dark.mining.machines;
 
 import java.util.Set;
 
@@ -9,8 +9,8 @@ import universalelectricity.core.UniversalElectricity;
 
 import com.builtbroken.common.Pair;
 
-import dark.mining.common.MechanizedMining;
-import dark.mining.common.block.BlockMM;
+import dark.mining.MechanizedMining;
+import dark.mining.block.BlockMM;
 
 /** @author Archadia */
 public class BlockScanner extends BlockMM

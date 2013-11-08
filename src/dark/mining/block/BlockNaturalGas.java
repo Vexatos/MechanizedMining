@@ -1,7 +1,7 @@
-package dark.mining.common.block;
+package dark.mining.block;
 
 import universalelectricity.core.UniversalElectricity;
-import dark.mining.common.privateutils.ModConfig;
+import dark.mining.privateutils.ModConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 

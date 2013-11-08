@@ -1,4 +1,4 @@
-package dark.mining.common.privateutils;
+package dark.mining.privateutils;
 
 import java.util.ArrayList;
 import java.util.List;

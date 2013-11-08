@@ -1,4 +1,4 @@
-package dark.mining.common.privateutils;
+package dark.mining.privateutils;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;

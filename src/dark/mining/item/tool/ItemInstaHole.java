@@ -1,4 +1,4 @@
-package dark.mining.common.item.tool;
+package dark.mining.item.tool;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;

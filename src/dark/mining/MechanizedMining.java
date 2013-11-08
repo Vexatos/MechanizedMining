@@ -1,4 +1,4 @@
-package dark.mining.common;
+package dark.mining;
 
 import java.util.Arrays;
 
@@ -20,12 +20,12 @@ import dark.core.common.DarkMain;
 import dark.core.prefab.ModPrefab;
 import dark.core.prefab.gas.Gas;
 import dark.core.registration.ModObjectRegistry;
-import dark.mining.common.block.BlockRubble;
-import dark.mining.common.item.tool.ItemHandDrill;
-import dark.mining.common.item.tool.ItemInstaHole;
-import dark.mining.common.item.tool.ItemMiningLaser;
-import dark.mining.common.mech.scanner.BlockScanner;
-import dark.mining.common.privateutils.ModConfig;
+import dark.mining.block.BlockRubble;
+import dark.mining.item.tool.ItemHandDrill;
+import dark.mining.item.tool.ItemInstaHole;
+import dark.mining.item.tool.ItemMiningLaser;
+import dark.mining.machines.BlockScanner;
+import dark.mining.privateutils.ModConfig;
 
 /** Main Mod class for MechanizedMining.
  *

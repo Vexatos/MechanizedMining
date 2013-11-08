@@ -1,11 +1,11 @@
-package dark.mining.common.block;
+package dark.mining.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.Icon;
 import dark.core.prefab.machine.BlockMachine;
-import dark.mining.common.privateutils.ModConfig;
+import dark.mining.privateutils.ModConfig;
 
 /** @author Archadia */
 public class BlockMM extends BlockMachine

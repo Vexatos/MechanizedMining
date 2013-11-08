@@ -1,4 +1,4 @@
-package dark.mining.common.mech.scanner;
+package dark.mining.machines;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import universalelectricity.core.vector.Vector3;
 import com.builtbroken.common.Pair;
 
 import dark.core.prefab.machine.TileEntityEnergyMachine;
-import dark.mining.common.privateutils.BlockMapUtil;
+import dark.mining.privateutils.BlockMapUtil;
 
 /** @author Archadia, DarkCow */
 public class TileEntityScanner extends TileEntityEnergyMachine

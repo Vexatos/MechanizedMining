@@ -1,4 +1,4 @@
-package dark.mining.common.block;
+package dark.mining.block;
 
 import net.minecraft.creativetab.CreativeTabs;
 import universalelectricity.core.UniversalElectricity;

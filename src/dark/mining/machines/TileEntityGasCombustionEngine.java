@@ -1,4 +1,4 @@
-package dark.mining.common.mech.combustion;
+package dark.mining.machines;
 
 import universalelectricity.prefab.tile.IRotatable;
 import universalelectricity.prefab.tile.TileEntityAdvanced;

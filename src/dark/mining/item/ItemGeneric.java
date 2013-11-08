@@ -1,7 +1,7 @@
-package dark.mining.common.item;
+package dark.mining.item;
 
 import dark.core.prefab.ModPrefab;
-import dark.mining.common.privateutils.ModConfig;
+import dark.mining.privateutils.ModConfig;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
 

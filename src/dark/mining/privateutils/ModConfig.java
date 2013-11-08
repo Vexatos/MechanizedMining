@@ -1,4 +1,4 @@
-package dark.mining.common.privateutils;
+package dark.mining.privateutils;
 
 import java.io.File;
 import java.util.HashMap;

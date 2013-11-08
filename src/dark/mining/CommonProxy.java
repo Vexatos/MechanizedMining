@@ -1,12 +1,12 @@
-package dark.mining.common;
+package dark.mining;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
-import dark.mining.common.mech.scanner.ContainerScanner;
-import dark.mining.common.mech.scanner.GuiScanner;
-import dark.mining.common.mech.scanner.TileEntityScanner;
+import dark.mining.client.gui.GuiScanner;
+import dark.mining.machines.ContainerScanner;
+import dark.mining.machines.TileEntityScanner;
 
 /** @author Archadia */
 public class CommonProxy implements IGuiHandler

@@ -1,4 +1,4 @@
-package dark.mining.common.privateutils;
+package dark.mining.privateutils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class BlockMapUtil
         int startX = (int) (center.x - (size.x / 2));
         int startY = (int) (center.y - (size.y / 2));
         int startZ = (int) (center.z - (size.z / 2));
-        HashMap<Vector3, Pair<Integer, Integer>> mapping = new HashMap();
+        HashMap<Vector3, Pair<Integer, Integer>> mapping = new HashMap<Vector3, Pair<Integer, Integer>>();
         List<Pair<Integer, Integer>> filter = new ArrayList<Pair<Integer, Integer>>();
         if (pairs != null)
         {
