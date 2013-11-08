@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -19,11 +19,10 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import universalelectricity.core.vector.Vector3;
 
+import com.builtbroken.common.Pair;
 import com.builtbroken.common.Triple;
 
 import cpw.mods.fml.relauncher.Side;
@@ -57,7 +56,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
     int firingDelay = 5;
     int breakTime = 15;
 
-    HashMap<EntityPlayer, Triple<World, Vector3, Integer>> miningMap = new HashMap<EntityPlayer, Triple<World, Vector3, Integer>>();
+    HashMap<EntityPlayer, Pair<Vector3, Integer>> miningMap = new HashMap<EntityPlayer, Pair<Vector3, Integer>>();
 
     public ItemMiningLaser()
     {
@@ -123,32 +122,40 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
             player.worldObj.playSound(player.posX, player.posY, player.posZ, MechanizedMining.instance.PREFIX + "laserHum", 0.5f, 0.7f, true);
             if (hit != null)
             {
-                if (hit.typeOfHit == EnumMovingObjectType.ENTITY && hit.entityHit != null)
+                if (!player.worldObj.isRemote)
                 {
-                    DamageSource damageSource = DamageSource.causePlayerDamage((EntityPlayer) player);
-                    hit.entityHit.attackEntityFrom(damageSource, damageToEntities);
-                }
-                else if (hit.typeOfHit == EnumMovingObjectType.TILE)
-                {
-                    int time = 0;
-                    boolean mined = false;
-                    if (miningMap.containsKey(player))
+                    if (hit.typeOfHit == EnumMovingObjectType.ENTITY && hit.entityHit != null)
                     {
-                        Triple<World, Vector3, Integer> lastHit = miningMap.get(player);
-                        if (lastHit != null && lastHit.getA() == player.worldObj && lastHit.getB() != null && lastHit.getB().equals(new Vector3(hit.hitVec)))
+                        DamageSource damageSource = DamageSource.causePlayerDamage((EntityPlayer) player);
+                        hit.entityHit.attackEntityFrom(damageSource, damageToEntities);
+                        hit.entityHit.setFire(5);
+                    }
+                    else if (hit.typeOfHit == EnumMovingObjectType.TILE)
+                    {
+                        System.out.println(" Mining Block " + hit.blockX + "x " + hit.blockY + "y " + hit.blockZ + "z ");
+                        int time = 1;
+                        boolean mined = false;
+                        if (miningMap.containsKey(player))
                         {
-                            time = lastHit.getC() + 1;
-                            if (time >= breakTime)
+                            System.out.println(" Player Found ");
+                            Pair<Vector3, Integer> lastHit = miningMap.get(player);
+                            if (lastHit != null && lastHit.left() != null && lastHit.left().equals(new Vector3(hit.blockX, hit.blockY, hit.blockZ)))
                             {
-                                lastHit.getB().setBlock(player.worldObj, 0);
-                                mined = true;
-                                miningMap.remove(player);
+                                time = lastHit.right() + 1;
+                                System.out.println(" Tick " + time);
+                                if (time >= breakTime)
+                                {
+
+                                    lastHit.left().setBlock(player.worldObj, 0);
+                                    mined = true;
+                                    miningMap.remove(player);
+                                }
                             }
                         }
-                    }
-                    if (!mined)
-                    {
-                        miningMap.put(player, new Triple(player.worldObj, new Vector3(hit.hitVec), time));
+                        if (!mined)
+                        {
+                            miningMap.put(player, new Pair<Vector3, Integer>(new Vector3(hit.blockX, hit.blockY, hit.blockZ), time));
+                        }
                     }
 
                 }
@@ -159,6 +166,24 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
             DarkMain.proxy.renderBeam(player.worldObj, new Vector3(p).translate(new Vector3(0, -.4, 0)), new Vector3(playerViewOffset), Color.RED, 1);
         }
 
+    }
+
+    /** Called while the block is being mined */
+    public void handleBlock(World world, Vector3 vec)
+    {
+        int id = vec.getBlockID(world);
+        int meta = vec.getBlockID(world);
+        Block block = Block.blocksList[id];
+        if(block != null)
+        {
+
+        }
+    }
+
+    /** Called when the block is actually mined */
+    public void onBlockMined(World world, Vector3 vec)
+    {
+        //TODO don't drop the exact block as it has been melted
     }
 
     @Override
