@@ -17,6 +17,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumMovingObjectType;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -26,7 +27,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import universalelectricity.core.vector.Vector3;
 
 import com.builtbroken.common.Pair;
-import com.builtbroken.common.Triple;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -36,7 +36,6 @@ import dark.core.common.items.EnumTool;
 import dark.core.interfaces.IExtraInfo.IExtraItemInfo;
 import dark.core.prefab.helpers.ItemWorldHelper;
 import dark.core.prefab.helpers.RayTraceHelper;
-import dark.mining.MechanizedMining;
 
 /** Stream laser mining tool, When held down it will slowly mine away at the block in front of it.
  *
@@ -175,7 +174,10 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
             //TODO make beam brighter the longer it has been used
             //TODO adjust the laser for the end of the gun
             DarkMain.getInstance();
-            DarkMain.proxy.renderBeam(player.worldObj, new Vector3(p).translate(new Vector3(0, -.4, 0)), new Vector3(playerViewOffset), Color.RED, 1);
+            float x = (float) (MathHelper.cos((float) (player.rotationYawHead * 0.0174532925)) * (-.4) - MathHelper.sin((float) (player.rotationYawHead * 0.0174532925)) * (-.1));
+            float z = (float) (MathHelper.sin((float) (player.rotationYawHead * 0.0174532925)) * (-.4) + MathHelper.cos((float) (player.rotationYawHead * 0.0174532925)) * (-.1));
+            DarkMain.proxy.renderBeam(player.worldObj, new Vector3(p).translate(new Vector3(x, -.25, z)), new Vector3(playerViewOffset), Color.ORANGE, 1);
+            DarkMain.proxy.renderBeam(player.worldObj, new Vector3(p).translate(new Vector3(x, -.45, z)), new Vector3(playerViewOffset), Color.ORANGE, 1);
         }
 
     }
