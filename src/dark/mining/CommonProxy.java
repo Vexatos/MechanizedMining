@@ -12,6 +12,21 @@ import dark.mining.machines.TileEntityScanner;
 public class CommonProxy implements IGuiHandler
 {
 
+    public void preInit()
+    {
+
+    }
+
+    public void init()
+    {
+
+    }
+
+    public void postInit()
+    {
+
+    }
+
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -27,12 +42,6 @@ public class CommonProxy implements IGuiHandler
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
     {
-        TileEntity tile_entity = world.getBlockTileEntity(x, y, z);
-        switch (ID)
-        {
-            case 0:
-                return new GuiScanner(player.inventory, (TileEntityScanner) tile_entity);
-        }
         return null;
     }
 }

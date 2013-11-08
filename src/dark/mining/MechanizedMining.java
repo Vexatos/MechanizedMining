@@ -67,6 +67,7 @@ public class MechanizedMining extends ModPrefab
     {
         //Register event handlers here
         super.preInit(event);
+        proxy.preInit();
         NetworkRegistry.instance().registerGuiHandler(this, proxy);
         instance = this;
         confObj = ModConfig.addConfig("Objects");
@@ -77,6 +78,7 @@ public class MechanizedMining extends ModPrefab
     public void init(FMLInitializationEvent event)
     {
         super.init(event);
+        proxy.init();
     }
 
     @Override
@@ -84,7 +86,7 @@ public class MechanizedMining extends ModPrefab
     public void postInit(FMLPostInitializationEvent event)
     {
         super.postInit(event);
-        //register recipes in the recipe call
+        proxy.postInit();
     }
 
     @Override

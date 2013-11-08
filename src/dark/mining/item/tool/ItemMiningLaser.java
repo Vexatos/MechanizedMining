@@ -94,6 +94,9 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
             if (!flag)
             {
                 ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 5, 0));
+            }else
+            {
+                //((EntityPlayer) entity).setItemInUse(itemStack, this.getMaxItemUseDuration(itemStack));
             }
         }
     }
@@ -141,7 +144,6 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                         boolean mined = false;
                         if (miningMap.containsKey(player))
                         {
-                            System.out.println(" Player Found ");
                             Pair<Vector3, Integer> lastHit = miningMap.get(player);
                             if (lastHit != null && lastHit.left() != null && lastHit.left().equals(new Vector3(hit.blockX, hit.blockY, hit.blockZ)))
                             {
