@@ -1,6 +1,7 @@
 package dark.mining.item.tool;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -19,6 +21,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import universalelectricity.core.vector.Vector3;
 
@@ -29,7 +32,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dark.core.common.DMCreativeTab;
 import dark.core.common.DarkMain;
+import dark.core.common.items.EnumTool;
 import dark.core.interfaces.IExtraInfo.IExtraItemInfo;
+import dark.core.prefab.helpers.ItemWorldHelper;
 import dark.core.prefab.helpers.RayTraceHelper;
 import dark.mining.MechanizedMining;
 
@@ -55,6 +60,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
     int blockRange = 50;
     int firingDelay = 5;
     int breakTime = 15;
+    boolean createLava = true, setFire = true;
 
     HashMap<EntityPlayer, Pair<Vector3, Integer>> miningMap = new HashMap<EntityPlayer, Pair<Vector3, Integer>>();
 
@@ -119,7 +125,6 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
 
             MovingObjectPosition hit = RayTraceHelper.ray_trace_do(player.worldObj, player, new Vector3().toVec3(), blockRange, true);
             //TODO fix sound
-            player.worldObj.playSound(player.posX, player.posY, player.posZ, MechanizedMining.instance.PREFIX + "laserHum", 0.5f, 0.7f, true);
             if (hit != null)
             {
                 if (!player.worldObj.isRemote)
@@ -132,7 +137,6 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                     }
                     else if (hit.typeOfHit == EnumMovingObjectType.TILE)
                     {
-                        System.out.println(" Mining Block " + hit.blockX + "x " + hit.blockY + "y " + hit.blockZ + "z ");
                         int time = 1;
                         boolean mined = false;
                         if (miningMap.containsKey(player))
@@ -142,13 +146,17 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                             if (lastHit != null && lastHit.left() != null && lastHit.left().equals(new Vector3(hit.blockX, hit.blockY, hit.blockZ)))
                             {
                                 time = lastHit.right() + 1;
-                                System.out.println(" Tick " + time);
                                 if (time >= breakTime)
                                 {
 
-                                    lastHit.left().setBlock(player.worldObj, 0);
+                                    this.onBlockMined(player.worldObj, new Vector3(hit.blockX, hit.blockY, hit.blockZ));
                                     mined = true;
                                     miningMap.remove(player);
+                                }
+                                else
+                                {
+                                    //TODO get the actual hit side from the angle of the ray trace
+                                    this.handleBlock(player.worldObj, new Vector3(hit.blockX, hit.blockY, hit.blockZ), ForgeDirection.UP);
                                 }
                             }
                         }
@@ -169,21 +177,44 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
     }
 
     /** Called while the block is being mined */
-    public void handleBlock(World world, Vector3 vec)
+    public void handleBlock(World world, Vector3 vec, ForgeDirection side)
     {
         int id = vec.getBlockID(world);
         int meta = vec.getBlockID(world);
         Block block = Block.blocksList[id];
-        if(block != null)
-        {
 
+        Vector3 faceVec = vec.clone().modifyPositionFromSide(side);
+        int id2 = faceVec.getBlockID(world);
+        Block block2 = Block.blocksList[id2];
+        if (block != null)
+        {
+            int fireChance = block.getFlammability(world, vec.intX(), vec.intY(), vec.intZ(), meta, side);
+            if ((fireChance / 300) >= world.rand.nextFloat() && (block2 == null || block2.isAirBlock(world, vec.intX(), vec.intY(), vec.intZ())))
+            {
+                world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.fire.blockID, 0, 3);
+            }
         }
     }
 
     /** Called when the block is actually mined */
     public void onBlockMined(World world, Vector3 vec)
     {
-        //TODO don't drop the exact block as it has been melted
+        int id = vec.getBlockID(world);
+        int meta = vec.getBlockID(world);
+        Block block = Block.blocksList[id];
+        if (block != null && EnumTool.PICKAX.effecticVsMaterials.contains(block.blockMaterial))
+        {
+            ArrayList<ItemStack> items = block.getBlockDropped(world, vec.intX(), vec.intY(), vec.intZ(), meta, 1);
+            for (int i = 0; i < items.size(); i++)
+            {
+                items.set(i, FurnaceRecipes.smelting().getSmeltingResult(items.get(i)));
+                //TODO insert a call back into this to have a list of stuff that can't drop smelted or should drop as molten equal.
+                //Eg iron ingot should drop as molten melt pile that is hot for 3 seconds and can burn the player for all 3 of those seconds
+                ItemWorldHelper.dropItemStack(world, vec.translate(0.5), items.get(i), false);
+            }
+
+        }
+        world.setBlock(vec.intX(), vec.intY(), vec.intZ(), 0, 0, 3);
     }
 
     @Override
@@ -252,6 +283,8 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
         this.damageToEntities = (float) config.get("Laser", "Damage", this.damageToEntities).getDouble(this.damageToEntities);
         this.batterySize = (float) (config.get("Energy", "BatteryCap", this.batterySize * 1000).getDouble(this.batterySize * 1000) / 1000);
         this.wattPerShot = (float) (config.get("Energy", "FiringCost", this.wattPerShot * 1000).getDouble(this.wattPerShot * 1000) / 1000);
+        this.setFire = config.get("Laser", "SetFire", true, "Set plants, and wood on fire").getBoolean(true);
+        this.createLava = config.get("Laser", "MakeLava", true, "Turn some blocks into lava like obby").getBoolean(true);
 
     }
 
