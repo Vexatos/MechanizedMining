@@ -69,6 +69,14 @@ public class RenderMiningLaserGun implements IItemRenderer
             GL11.glRotatef(-70, 0, 1, 0);
             GL11.glTranslatef(0.3f, -0.9f, 0.42f);
         }
+        else if (type == ItemRenderType.INVENTORY)
+        {
+            float scale = 2f;
+            GL11.glScalef(scale, scale, scale);
+            GL11.glRotatef(180, 0, 0, 1);
+            GL11.glRotatef(-70, 0, 1, 0);
+            GL11.glTranslatef(-0.07f, -1.2f, 0.52f);
+        }
         MODEL.render(0.0625F);
 
         GL11.glPopMatrix();
