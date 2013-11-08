@@ -6,17 +6,15 @@ import net.minecraft.item.ItemStack;
 public class ItemHandDrill extends ItemElectricTool
 {
 
-    public ItemHandDrill() {
+    public ItemHandDrill()
+    {
         super("HandDrill", true);
     }
 
     @Override
-    public float getMaxElectricityStored(ItemStack theItem) {
+    public float getMaxElectricityStored(ItemStack theItem)
+    {
         return 10000;
     }
 
-    @Override
-    public void useAbility() {
-
-    }
 }
