@@ -56,7 +56,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
 {
     float batterySize = 100;
     float wattPerShot = 1;
-    float damageToEntities = 1.3f;
+    float damageToEntities = 3.3f;
     int blockRange = 50;
     int firingDelay = 5;
     int breakTime = 15;
@@ -94,7 +94,8 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
             if (!flag)
             {
                 ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 5, 0));
-            }else
+            }
+            else
             {
                 //((EntityPlayer) entity).setItemInUse(itemStack, this.getMaxItemUseDuration(itemStack));
             }
@@ -191,10 +192,26 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
         Block block2 = Block.blocksList[id2];
         if (block != null)
         {
-            int fireChance = block.getFlammability(world, vec.intX(), vec.intY(), vec.intZ(), meta, side);
-            if ((fireChance / 300) >= world.rand.nextFloat() && (block2 == null || block2.isAirBlock(world, vec.intX(), vec.intY(), vec.intZ())))
+            float chance = world.rand.nextFloat();
+            if (this.setFire)
             {
-                world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.fire.blockID, 0, 3);
+                int fireChance = block.getFlammability(world, vec.intX(), vec.intY(), vec.intZ(), meta, side);
+                if ((fireChance / 300) >= chance && (block2 == null || block2.isAirBlock(world, vec.intX(), vec.intY(), vec.intZ())))
+                {
+                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.fire.blockID, 0, 3);
+                    return;
+                }
+            }
+            if (chance > 0.5f)
+            {
+                if (block.blockID == Block.sand.blockID)
+                {
+                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.glass.blockID, 0, 3);
+                }
+                else if (block.blockID == Block.cobblestone.blockID)
+                {
+                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), 1, 0, 3);
+                }
             }
         }
     }
@@ -205,15 +222,23 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
         int id = vec.getBlockID(world);
         int meta = vec.getBlockID(world);
         Block block = Block.blocksList[id];
-        if (block != null && EnumTool.PICKAX.effecticVsMaterials.contains(block.blockMaterial))
+        if (block != null)
         {
-            ArrayList<ItemStack> items = block.getBlockDropped(world, vec.intX(), vec.intY(), vec.intZ(), meta, 1);
-            for (int i = 0; i < items.size(); i++)
+            if (EnumTool.PICKAX.effecticVsMaterials.contains(block.blockMaterial))
             {
-                items.set(i, FurnaceRecipes.smelting().getSmeltingResult(items.get(i)));
-                //TODO insert a call back into this to have a list of stuff that can't drop smelted or should drop as molten equal.
-                //Eg iron ingot should drop as molten melt pile that is hot for 3 seconds and can burn the player for all 3 of those seconds
-                ItemWorldHelper.dropItemStack(world, vec.translate(0.5), items.get(i), false);
+                ArrayList<ItemStack> items = block.getBlockDropped(world, vec.intX(), vec.intY(), vec.intZ(), meta, 1);
+                for (int i = 0; i < items.size(); i++)
+                {
+                    items.set(i, FurnaceRecipes.smelting().getSmeltingResult(items.get(i)));
+                    //TODO insert a call back into this to have a list of stuff that can't drop smelted or should drop as molten equal.
+                    //Eg iron ingot should drop as molten melt pile that is hot for 3 seconds and can burn the player for all 3 of those seconds
+                    ItemWorldHelper.dropItemStack(world, vec.translate(0.5), items.get(i), false);
+                }
+            }
+            else if (EnumTool.AX.effecticVsMaterials.contains(block.blockMaterial))
+            {
+                world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.fire.blockID, 0, 3);
+                return;
             }
 
         }
