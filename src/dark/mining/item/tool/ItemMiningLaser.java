@@ -170,6 +170,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                 playerViewOffset = hit.hitVec;
             }
             //TODO make beam brighter the longer it has been used
+            //TODO adjust the laser for the end of the gun
             DarkMain.getInstance();
             DarkMain.proxy.renderBeam(player.worldObj, new Vector3(p).translate(new Vector3(0, -.4, 0)), new Vector3(playerViewOffset), Color.RED, 1);
         }
