@@ -4,10 +4,14 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
@@ -32,6 +36,12 @@ import dark.mining.MechanizedMining;
  * TODO create model for this that is 3D. The front should spin around the barrel as its mines
  * generating a laser. As well the player should be wearing a battery pack when the laser is out.
  * Other option is to force the player to wear a battery pack as armor when using the tool
+ *
+ * TODO when the laser hits the block there should be a flaring effect that simi blinds the player.
+ * That way they are force to wear wielding googles. As well this will gear the player more towards
+ * mining and less to fighting. Though the laser should still be a very effect fighting weapon, with
+ * only down side being its battery, and that it slows you down when held. Eg its a heavy peace of
+ * mining gear and the player will be simi-stationary when using it
  *
  * @author DarkGuardsman */
 public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
@@ -64,6 +74,21 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
     }
 
     @Override
+    public void onUpdate(ItemStack itemStack, World par2World, Entity entity, int par4, boolean par5)
+    {
+        //Slow any entity that carries this down as a side effect of using heavy mining gear
+        if (entity instanceof EntityLivingBase)
+        {
+            boolean flag = entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode;
+
+            if (!flag)
+            {
+                ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 5, 0));
+            }
+        }
+    }
+
+    @Override
     public void onCreated(ItemStack stack, World par2World, EntityPlayer entityPlayer)
     {
         this.setElectricity(stack, 0);
@@ -78,53 +103,55 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
     }
 
     @Override
-    public void onUsingItemTick(ItemStack stack, EntityPlayer entityLiving, int count)
+    public void onUsingItemTick(ItemStack stack, EntityPlayer player, int count)
     {
         if (count > 5)
         {
-            Vec3 playerPosition = Vec3.createVectorHelper(entityLiving.posX, entityLiving.posY + entityLiving.getEyeHeight(), entityLiving.posZ);
-            Vec3 playerLook = RayTraceHelper.getLook(entityLiving, 1.0f);
-            Vec3 p = Vec3.createVectorHelper(playerPosition.xCoord + playerLook.xCoord * 2, playerPosition.yCoord + playerLook.yCoord * 2, playerPosition.zCoord + playerLook.zCoord * 2);
+            Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+            Vec3 playerLook = RayTraceHelper.getLook(player, 1.0f);
+            Vec3 p = Vec3.createVectorHelper(playerPosition.xCoord + playerLook.xCoord, playerPosition.yCoord + playerLook.yCoord, playerPosition.zCoord + playerLook.zCoord);
 
             Vec3 playerViewOffset = Vec3.createVectorHelper(playerPosition.xCoord + playerLook.xCoord * blockRange, playerPosition.yCoord + playerLook.yCoord * blockRange, playerPosition.zCoord + playerLook.zCoord * blockRange);
 
-            MovingObjectPosition hit = RayTraceHelper.ray_trace_do(entityLiving.worldObj, entityLiving, new Vector3().toVec3(), blockRange, true);
-            entityLiving.worldObj.playSound(entityLiving.posX, entityLiving.posY, entityLiving.posZ, MechanizedMining.instance.PREFIX + "laserHum", 0.5f, 0.7f, true);
-            Vec3 lookVec = entityLiving.getLookVec();
+            MovingObjectPosition hit = RayTraceHelper.ray_trace_do(player.worldObj, player, new Vector3().toVec3(), blockRange, true);
+            player.worldObj.playSound(player.posX, player.posY, player.posZ, MechanizedMining.instance.PREFIX + "laserHum", 0.5f, 0.7f, true);
+            Vec3 lookVec = player.getLookVec();
             if (hit != null)
             {
                 if (hit.typeOfHit == EnumMovingObjectType.ENTITY && hit.entityHit != null)
                 {
-                    DamageSource damageSource = DamageSource.causePlayerDamage((EntityPlayer) entityLiving);
+                    DamageSource damageSource = DamageSource.causePlayerDamage((EntityPlayer) player);
                     hit.entityHit.attackEntityFrom(damageSource, damageToEntities);
                 }
                 else if (hit.typeOfHit == EnumMovingObjectType.TILE)
                 {
                     int time = 0;
                     boolean mined = false;
-                    if (miningMap.containsKey(entityLiving))
+                    if (miningMap.containsKey(player))
                     {
-                        Triple<World, Vector3, Integer> lastHit = miningMap.get(entityLiving);
-                        if (lastHit != null && lastHit.getA() == entityLiving.worldObj && lastHit.getB() != null && lastHit.getB().equals(new Vector3(hit.hitVec)))
+                        Triple<World, Vector3, Integer> lastHit = miningMap.get(player);
+                        if (lastHit != null && lastHit.getA() == player.worldObj && lastHit.getB() != null && lastHit.getB().equals(new Vector3(hit.hitVec)))
                         {
                             time = lastHit.getC() + 1;
                             if (time >= breakTime)
                             {
-                                lastHit.getB().setBlock(entityLiving.worldObj, 0);
+                                lastHit.getB().setBlock(player.worldObj, 0);
                                 mined = true;
+                                miningMap.remove(player);
                             }
                         }
                     }
                     if (!mined)
                     {
-                        miningMap.put(entityLiving, new Triple(entityLiving.worldObj, new Vector3(hit.hitVec), time));
+                        miningMap.put(player, new Triple(player.worldObj, new Vector3(hit.hitVec), time));
                     }
 
                 }
                 playerViewOffset = hit.hitVec;
             }
+            //TODO make beam brighter the longer it has been used
             DarkMain.getInstance();
-            DarkMain.proxy.renderBeam(entityLiving.worldObj, new Vector3(p).translate(new Vector3(0, -.4, 0)), new Vector3(playerViewOffset), Color.RED, 1);
+            DarkMain.proxy.renderBeam(player.worldObj, new Vector3(p).translate(new Vector3(0, -.4, 0)), new Vector3(playerViewOffset), Color.RED, 1);
         }
     }
 
