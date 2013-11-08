@@ -28,7 +28,7 @@ import dark.mining.machines.BlockScanner;
 import dark.mining.privateutils.ModConfig;
 
 /** Main Mod class for MechanizedMining.
- *
+ * 
  * @author Archadia */
 @Mod(modid = MechanizedMining.MOD_ID, name = MechanizedMining.MOD_NAME, version = MechanizedMining.VERSION)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)

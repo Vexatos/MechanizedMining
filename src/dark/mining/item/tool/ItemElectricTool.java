@@ -2,9 +2,6 @@ package dark.mining.item.tool;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import universalelectricity.core.item.ItemElectric;
 import dark.core.prefab.ModPrefab;
 import dark.mining.privateutils.ModConfig;

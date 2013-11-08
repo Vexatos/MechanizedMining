@@ -1,8 +1,5 @@
 package dark.mining.machines;
 
-import universalelectricity.prefab.tile.IRotatable;
-import universalelectricity.prefab.tile.TileEntityAdvanced;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -10,12 +7,14 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import universalelectricity.prefab.tile.IRotatable;
+import universalelectricity.prefab.tile.TileEntityAdvanced;
 import dark.api.energy.IForceDevice;
 import dark.core.prefab.gas.EnumGas;
 import dark.core.prefab.gas.GasTank;
 
 /** Combustion engine that runs off of gas fluid such as methain, propain, and butane
- *
+ * 
  * @author DarkGuardsman, Archadia */
 public class TileEntityGasCombustionEngine extends TileEntityAdvanced implements IFluidHandler, IForceDevice, IRotatable
 {

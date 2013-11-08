@@ -1,14 +1,12 @@
 package dark.mining.machines;
 
-import universalelectricity.core.vector.Vector3;
-import universalelectricity.prefab.tile.IRotatable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.vector.Vector3;
 import dark.core.common.DarkMain;
 import dark.core.interfaces.IMultiBlock;
-import dark.core.prefab.gas.Gas;
 import dark.core.prefab.gas.GasTank;
 import dark.core.prefab.machine.BlockMulti;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
@@ -62,6 +60,7 @@ public class TileFracker extends TileEntityEnergyMachine implements IMultiBlock
         // TODO Open gui when called from another block
         return false;
     }
+
     @Override
     public void onCreate(Vector3 placedPosition)
     {
@@ -78,6 +77,7 @@ public class TileFracker extends TileEntityEnergyMachine implements IMultiBlock
         this.worldObj.setBlock(this.xCoord, this.yCoord + 1, this.zCoord, 0, 0, 3);
     }
 
+    @Override
     public void setDirection(ForgeDirection direction)
     {
         super.setDirection(direction);

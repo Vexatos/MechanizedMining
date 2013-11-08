@@ -38,18 +38,18 @@ import dark.core.prefab.helpers.ItemWorldHelper;
 import dark.core.prefab.helpers.RayTraceHelper;
 
 /** Stream laser mining tool, When held down it will slowly mine away at the block in front of it.
- *
- *
+ * 
+ * 
  * TODO create model for this that is 3D. The front should spin around the barrel as its mines
  * generating a laser. As well the player should be wearing a battery pack when the laser is out.
  * Other option is to force the player to wear a battery pack as armor when using the tool
- *
+ * 
  * TODO when the laser hits the block there should be a flaring effect that simi blinds the player.
  * That way they are force to wear wielding googles. As well this will gear the player more towards
  * mining and less to fighting. Though the laser should still be a very effect fighting weapon, with
  * only down side being its battery, and that it slows you down when held. Eg its a heavy peace of
  * mining gear and the player will be simi-stationary when using it
- *
+ * 
  * @author DarkGuardsman */
 public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
 {
@@ -76,6 +76,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
         return EnumAction.bow;
     }
 
+    @Override
     public int getMaxItemUseDuration(ItemStack par1ItemStack)
     {
         //TODO change render of the laser too show it slowly over heat, when it over heats eg gets to max use damage the player, and tool
@@ -134,7 +135,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                 {
                     if (hit.typeOfHit == EnumMovingObjectType.ENTITY && hit.entityHit != null)
                     {
-                        DamageSource damageSource = DamageSource.causePlayerDamage((EntityPlayer) player);
+                        DamageSource damageSource = DamageSource.causePlayerDamage(player);
                         hit.entityHit.attackEntityFrom(damageSource, damageToEntities);
                         hit.entityHit.setFire(5);
                     }
