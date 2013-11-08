@@ -38,7 +38,7 @@ public class MechanizedMining extends ModPrefab
     @Instance(MechanizedMining.MOD_ID)
     public static MechanizedMining instance;
 
-    @SidedProxy(clientSide = "dark.mining.client.ClientProxy", serverSide = "dark.mining.common.CommonProxy")
+    @SidedProxy(clientSide = "dark.mining.client.ClientProxy", serverSide = "dark.mining.CommonProxy")
     public static CommonProxy proxy;
 
     public static final String MOD_ID = "MechanizedMining";

@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -18,6 +19,8 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import universalelectricity.core.vector.Vector3;
 
@@ -25,6 +28,7 @@ import com.builtbroken.common.Triple;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dark.core.common.DMCreativeTab;
 import dark.core.common.DarkMain;
 import dark.core.interfaces.IExtraInfo.IExtraItemInfo;
 import dark.core.prefab.helpers.RayTraceHelper;
@@ -59,6 +63,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
     {
         super("MiningLaser", true);
         this.setMaxStackSize(1);
+        this.setCreativeTab(DMCreativeTab.tabMining);
     }
 
     @Override
@@ -114,8 +119,8 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
             Vec3 playerViewOffset = Vec3.createVectorHelper(playerPosition.xCoord + playerLook.xCoord * blockRange, playerPosition.yCoord + playerLook.yCoord * blockRange, playerPosition.zCoord + playerLook.zCoord * blockRange);
 
             MovingObjectPosition hit = RayTraceHelper.ray_trace_do(player.worldObj, player, new Vector3().toVec3(), blockRange, true);
+            //TODO fix sound
             player.worldObj.playSound(player.posX, player.posY, player.posZ, MechanizedMining.instance.PREFIX + "laserHum", 0.5f, 0.7f, true);
-            Vec3 lookVec = player.getLookVec();
             if (hit != null)
             {
                 if (hit.typeOfHit == EnumMovingObjectType.ENTITY && hit.entityHit != null)
@@ -153,6 +158,32 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
             DarkMain.getInstance();
             DarkMain.proxy.renderBeam(player.worldObj, new Vector3(p).translate(new Vector3(0, -.4, 0)), new Vector3(playerViewOffset), Color.RED, 1);
         }
+
+    }
+
+    @Override
+    public ItemStack onItemRightClick(ItemStack itemStack, World par2World, EntityPlayer player)
+    {
+        if (player.capabilities.isCreativeMode || this.getElectricityStored(itemStack) > this.wattPerShot)
+        {
+            player.setItemInUse(itemStack, this.getMaxItemUseDuration(itemStack));
+        }
+        return itemStack;
+    }
+
+    @Override
+    public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer player, int par4)
+    {
+        if (miningMap.containsKey(player))
+        {
+            miningMap.remove(player);
+        }
+    }
+
+    @Override
+    public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    {
+        return par1ItemStack;
     }
 
     @SideOnly(Side.CLIENT)
