@@ -2,8 +2,8 @@ package dark.mining.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.Icon;
+import dark.core.common.DMCreativeTab;
 import dark.core.prefab.machine.BlockMachine;
 import dark.mining.privateutils.ModConfig;
 
@@ -16,7 +16,7 @@ public class BlockMM extends BlockMachine
     public BlockMM(String blockName, Material material)
     {
         super(ModConfig.getConfig("Objects"), blockName, material);
-        setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(DMCreativeTab.tabMining);
 
     }
 

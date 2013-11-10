@@ -18,12 +18,12 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import dark.core.common.DarkMain;
 import dark.core.prefab.ModPrefab;
-import dark.core.prefab.fluids.Gas;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.block.BlockRubble;
 import dark.mining.item.tool.ItemHandDrill;
 import dark.mining.item.tool.ItemInstaHole;
 import dark.mining.item.tool.ItemMiningLaser;
+import dark.mining.machines.BlockFracker;
 import dark.mining.machines.BlockScanner;
 import dark.mining.privateutils.ModConfig;
 
@@ -51,7 +51,7 @@ public class MechanizedMining extends ModPrefab
     public static final String BUILD_VERSION = "@BUILD@";
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVIS_VERSION + "." + BUILD_VERSION;
 
-    public static Block machineScanner, rubble, gasTank;
+    public static Block machineScanner, machineFracker, rubble, gasTank;
     public static Item toolDrill, toolHoleCreator, toolMiningLaser;
 
     @Metadata(MOD_ID)
@@ -98,6 +98,7 @@ public class MechanizedMining extends ModPrefab
     {
         confObj.load();
         //Blocks
+        machineFracker = ModObjectRegistry.createNewBlock("fracker", MOD_ID, BlockFracker.class, true);
         machineScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
         rubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
         //Items
