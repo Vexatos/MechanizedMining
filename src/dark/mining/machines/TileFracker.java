@@ -17,8 +17,9 @@ import dark.mining.privateutils.WorldHelper;
 public class TileFracker extends TileEntityEnergyMachine
 {
 
-    private int target = yCoord;
 
+	private Vector3 target = new Vector3(xCoord, yCoord, zCoord);
+	
     public TileFracker()
     {
         super(0);
@@ -30,10 +31,12 @@ public class TileFracker extends TileEntityEnergyMachine
         	System.out.println(getEnergyStored());
 	        if (getEnergyStored() >= 1)
 	        {
-	            target--;
-	            System.out.println(xCoord + ", " + target + ", " + zCoord);
-	            worldObj.setBlock(xCoord, target, zCoord, 0);
-	            this.setEnergyStored(this.getEnergyStored() - 1);
+	        	if(worldObj.getWorldTime()%20==0) {
+	        		target.translate(Vector3.DOWN(), 1);
+	        		System.out.println(worldObj.getBlockId(target.intX(), target.intY(), target.intZ()));
+		            worldObj.setBlock(target.intX(), target.intY(), target.intZ(), 0);
+		            this.setEnergyStored(this.getEnergyStored() - 2);
+	        	}
 	        }
         }
     }
@@ -41,7 +44,7 @@ public class TileFracker extends TileEntityEnergyMachine
     @Override
     public float getMaxEnergyStored()
     {
-        return 60;
+        return 10;
     }
     
     @Override
