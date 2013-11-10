@@ -10,7 +10,6 @@ import dark.core.interfaces.IMultiBlock;
 import dark.core.prefab.fluids.GasTank;
 import dark.core.prefab.machine.BlockMulti;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
-import dark.mining.block.BlockNaturalGas;
 import dark.mining.privateutils.WorldHelper;
 
 /** @author Archadia */
@@ -39,7 +38,7 @@ public class TileFracker extends TileEntityEnergyMachine implements IMultiBlock
 
             Block blockUsing = WorldHelper.getBlock(worldObj, xCoord, target, zCoord);
 
-            if (blockUsing instanceof BlockNaturalGas)
+            if (blockUsing instanceof Block/*NaturalGas*/)
             {
                 worldObj.setBlock(xCoord, target, zCoord, 0);
             }
