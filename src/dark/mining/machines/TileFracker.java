@@ -27,11 +27,11 @@ public class TileFracker extends TileEntityEnergyMachine
     @Override
     public void updateEntity() {
         super.updateEntity();
-		if (target == null) {
-			target = new Vector3(xCoord, yCoord, zCoord);
-		}
         if (!worldObj.isRemote) {
         	if(this.ticks % 20 == 0) {
+        		if (target == null) {
+        			target = new Vector3(xCoord, yCoord, zCoord);
+        		}
         		if(target.intY() > 0) {
         			if(this.getEnergyStored() >= 4) {
 	        			 target.translate(Vector3.DOWN());
