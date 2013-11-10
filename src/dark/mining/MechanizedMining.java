@@ -51,7 +51,7 @@ public class MechanizedMining extends ModPrefab
     public static final String BUILD_VERSION = "@BUILD@";
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVIS_VERSION + "." + BUILD_VERSION;
 
-    public static Block machineScanner, machineFracker, rubble, gasTank;
+    public static Block machineScanner, machineFracker, rubble, gasTank, frackingPipe;
     public static Item toolDrill, toolHoleCreator, toolMiningLaser;
 
     @Metadata(MOD_ID)
