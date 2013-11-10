@@ -10,8 +10,8 @@ import net.minecraftforge.fluids.IFluidHandler;
 import universalelectricity.prefab.tile.IRotatable;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 import dark.api.energy.IForceDevice;
-import dark.core.prefab.gas.EnumGas;
-import dark.core.prefab.gas.GasTank;
+import dark.core.prefab.fluids.EnumGas;
+import dark.core.prefab.fluids.GasTank;
 
 /** Combustion engine that runs off of gas fluid such as methain, propain, and butane
  * 

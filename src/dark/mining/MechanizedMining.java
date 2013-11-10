@@ -18,7 +18,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import dark.core.common.DarkMain;
 import dark.core.prefab.ModPrefab;
-import dark.core.prefab.gas.Gas;
+import dark.core.prefab.fluids.Gas;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.block.BlockRubble;
 import dark.mining.item.tool.ItemHandDrill;

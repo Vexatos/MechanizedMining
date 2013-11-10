@@ -7,7 +7,7 @@ import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
 import dark.core.common.DarkMain;
 import dark.core.interfaces.IMultiBlock;
-import dark.core.prefab.gas.GasTank;
+import dark.core.prefab.fluids.GasTank;
 import dark.core.prefab.machine.BlockMulti;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 import dark.mining.block.BlockNaturalGas;

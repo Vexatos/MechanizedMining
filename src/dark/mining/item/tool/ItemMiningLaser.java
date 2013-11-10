@@ -33,9 +33,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 import dark.core.common.DMCreativeTab;
 import dark.core.common.DarkMain;
 import dark.core.common.items.EnumTool;
+import dark.core.helpers.ItemWorldHelper;
+import dark.core.helpers.RayTraceHelper;
 import dark.core.interfaces.IExtraInfo.IExtraItemInfo;
-import dark.core.prefab.helpers.ItemWorldHelper;
-import dark.core.prefab.helpers.RayTraceHelper;
 
 /** Stream laser mining tool, When held down it will slowly mine away at the block in front of it.
  * 
