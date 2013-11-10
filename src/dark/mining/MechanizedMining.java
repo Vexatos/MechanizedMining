@@ -57,8 +57,6 @@ public class MechanizedMining extends ModPrefab
     @Metadata(MOD_ID)
     public static ModMetadata meta;
 
-    public static Gas methane, butane, propane, naturalGas;
-
     Configuration confObj;
 
     @Override

@@ -19,7 +19,7 @@ public class TileFracker extends TileEntityEnergyMachine implements IMultiBlock
 
     GasTank tank = new GasTank(5000);
 
-    private int target;
+    private int target = yCoord;
     private boolean isBeingRotated = false;
 
     public TileFracker()
@@ -35,17 +35,13 @@ public class TileFracker extends TileEntityEnergyMachine implements IMultiBlock
 
         if (getEnergyStored() >= 1000)
         {
-            target = yCoord;
             target--;
 
             Block blockUsing = WorldHelper.getBlock(worldObj, xCoord, target, zCoord);
 
-            if (!(blockUsing instanceof BlockNaturalGas))
+            if (blockUsing instanceof BlockNaturalGas)
             {
-                if (!(blockUsing == Block.bedrock))
-                {
-                    worldObj.setBlock(xCoord, target, zCoord, 0);
-                }
+                worldObj.setBlock(xCoord, target, zCoord, 0);
             }
             else
             {
