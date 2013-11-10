@@ -17,40 +17,32 @@ import dark.mining.privateutils.WorldHelper;
 public class TileFracker extends TileEntityEnergyMachine
 {
 
+    private Vector3 target;
 
-	private Vector3 target = new Vector3(xCoord, yCoord, zCoord);
-	
     public TileFracker()
     {
-        super(0);
+        super(0, 10);
     }
 
     @Override
-    public void updateEntity() {
-        if(!worldObj.isRemote) {
-        	System.out.println(getEnergyStored());
-	        if (getEnergyStored() >= 1)
-	        {
-	        	if(worldObj.getWorldTime()%20==0) {
-	        		target.translate(Vector3.DOWN(), 1);
-	        		System.out.println(worldObj.getBlockId(target.intX(), target.intY(), target.intZ()));
-		            worldObj.setBlock(target.intX(), target.intY(), target.intZ(), 0);
-		            this.setEnergyStored(this.getEnergyStored() - 2);
-	        	}
-	        }
+    public void updateEntity()
+    {
+        super.updateEntity();
+        if (!worldObj.isRemote && this.ticks % 20 == 0 && target.y > 0 && this.consumePower(2, false))
+        {
+            if (target == null)
+            {
+                target = new Vector3(xCoord, yCoord, zCoord);
+            }
+            target.translate(Vector3.DOWN());
+
+            int blockID = target.getBlockID(this.worldObj);
+            Block block = Block.blocksList[blockID];
+            if (block != null && !block.isAirBlock(this.worldObj, target.intX(), target.intY(), target.intZ()) && block.getBlockHardness(this.worldObj, target.intX(), target.intY(), target.intZ()) >= 0)
+            {
+                worldObj.setBlockToAir(target.intX(), target.intY(), target.intZ());
+                this.consumePower(2, true);
+            }
         }
     }
-    
-    @Override
-    public float getMaxEnergyStored()
-    {
-        return 10;
-    }
-    
-    @Override
-    public float getRequest(ForgeDirection direction)
-    {
-        return Math.max(this.getMaxEnergyStored() - this.getEnergyStored(), 0);
-    }
-
 }
