@@ -25,24 +25,26 @@ public class TileFracker extends TileEntityEnergyMachine
     }
 
     @Override
-    public void updateEntity()
-    {
+    public void updateEntity() {
         super.updateEntity();
-        if (!worldObj.isRemote && this.ticks % 20 == 0 && target.y > 0 && this.consumePower(2, false))
-        {
-            if (target == null)
-            {
-                target = new Vector3(xCoord, yCoord, zCoord);
-            }
-            target.translate(Vector3.DOWN());
-
-            int blockID = target.getBlockID(this.worldObj);
-            Block block = Block.blocksList[blockID];
-            if (block != null && !block.isAirBlock(this.worldObj, target.intX(), target.intY(), target.intZ()) && block.getBlockHardness(this.worldObj, target.intX(), target.intY(), target.intZ()) >= 0)
-            {
-                worldObj.setBlockToAir(target.intX(), target.intY(), target.intZ());
-                this.consumePower(2, true);
-            }
-        }
+		if (target == null) {
+			target = new Vector3(xCoord, yCoord, zCoord);
+		}
+        if (!worldObj.isRemote) {
+        	if(this.ticks % 20 == 0) {
+        		if(target.intY() > 0) {
+        			if(this.getEnergyStored() >= 4) {
+	        			 target.translate(Vector3.DOWN());
+	
+	        			 int blockID = target.getBlockID(this.worldObj);
+	        			 Block block = Block.blocksList[blockID];
+	        			 if (block != null && !block.isAirBlock(this.worldObj, target.intX(), target.intY(), target.intZ()) && block.getBlockHardness(this.worldObj, target.intX(), target.intY(), target.intZ()) >= 0) {
+	        				 worldObj.setBlockToAir(target.intX(), target.intY(), target.intZ());
+	        				 this.consumePower(.5f, true);
+	        			 }
+        			}
+        		}
+        	}
+    	}
     }
 }
