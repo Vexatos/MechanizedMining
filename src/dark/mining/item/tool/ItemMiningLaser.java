@@ -8,6 +8,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -159,7 +160,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                                 else
                                 {
                                     //TODO get the actual hit side from the angle of the ray trace
-                                    this.handleBlock(player.worldObj, new Vector3(hit.blockX, hit.blockY, hit.blockZ), ForgeDirection.UP);
+                                    this.handleBlock(player.worldObj, player, new Vector3(hit.blockX, hit.blockY, hit.blockZ), ForgeDirection.UP);
                                 }
                             }
                         }
@@ -184,7 +185,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
     }
 
     /** Called while the block is being mined */
-    public void handleBlock(World world, Vector3 vec, ForgeDirection side)
+    public void handleBlock(World world, EntityPlayer player, Vector3 vec, ForgeDirection side)
     {
         int id = vec.getBlockID(world);
         int meta = vec.getBlockID(world);
@@ -205,8 +206,9 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                     return;
                 }
             }
-            if (chance > 0.5f)
+            if (chance > 0.8f)
             {
+                //TODO turn water into steam
                 if (block.blockID == Block.sand.blockID)
                 {
                     world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.glass.blockID, 0, 3);
@@ -215,6 +217,21 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                 {
                     world.setBlock(vec.intX(), vec.intY(), vec.intZ(), 1, 0, 3);
                 }
+                else if (block.blockID == Block.ice.blockID)
+                {
+                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.waterStill.blockID, 15, 3);
+                }
+                else if (block.blockID == Block.obsidian.blockID && this.createLava)
+                {
+                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.lavaStill.blockID, 15, 3);
+                }
+                else if (block.blockID == Block.tnt.blockID)
+                {
+                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), 0, 0, 3);
+                    EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) vec.intX() + 0.5F), (double) ((float) vec.intY() + 0.5F), (double) ((float) vec.intZ() + 0.5F), player);
+                    entitytntprimed.fuse = world.rand.nextInt(entitytntprimed.fuse / 4) + entitytntprimed.fuse / 8;
+                    world.spawnEntityInWorld(entitytntprimed);
+                }
             }
         }
     }
@@ -222,28 +239,43 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
     /** Called when the block is actually mined */
     public void onBlockMined(World world, Vector3 vec)
     {
-        int id = vec.getBlockID(world);
-        int meta = vec.getBlockID(world);
-        Block block = Block.blocksList[id];
-        if (block != null)
+        try
         {
-            if (EnumTool.PICKAX.effecticVsMaterials.contains(block.blockMaterial))
+            int id = vec.getBlockID(world);
+            int meta = vec.getBlockID(world);
+            Block block = Block.blocksList[id];
+
+            int id2 = vec.clone().modifyPositionFromSide(ForgeDirection.UP).getBlockID(world);
+            Block block2 = Block.blocksList[id2];
+            if (block != null)
             {
+                if (EnumTool.AX.effecticVsMaterials.contains(block.blockMaterial))
+                {
+                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.fire.blockID, 0, 3);
+                    return;
+                }
+                if (block.blockID == Block.grass.blockID && (block2 == null || block2.isAirBlock(world, vec.intX(), vec.intY() + 1, vec.intZ())))
+                {
+                    world.setBlock(vec.intX(), vec.intY() + 1, vec.intZ(), Block.fire.blockID, 0, 3);
+                    return;
+                }
                 ArrayList<ItemStack> items = block.getBlockDropped(world, vec.intX(), vec.intY(), vec.intZ(), meta, 1);
                 for (int i = 0; i < items.size(); i++)
                 {
-                    items.set(i, FurnaceRecipes.smelting().getSmeltingResult(items.get(i)));
+                    ItemStack stack = FurnaceRecipes.smelting().getSmeltingResult(items.get(i));
+                    if (stack != null)
+                    {
+                        items.set(i, stack);
+                    }
                     //TODO insert a call back into this to have a list of stuff that can't drop smelted or should drop as molten equal.
                     //Eg iron ingot should drop as molten melt pile that is hot for 3 seconds and can burn the player for all 3 of those seconds
                     ItemWorldHelper.dropItemStack(world, vec.translate(0.5), items.get(i), false);
                 }
             }
-            else if (EnumTool.AX.effecticVsMaterials.contains(block.blockMaterial))
-            {
-                world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.fire.blockID, 0, 3);
-                return;
-            }
-
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
         world.setBlock(vec.intX(), vec.intY(), vec.intZ(), 0, 0, 3);
     }
