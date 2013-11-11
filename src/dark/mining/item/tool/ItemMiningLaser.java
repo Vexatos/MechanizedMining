@@ -219,6 +219,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
             if (block.blockID == Block.grass.blockID && (block2 == null || block2.isAirBlock(world, vec.intX(), vec.intY() + 1, vec.intZ())))
             {
                 world.setBlock(vec.intX(), vec.intY() + 1, vec.intZ(), Block.fire.blockID, 0, 3);
+                world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.dirt.blockID, 0, 3);
                 return;
             }
             if (chance > 0.8f)
@@ -275,6 +276,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                 {
                     if (EnumTool.AX.effecticVsMaterials.contains(block.blockMaterial) || block.blockMaterial == Material.plants || block.blockMaterial == Material.pumpkin || block.blockMaterial == Material.cloth || block.blockMaterial == Material.web)
                     {
+                        //TODO turn tilled dirt into dirt
                         world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.fire.blockID, 0, 3);
                         return;
                     }
@@ -286,6 +288,10 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                     if (id == Block.glass.blockID)
                     {
                         items.add(new ItemStack(Block.glass, 1, meta));
+                    }
+                    if (id == Block.thinGlass.blockID)
+                    {
+                        items.add(new ItemStack(Block.thinGlass, 1));
                     }
                     List<ItemStack> removeList = new ArrayList<ItemStack>();
                     for (int i = 0; i < items.size(); i++)
