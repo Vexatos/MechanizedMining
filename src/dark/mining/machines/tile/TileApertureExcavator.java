@@ -38,13 +38,20 @@ public class TileApertureExcavator extends TileEntityEnergyMachine
     public void updateEntity()
     {
         super.updateEntity();
-        if (!worldObj.isRemote)
+        if (!worldObj.isRemote && this.isFunctioning())
         {
             if (this.ticks % 20 == 0)
             {
                 excavate();
             }
         }
+    }
+
+    @Override
+    public boolean canFunction()
+    {
+        //You need to turn it on with redstone in order for it to mine, this way the player has a chance to finish setting things up
+        return super.canFunction() && this.worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
     }
 
     /** Tells the machine to dig down one block at a time */

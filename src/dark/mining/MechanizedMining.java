@@ -24,6 +24,7 @@ import dark.mining.item.tool.ItemInstaHole;
 import dark.mining.item.tool.ItemMiningLaser;
 import dark.mining.machines.block.BlockApertureExcavator;
 import dark.mining.machines.block.BlockFracker;
+import dark.mining.machines.block.BlockMiningLaser;
 import dark.mining.machines.block.BlockScanner;
 import dark.mining.privateutils.ModConfig;
 
@@ -97,18 +98,19 @@ public class MechanizedMining extends ModPrefab
     {
         confObj.load();
         //Blocks
-        recipeLoader.machineFracker = ModObjectRegistry.createNewBlock("fracker", MOD_ID, BlockFracker.class, true);
-        recipeLoader.machineScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
-        recipeLoader.rubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
-        recipeLoader.machineApertureExc = ModObjectRegistry.createNewBlock("apertureExcavator", MOD_ID, BlockApertureExcavator.class, true);
-        if (recipeLoader.machineFracker != null)
+        MMRecipeLoader.machineFracker = ModObjectRegistry.createNewBlock("fracker", MOD_ID, BlockFracker.class, true);
+        MMRecipeLoader.machineScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
+        MMRecipeLoader.rubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
+        MMRecipeLoader.machineApertureExc = ModObjectRegistry.createNewBlock("apertureExcavator", MOD_ID, BlockApertureExcavator.class, true);
+        if (MMRecipeLoader.machineFracker != null)
         {
-            recipeLoader.frackingPipe = ModObjectRegistry.createNewBlock("frackingPipe", MOD_ID, BlockFrackingPipe.class, false);
+            MMRecipeLoader.frackingPipe = ModObjectRegistry.createNewBlock("frackingPipe", MOD_ID, BlockFrackingPipe.class, false);
         }
+        MMRecipeLoader.miningLaser = ModObjectRegistry.createNewBlock("MM_MiningLaser", MOD_ID, BlockMiningLaser.class, true);
         //Items
-        recipeLoader.toolDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
-        recipeLoader.toolHoleCreator = ModObjectRegistry.createNewItem("toolHoleCreator", MOD_ID, ItemInstaHole.class, true);
-        recipeLoader.toolMiningLaser = ModObjectRegistry.createNewItem("toolMiningLaser", MOD_ID, ItemMiningLaser.class, true);      
+        MMRecipeLoader.toolDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
+        MMRecipeLoader.toolHoleCreator = ModObjectRegistry.createNewItem("toolHoleCreator", MOD_ID, ItemInstaHole.class, true);
+        MMRecipeLoader.toolMiningLaser = ModObjectRegistry.createNewItem("toolMiningLaser", MOD_ID, ItemMiningLaser.class, true);      
 
         confObj.save();
     }
