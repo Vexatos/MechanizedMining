@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import universalelectricity.core.vector.Vector3;
 import dark.core.common.blocks.BlockGasOre;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
+import dark.mining.MMRecipeLoader;
 import dark.mining.MechanizedMining;
 
 /** @author Archadia */
@@ -74,7 +75,7 @@ public class TileFracker extends TileEntityEnergyMachine
 		   				this.consumePower(STAGE_4_USAGE, true);
 		   				//add gas to container
 	   				}
-	   				worldObj.setBlock(target.intX(), target.intY(), target.intZ(), MechanizedMining.frackingPipe.blockID);
+	   				worldObj.setBlock(target.intX(), target.intY(), target.intZ(), MMRecipeLoader.frackingPipe.blockID);
 	   				this.consumePower(STAGE_2_USAGE, true);
 	   			}
 			}

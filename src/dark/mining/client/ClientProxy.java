@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import dark.mining.CommonProxy;
+import dark.mining.MMRecipeLoader;
 import dark.mining.MechanizedMining;
 import dark.mining.client.gui.GuiScanner;
 import dark.mining.client.render.RenderFrackingPipe;
@@ -19,11 +20,11 @@ public class ClientProxy extends CommonProxy
     public void init()
     {
         super.init();
-        if (MechanizedMining.toolMiningLaser != null)
+        if (MMRecipeLoader.toolMiningLaser != null)
         {
-            MinecraftForgeClient.registerItemRenderer(MechanizedMining.toolMiningLaser.itemID, new RenderMiningLaserGun());
+            MinecraftForgeClient.registerItemRenderer(MMRecipeLoader.toolMiningLaser.itemID, new RenderMiningLaserGun());
         }
-        if (MechanizedMining.frackingPipe != null)
+        if (MMRecipeLoader.frackingPipe != null)
         {
         	ClientRegistry.bindTileEntitySpecialRenderer(TileFrackingPipe.class, new RenderFrackingPipe());
         }

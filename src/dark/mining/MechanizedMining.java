@@ -52,13 +52,12 @@ public class MechanizedMining extends ModPrefab
     public static final String BUILD_VERSION = "@BUILD@";
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVIS_VERSION + "." + BUILD_VERSION;
 
-    public static Block machineScanner, machineFracker, rubble, gasTank, frackingPipe;
-    public static Item toolDrill, toolHoleCreator, toolMiningLaser;
-
     @Metadata(MOD_ID)
     public static ModMetadata meta;
 
     Configuration confObj;
+
+    static MMRecipeLoader recipeLoader = new MMRecipeLoader();
 
     @Override
     @EventHandler
@@ -99,14 +98,17 @@ public class MechanizedMining extends ModPrefab
     {
         confObj.load();
         //Blocks
-        machineFracker = ModObjectRegistry.createNewBlock("fracker", MOD_ID, BlockFracker.class, true);
-        machineScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
-        rubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
-        frackingPipe = ModObjectRegistry.createNewBlock("frackingPipe", MOD_ID, BlockFrackingPipe.class, true);
+        recipeLoader.machineFracker = ModObjectRegistry.createNewBlock("fracker", MOD_ID, BlockFracker.class, true);
+        recipeLoader.machineScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
+        recipeLoader.rubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
+        if (recipeLoader.machineFracker != null)
+        {
+            recipeLoader.frackingPipe = ModObjectRegistry.createNewBlock("frackingPipe", MOD_ID, BlockFrackingPipe.class, false);
+        }
         //Items
-        toolDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
-        toolHoleCreator = ModObjectRegistry.createNewItem("toolHoleCreator", MOD_ID, ItemInstaHole.class, true);
-        toolMiningLaser = ModObjectRegistry.createNewItem("toolMiningLaser", MOD_ID, ItemMiningLaser.class, true);
+        recipeLoader.toolDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
+        recipeLoader.toolHoleCreator = ModObjectRegistry.createNewItem("toolHoleCreator", MOD_ID, ItemInstaHole.class, true);
+        recipeLoader.toolMiningLaser = ModObjectRegistry.createNewItem("toolMiningLaser", MOD_ID, ItemMiningLaser.class, true);
 
         confObj.save();
     }
@@ -130,9 +132,6 @@ public class MechanizedMining extends ModPrefab
     @Override
     public void loadRecipes()
     {
-        if (machineScanner instanceof BlockScanner)
-        {
-            //load recipe here and make sure to do the same per item since they can be disabled by the user
-        }
+        recipeLoader.loadRecipes();
     }
 }
