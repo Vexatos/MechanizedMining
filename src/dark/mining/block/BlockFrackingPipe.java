@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import com.builtbroken.common.Pair;
 
 import dark.core.client.renders.BlockRenderingHandler;
-import dark.mining.machines.TileFrackingPipe;
+import dark.mining.machines.tile.TileFrackingPipe;
 
 /**
  * @author Archadia

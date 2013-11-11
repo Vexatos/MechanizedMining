@@ -14,7 +14,7 @@ import dark.mining.item.tool.ItemMiningLaser;
 
 public class MMRecipeLoader extends RecipeLoader
 {
-    public static Block machineScanner, machineFracker, rubble, frackingPipe;
+    public static Block machineScanner, machineFracker, rubble, frackingPipe, machineApertureExc;
     public static Item toolDrill, toolHoleCreator, toolMiningLaser;
 
     public void loadRecipes()

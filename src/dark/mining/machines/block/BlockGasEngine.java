@@ -1,4 +1,4 @@
-package dark.mining.machines;
+package dark.mining.machines.block;
 
 import net.minecraft.block.material.Material;
 import dark.mining.block.BlockMM;

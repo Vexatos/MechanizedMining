@@ -11,8 +11,8 @@ import dark.mining.MechanizedMining;
 import dark.mining.client.gui.GuiScanner;
 import dark.mining.client.render.RenderFrackingPipe;
 import dark.mining.client.render.RenderMiningLaserGun;
-import dark.mining.machines.TileEntityScanner;
-import dark.mining.machines.TileFrackingPipe;
+import dark.mining.machines.tile.TileFrackingPipe;
+import dark.mining.machines.tile.TileScanner;
 
 /** @author Archadia */
 public class ClientProxy extends CommonProxy
@@ -38,7 +38,7 @@ public class ClientProxy extends CommonProxy
         switch (ID)
         {
             case 0:
-                return new GuiScanner(player.inventory, (TileEntityScanner) tile_entity);
+                return new GuiScanner(player.inventory, (TileScanner) tile_entity);
         }
         return null;
     }

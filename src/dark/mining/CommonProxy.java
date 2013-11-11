@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import dark.mining.machines.ContainerScanner;
-import dark.mining.machines.TileEntityScanner;
+import dark.mining.machines.tile.TileScanner;
 
 /** @author Archadia */
 public class CommonProxy implements IGuiHandler
@@ -33,7 +33,7 @@ public class CommonProxy implements IGuiHandler
         switch (ID)
         {
             case 0:
-                return new ContainerScanner(player.inventory, (TileEntityScanner) tile_entity);
+                return new ContainerScanner(player.inventory, (TileScanner) tile_entity);
         }
         return null;
     }

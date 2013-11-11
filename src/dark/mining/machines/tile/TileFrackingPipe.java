@@ -1,4 +1,4 @@
-package dark.mining.machines;
+package dark.mining.machines.tile;
 
 import net.minecraft.tileentity.TileEntity;
 

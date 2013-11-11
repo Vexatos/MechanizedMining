@@ -17,7 +17,7 @@ public class BlockMM extends BlockMachine
     {
         super(ModConfig.getConfig("Objects"), blockName, material);
         setCreativeTab(DMCreativeTab.tabMining);
-
+        setHardness(2);
     }
 
     protected String getName()

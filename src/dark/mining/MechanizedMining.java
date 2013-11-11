@@ -2,10 +2,7 @@ package dark.mining;
 
 import java.util.Arrays;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -25,8 +22,9 @@ import dark.mining.block.BlockRubble;
 import dark.mining.item.tool.ItemHandDrill;
 import dark.mining.item.tool.ItemInstaHole;
 import dark.mining.item.tool.ItemMiningLaser;
-import dark.mining.machines.BlockFracker;
-import dark.mining.machines.BlockScanner;
+import dark.mining.machines.block.BlockApertureExcavator;
+import dark.mining.machines.block.BlockFracker;
+import dark.mining.machines.block.BlockScanner;
 import dark.mining.privateutils.ModConfig;
 
 /** Main Mod class for MechanizedMining.
@@ -102,6 +100,7 @@ public class MechanizedMining extends ModPrefab
         recipeLoader.machineFracker = ModObjectRegistry.createNewBlock("fracker", MOD_ID, BlockFracker.class, true);
         recipeLoader.machineScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
         recipeLoader.rubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
+        recipeLoader.machineApertureExc = ModObjectRegistry.createNewBlock("apertureExcavator", MOD_ID, BlockApertureExcavator.class, true);
         if (recipeLoader.machineFracker != null)
         {
             recipeLoader.frackingPipe = ModObjectRegistry.createNewBlock("frackingPipe", MOD_ID, BlockFrackingPipe.class, false);

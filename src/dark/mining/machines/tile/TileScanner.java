@@ -1,4 +1,4 @@
-package dark.mining.machines;
+package dark.mining.machines.tile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import dark.core.prefab.machine.TileEntityEnergyMachine;
 import dark.mining.privateutils.BlockMapUtil;
 
 /** @author Archadia, DarkCow */
-public class TileEntityScanner extends TileEntityEnergyMachine
+public class TileScanner extends TileEntityEnergyMachine
 {
 
     private ArrayList<Integer> validTarget = new ArrayList<Integer>();
@@ -24,7 +24,7 @@ public class TileEntityScanner extends TileEntityEnergyMachine
 
     public boolean enabled = true;
 
-    public TileEntityScanner()
+    public TileScanner()
     {
         super(0.5f); //500W
 

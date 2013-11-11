@@ -7,15 +7,15 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import dark.mining.machines.ContainerScanner;
-import dark.mining.machines.TileEntityScanner;
+import dark.mining.machines.tile.TileScanner;
 
 /** @author Archadia */
 public class GuiScanner extends GuiContainer
 {
 
-    private static TileEntityScanner tileINV;
+    private static TileScanner tileINV;
 
-    public GuiScanner(InventoryPlayer par1InventoryPlayer, TileEntityScanner tile)
+    public GuiScanner(InventoryPlayer par1InventoryPlayer, TileScanner tile)
     {
         super(new ContainerScanner(par1InventoryPlayer, tile));
         tileINV = tile;

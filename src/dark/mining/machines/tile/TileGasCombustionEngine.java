@@ -1,4 +1,4 @@
-package dark.mining.machines;
+package dark.mining.machines.tile;
 
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -16,7 +16,7 @@ import dark.core.prefab.fluids.GasTank;
 /** Combustion engine that runs off of gas fluid such as methain, propain, and butane
  * 
  * @author DarkGuardsman, Archadia */
-public class TileEntityGasCombustionEngine extends TileEntityAdvanced implements IFluidHandler, IForceDevice, IRotatable
+public class TileGasCombustionEngine extends TileEntityAdvanced implements IFluidHandler, IForceDevice, IRotatable
 {
     /** Tank which fuel is stored. */
     protected GasTank fuelTank = new GasTank(1000);

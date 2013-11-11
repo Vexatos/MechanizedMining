@@ -1,4 +1,4 @@
-package dark.mining.machines;
+package dark.mining.machines.tile;
 
 import net.minecraft.block.Block;
 import universalelectricity.core.vector.Vector3;
@@ -11,8 +11,7 @@ import dark.mining.MechanizedMining;
 public class TileFracker extends TileEntityEnergyMachine
 {
 
-    private Vector3 target;
-    private boolean flag = false;
+    private Vector3 target, target2;
     
     public static final float STAGE_1_USAGE = 0.5f;
     public static final float STAGE_2_USAGE = 0.5f;
@@ -21,7 +20,7 @@ public class TileFracker extends TileEntityEnergyMachine
 
     public TileFracker()
     {
-        super(0, 10);
+        super(0, 5);
     }
 
     @Override
@@ -29,8 +28,8 @@ public class TileFracker extends TileEntityEnergyMachine
         super.updateEntity();
         if (!worldObj.isRemote) {
         	if(this.ticks % 20 == 0) {
-        		if(!flag) clearArea();
-    			if(flag) collect();
+        		//clearArea();
+    			collect();
         	}
     	}
     }
@@ -51,36 +50,24 @@ public class TileFracker extends TileEntityEnergyMachine
     				 this.consumePower(STAGE_1_USAGE, true);
     			 }
 			}
-			flag = false;
-		} else {
-			flag = true;
-			target = null;
 		}
     }
 
     public void collect() {
-    	if(target == null) {
-    		target = new Vector3(xCoord, yCoord, zCoord);
+    	if(target2 == null) {
+    		target2 = new Vector3(xCoord, yCoord, zCoord);
     	}
-    	if(target.intY() > 0) {
-			if(this.getEnergyStored() >= STAGE_4_USAGE) {
-				target.translate(Vector3.DOWN());
+    	if(target2.intY() > 0) {
+			if(this.getEnergyStored() >= STAGE_2_USAGE) {
+				target2.translate(Vector3.DOWN());
 	
-	   			int blockID = target.getBlockID(this.worldObj);
+	   			int blockID = target2.getBlockID(this.worldObj);
 	   			Block block = Block.blocksList[blockID];
-	   			if (block != null && !block.isAirBlock(this.worldObj, target.intX(), target.intY(), target.intZ()) && block.getBlockHardness(this.worldObj, target.intX(), target.intY(), target.intZ()) >= 0) {
-	   				if(block instanceof BlockGasOre) {
-
-		   				worldObj.setBlockToAir(target.intX(), target.intY(), target.intZ());
-		   				this.consumePower(STAGE_4_USAGE, true);
-		   				//add gas to container
-	   				}
-	   				worldObj.setBlock(target.intX(), target.intY(), target.intZ(), MMRecipeLoader.frackingPipe.blockID);
+	   			if(block == null) {
+	   				worldObj.setBlock(target2.intX(), target2.intY(), target2.intZ(), MMRecipeLoader.frackingPipe.blockID);
 	   				this.consumePower(STAGE_2_USAGE, true);
 	   			}
 			}
-    	} else {
-    		target = null;
     	}
     }
 }
