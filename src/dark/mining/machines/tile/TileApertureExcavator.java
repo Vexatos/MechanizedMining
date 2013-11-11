@@ -15,11 +15,9 @@ import dark.core.prefab.machine.TileEntityEnergyMachine;
 /** @author Archadia */
 public class TileApertureExcavator extends TileEntityEnergyMachine
 {
-
-    private Vector3 target;
-
     /** The class that interacts with inventories for this machine */
     private InvInteractionHelper invExtractionHelper;
+    private int lastY = -1;
 
     public TileApertureExcavator()
     {
@@ -49,22 +47,24 @@ public class TileApertureExcavator extends TileEntityEnergyMachine
         }
     }
 
+    /** Tells the machine to dig down one block at a time */
     public void excavate()
     {
-        if (target == null)
+        if (lastY == -1)
         {
-            target = new Vector3(xCoord, yCoord - 1, zCoord);
+            lastY = this.yCoord - 1;
         }
-        if (target.intY() > 0)
+        //Loop threw the entire y to make sure no new blocks were placed in the way
+        for (int y = this.yCoord - 1; y > 0 && y < this.yCoord; y--)
         {
+            Vector3 target = new Vector3(this.xCoord, y, this.zCoord);
             if (this.consumePower(1.5f, false))
             {
                 Block block = Block.blocksList[target.getBlockID(this.worldObj)];
+                //Check if we can mine as well send an event so other mods can cancel or mining attempt
                 if (MachineMiningEvent.doMachineMiningCheck(this.worldObj, target, this))
                 {
-                    worldObj.setBlockToAir(target.intX(), target.intY(), target.intZ());
-                    this.consumePower(1.5f, true);
-
+                    //Git blocks dropped from mining event to let other mods interact with the items drop. Eg ores will drop as rubble items from CM
                     List<ItemStack> items = MachineMiningEvent.getItemsMined(this.worldObj, target, this);
                     if (items != null)
                     {
@@ -73,16 +73,25 @@ public class TileApertureExcavator extends TileEntityEnergyMachine
                             this.dropItems(stack);
                         }
                     }
-                    target.translate(Vector3.DOWN());
-                }
-                else if (block == null || block.isAirBlock(this.worldObj, target.intX(), target.intY(), target.intZ()))
+                    //If we mine a block cancel set the blocks y as our last y value
+                    worldObj.setBlockToAir(target.intX(), target.intY(), target.intZ());
+                    this.consumePower(1.5f, true);
+                } //If the block was not null yet the machine didn't mine it this mean we have to stop
+                else if (block != null)
                 {
-                    target.translate(Vector3.DOWN());
+                    break;
+                }
+                //Only go down one block at a time
+                if (y < this.lastY)
+                {
+                    this.lastY = y;
+                    break;
                 }
             }
         }
     }
 
+    /** Calls the the inv helper to drop the items */
     private void dropItems(ItemStack item)
     {
         if (item != null)
