@@ -264,7 +264,7 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
         int meta = vec.getBlockID(world);
         Block block = Block.blocksList[id];
         //TODO make this use or call to the correct methods, and events so it can be canceled
-        if (LaserEvent.doLaserHarvestCheck(player, vec))
+        if (block != null && block.getBlockHardness(world, vec.intX(), vec.intY(), vec.intZ()) >= 0 && LaserEvent.doLaserHarvestCheck(player, vec))
         {
             try
             {
@@ -401,7 +401,5 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
         OreDictionary.registerOre("MiningLaserGun", this);
 
     }
-
-    
 
 }
