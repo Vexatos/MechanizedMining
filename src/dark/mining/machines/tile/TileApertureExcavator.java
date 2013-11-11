@@ -1,6 +1,7 @@
 package dark.mining.machines.tile;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityChest;
 import universalelectricity.core.vector.Vector3;
@@ -58,8 +59,12 @@ public class TileApertureExcavator extends TileEntityEnergyMachine {
 			if(itemStack != null) {
 				for (int i = 0; i < findInventory().getSizeInventory(); i++) {
 					itemStack = this.addStackToInventory(i, findInventory(), itemStack);
+					return;
 				}
 			}
+		}
+		if(!worldObj.isRemote) {
+			worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord, yCoord, zCoord, itemStack));
 		}
 	}
 
