@@ -53,8 +53,7 @@ public class TileApertureExcavator extends TileEntityEnergyMachine
         }
         if (target.intY() > 0)
         {
-            if (this.getEnergyStored() >= 1.5f)
-            {
+            if(this.consumePower(1.5f, false)) {
                 target.translate(Vector3.DOWN());
 
                 int blockID = target.getBlockID(this.worldObj);
