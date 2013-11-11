@@ -19,6 +19,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import dark.core.common.DarkMain;
 import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
+import dark.mining.block.BlockFrackingPipe;
 import dark.mining.block.BlockRubble;
 import dark.mining.item.tool.ItemHandDrill;
 import dark.mining.item.tool.ItemInstaHole;
@@ -98,6 +99,7 @@ public class MechanizedMining extends ModPrefab
     {
         confObj.load();
         //Blocks
+        frackingPipe = ModObjectRegistry.createNewBlock("frackingPipe", MOD_ID, BlockFrackingPipe.class, true);
         machineFracker = ModObjectRegistry.createNewBlock("fracker", MOD_ID, BlockFracker.class, true);
         machineScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
         rubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
