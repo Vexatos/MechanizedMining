@@ -99,10 +99,10 @@ public class MechanizedMining extends ModPrefab
     {
         confObj.load();
         //Blocks
-        frackingPipe = ModObjectRegistry.createNewBlock("frackingPipe", MOD_ID, BlockFrackingPipe.class, true);
         machineFracker = ModObjectRegistry.createNewBlock("fracker", MOD_ID, BlockFracker.class, true);
         machineScanner = ModObjectRegistry.createNewBlock("scanner", MOD_ID, BlockScanner.class, true);
         rubble = ModObjectRegistry.createNewBlock("rubble", MOD_ID, BlockRubble.class, true);
+        frackingPipe = ModObjectRegistry.createNewBlock("frackingPipe", MOD_ID, BlockFrackingPipe.class, true);
         //Items
         toolDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
         toolHoleCreator = ModObjectRegistry.createNewItem("toolHoleCreator", MOD_ID, ItemInstaHole.class, true);

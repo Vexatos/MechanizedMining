@@ -4,10 +4,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import dark.mining.CommonProxy;
 import dark.mining.MechanizedMining;
 import dark.mining.client.gui.GuiScanner;
+import dark.mining.client.render.RenderFrackingPipe;
 import dark.mining.machines.TileEntityScanner;
+import dark.mining.machines.TileFrackingPipe;
 
 /** @author Archadia */
 public class ClientProxy extends CommonProxy
@@ -19,6 +22,10 @@ public class ClientProxy extends CommonProxy
         if (MechanizedMining.toolMiningLaser != null)
         {
             MinecraftForgeClient.registerItemRenderer(MechanizedMining.toolMiningLaser.itemID, new RenderMiningLaserGun());
+        }
+        if (MechanizedMining.frackingPipe != null)
+        {
+        	ClientRegistry.bindTileEntitySpecialRenderer(TileFrackingPipe.class, new RenderFrackingPipe());
         }
     }
 
