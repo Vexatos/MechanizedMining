@@ -1,11 +1,15 @@
 package dark.mining.machines.tile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
+import dark.api.events.MachineMiningEvent;
 import dark.core.helpers.InvInteractionHelper;
+import dark.core.helpers.ItemWorldHelper;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 
 /** @author Archadia */
@@ -27,7 +31,7 @@ public class TileApertureExcavator extends TileEntityEnergyMachine
     {
         if (invExtractionHelper == null || invExtractionHelper.world != this.worldObj)
         {
-            this.invExtractionHelper = new InvInteractionHelper(this.worldObj, new Vector3(this), null, false);
+            this.invExtractionHelper = new InvInteractionHelper(this.worldObj, new Vector3(this), new ArrayList<ItemStack>(), false);
         }
         return invExtractionHelper;
     }
@@ -49,25 +53,31 @@ public class TileApertureExcavator extends TileEntityEnergyMachine
     {
         if (target == null)
         {
-            target = new Vector3(xCoord, yCoord, zCoord);
+            target = new Vector3(xCoord, yCoord - 1, zCoord);
         }
         if (target.intY() > 0)
         {
-            if(this.consumePower(1.5f, false)) {
-                target.translate(Vector3.DOWN());
-
-                int blockID = target.getBlockID(this.worldObj);
-                Block block = Block.blocksList[blockID];
-                if (block != null && !block.isAirBlock(this.worldObj, target.intX(), target.intY(), target.intZ()) && block.getBlockHardness(this.worldObj, target.intX(), target.intY(), target.intZ()) >= 0)
+            if (this.consumePower(1.5f, false))
+            {
+                Block block = Block.blocksList[target.getBlockID(this.worldObj)];
+                if (MachineMiningEvent.doMachineMiningCheck(this.worldObj, target, this))
                 {
                     worldObj.setBlockToAir(target.intX(), target.intY(), target.intZ());
                     this.consumePower(1.5f, true);
-                    ItemStack drop = block.getBlockDropped(worldObj, target.intX(), target.intY(), target.intZ(), worldObj.getBlockMetadata(target.intX(), target.intY(), target.intZ()), 0).get(0);
 
-                    if (block != Block.waterMoving || block != Block.waterMoving || block != Block.lavaMoving || block != block.lavaStill)
+                    List<ItemStack> items = MachineMiningEvent.getItemsMined(this.worldObj, target, this);
+                    if (items != null)
                     {
-                        dropItems(drop);
+                        for (ItemStack stack : items)
+                        {
+                            this.dropItems(stack);
+                        }
                     }
+                    target.translate(Vector3.DOWN());
+                }
+                else if (block == null || block.isAirBlock(this.worldObj, target.intX(), target.intY(), target.intZ()))
+                {
+                    target.translate(Vector3.DOWN());
                 }
             }
         }
@@ -75,10 +85,10 @@ public class TileApertureExcavator extends TileEntityEnergyMachine
 
     private void dropItems(ItemStack item)
     {
-        if(item != null)
+        if (item != null)
         {
             item = this.invHelper().storeItem(item, ForgeDirection.UP, ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST);
-            if(item != null)
+            if (item != null)
             {
                 this.invHelper().throwItem(new Vector3(this).modifyPositionFromSide(ForgeDirection.UP), item);
                 item = null;
