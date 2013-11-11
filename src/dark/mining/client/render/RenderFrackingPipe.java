@@ -19,7 +19,7 @@ public class RenderFrackingPipe extends TileEntitySpecialRenderer
 
     public void renderTileEntityAt(TileEntity tileEntity, double d, double d1, double d2, float f)
     {
-        bindTexture(new ResourceLocation(MechanizedMining.instance.DOMAIN, ModPrefab.MODEL_DIRECTORY + TEXTURE));
+        bindTexture(new ResourceLocation("mechanizedmining", ModPrefab.MODEL_DIRECTORY + TEXTURE));
 
         GL11.glPushMatrix();
         GL11.glTranslatef((float) d + 0.5F, (float) d1 + 1.5F, (float) d2 + 0.5F);

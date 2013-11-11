@@ -10,6 +10,7 @@ import dark.mining.MMRecipeLoader;
 import dark.mining.MechanizedMining;
 import dark.mining.client.gui.GuiScanner;
 import dark.mining.client.render.RenderFrackingPipe;
+import dark.mining.client.render.RenderMiningLaserGun;
 import dark.mining.machines.TileEntityScanner;
 import dark.mining.machines.TileFrackingPipe;
 

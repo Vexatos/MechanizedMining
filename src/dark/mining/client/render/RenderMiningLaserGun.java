@@ -1,4 +1,4 @@
-package dark.mining.client;
+package dark.mining.client.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
