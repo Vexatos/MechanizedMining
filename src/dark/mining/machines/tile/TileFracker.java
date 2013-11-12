@@ -10,13 +10,14 @@ import dark.mining.MechanizedMining;
 /** @author Archadia */
 public class TileFracker extends TileEntityEnergyMachine {
 
-	private Vector3[] clearingTargets = new Vector3[9];
-	private Vector3[] pipeTargets = new Vector3[9];
+	private Vector3[] clearingTarget = new Vector3[9];
+	private Vector3[] pipeTarget = new Vector3[9];
 
 	public static final float STAGE_1_USAGE = 0.5f;
 	public static final float STAGE_2_USAGE = 0.5f;
 	public static final float STAGE_3_USAGE = 2.0f;
 	public static final float STAGE_4_USAGE = 4.0f;
+
 
 	public TileFracker() {
 		super(0, 5);
@@ -34,22 +35,22 @@ public class TileFracker extends TileEntityEnergyMachine {
 
 	/** Returns if its finished its job */
 	public void clearArea() {
-		if (clearingTargets == null) {
-			clearingTargets = new Vector3(xCoord, yCoord, zCoord);
+		if (clearingTarget[0] == null) {
+			clearingTarget[0] = new Vector3(xCoord, yCoord, zCoord);
 		}
-		if (clearingTargets.intY() > 0) {
+		if (clearingTarget[0].intY() > 0) {
 			if (this.getEnergyStored() >= STAGE_1_USAGE) {
-				clearingTargets.translate(Vector3.DOWN());
+				clearingTarget[0].translate(Vector3.DOWN());
 
-				int blockID = clearingTargets.getBlockID(this.worldObj);
+				int blockID = clearingTarget[0].getBlockID(this.worldObj);
 				Block block = Block.blocksList[blockID];
 				if (block != null
-						&& !block.isAirBlock(this.worldObj, clearingTargets.intX(),
-								clearingTargets.intY(), clearingTargets.intZ())
-						&& block.getBlockHardness(this.worldObj, clearingTargets.intX(),
-								clearingTargets.intY(), clearingTargets.intZ()) >= 0) {
-					worldObj.setBlockToAir(clearingTargets.intX(), clearingTargets.intY(),
-							clearingTargets.intZ());
+						&& !block.isAirBlock(this.worldObj, clearingTarget[0].intX(),
+								clearingTarget[0].intY(), clearingTarget[0].intZ())
+						&& block.getBlockHardness(this.worldObj, clearingTarget[0].intX(),
+								clearingTarget[0].intY(), clearingTarget[0].intZ()) >= 0) {
+					worldObj.setBlockToAir(clearingTarget[0].intX(), clearingTarget[0].intY(),
+							clearingTarget[0].intZ());
 					this.consumePower(STAGE_1_USAGE, true);
 				}
 			}
@@ -57,18 +58,18 @@ public class TileFracker extends TileEntityEnergyMachine {
 	}
 
 	public void collect() {
-		if (pipeTargets == null) {
-			pipeTargets = new Vector3(xCoord, yCoord, zCoord);
+		if (pipeTarget[0] == null) {
+			pipeTarget[0] = new Vector3(xCoord, yCoord, zCoord);
 		}
-		if (pipeTargets.intY() > 0) {
+		if (pipeTarget[0].intY() > 0) {
 			if (this.getEnergyStored() >= STAGE_2_USAGE) {
-				pipeTargets.translate(Vector3.DOWN());
+				pipeTarget[0].translate(Vector3.DOWN());
 
-				int blockID = pipeTargets.getBlockID(this.worldObj);
+				int blockID = pipeTarget[0].getBlockID(this.worldObj);
 				Block block = Block.blocksList[blockID];
 				if (block == null) {
-					worldObj.setBlock(pipeTargets.intX(), pipeTargets.intY(),
-							pipeTargets.intZ(), MMRecipeLoader.frackingPipe.blockID);
+					worldObj.setBlock(pipeTarget[0].intX(), pipeTarget[0].intY(),
+							pipeTarget[0].intZ(), MMRecipeLoader.frackingPipe.blockID);
 					this.consumePower(STAGE_2_USAGE, true);
 				}
 			}
