@@ -146,7 +146,7 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
             }
             hitSpot = new Vector3(hitPos.hitVec);
         }
-        DarkMain.proxy.renderBeam(this.worldObj, new Vector3(this), new Vector3(xCoord, zCoord + 10, yCoord), Color.BLUE, 3);
+        DarkMain.proxy.renderBeam(this.worldObj, start, hitSpot, Color.ORANGE, 3);
     }
 
     public Vector3 getTarget()
