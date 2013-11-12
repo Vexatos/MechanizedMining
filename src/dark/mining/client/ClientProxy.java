@@ -5,12 +5,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import dark.core.client.renders.BlockRenderingHandler;
 import dark.mining.CommonProxy;
 import dark.mining.MMRecipeLoader;
 import dark.mining.MechanizedMining;
 import dark.mining.client.gui.GuiScanner;
+import dark.mining.client.render.MMBlockRenderingHandler;
 import dark.mining.client.render.RenderFrackingPipe;
+import dark.mining.client.render.RenderMiningLaser;
 import dark.mining.client.render.RenderMiningLaserGun;
+import dark.mining.machines.tile.TileEntityMiningLaser;
 import dark.mining.machines.tile.TileFrackingPipe;
 import dark.mining.machines.tile.TileScanner;
 
@@ -21,6 +26,7 @@ public class ClientProxy extends CommonProxy
     public void init()
     {
         super.init();
+        RenderingRegistry.registerBlockHandler(new MMBlockRenderingHandler());
         if (MMRecipeLoader.toolMiningLaser != null)
         {
             MinecraftForgeClient.registerItemRenderer(MMRecipeLoader.toolMiningLaser.itemID, new RenderMiningLaserGun());
@@ -28,6 +34,10 @@ public class ClientProxy extends CommonProxy
         if (MMRecipeLoader.frackingPipe != null)
         {
         	ClientRegistry.bindTileEntitySpecialRenderer(TileFrackingPipe.class, new RenderFrackingPipe());
+        }
+        if (MMRecipeLoader.miningLaser != null)
+        {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMiningLaser.class, new RenderMiningLaser());
         }
     }
 

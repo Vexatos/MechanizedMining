@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import com.builtbroken.common.Pair;
 
 import dark.core.client.renders.BlockRenderingHandler;
+import dark.mining.client.render.MMBlockRenderingHandler;
 import dark.mining.machines.tile.TileFrackingPipe;
 
 /**
@@ -27,7 +28,7 @@ public class BlockFrackingPipe extends BlockMM {
     }
     
     public int getRenderType() {
-		return BlockRenderingHandler.BLOCK_RENDER_ID;
+		return MMBlockRenderingHandler.BLOCK_RENDER_ID;
 	}
 	
 	public boolean isOpaqueCube() {

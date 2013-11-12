@@ -8,7 +8,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import dark.core.client.renders.BlockRenderingHandler;
 import dark.mining.block.BlockMM;
+import dark.mining.client.render.MMBlockRenderingHandler;
 import dark.mining.machines.tile.TileApertureExcavator;
 import dark.mining.machines.tile.TileEntityMiningLaser;
 
@@ -39,12 +41,12 @@ public class BlockMiningLaser extends BlockMM
     @Override
     public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ)
     {
-        if(!world.isRemote)
+        if (!world.isRemote)
         {
             TileEntity ent = world.getBlockTileEntity(x, y, z);
-            if(ent instanceof TileEntityMiningLaser)
+            if (ent instanceof TileEntityMiningLaser)
             {
-                ((TileEntityMiningLaser)ent).rotateYaw(-10);
+                ((TileEntityMiningLaser) ent).rotateYaw(-10);
             }
         }
         return false;
@@ -53,14 +55,29 @@ public class BlockMiningLaser extends BlockMM
     @Override
     public boolean onSneakUseWrench(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ)
     {
-        if(!world.isRemote)
+        if (!world.isRemote)
         {
             TileEntity ent = world.getBlockTileEntity(x, y, z);
-            if(ent instanceof TileEntityMiningLaser)
+            if (ent instanceof TileEntityMiningLaser)
             {
-                ((TileEntityMiningLaser)ent).rotateYaw(10);
+                ((TileEntityMiningLaser) ent).rotateYaw(10);
             }
         }
+        return false;
+    }
+
+    public int getRenderType()
+    {
+        return MMBlockRenderingHandler.BLOCK_RENDER_ID;
+    }
+
+    public boolean isOpaqueCube()
+    {
+        return false;
+    }
+
+    public boolean renderAsNormalBlock()
+    {
         return false;
     }
 

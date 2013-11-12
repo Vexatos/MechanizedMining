@@ -90,7 +90,7 @@ public class MechanizedMining extends ModPrefab
     @Override
     public String getDomain()
     {
-        return MechanizedMining.MOD_ID;
+        return MechanizedMining.MOD_ID.toLowerCase();
     }
 
     @Override

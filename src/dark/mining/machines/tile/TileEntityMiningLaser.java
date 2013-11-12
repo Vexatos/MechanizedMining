@@ -36,7 +36,7 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
     @Override
     public boolean canFunction()
     {
-        return super.canFunction() && this.worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+        return super.canFunction();
     }
 
     @Override
@@ -114,7 +114,7 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
             LaserEvent event = new LaserEvent.LaserFireEvent(this, hitPos);
             MinecraftForge.EVENT_BUS.post(event);
 
-            if (!worldObj.isRemote && !event.isCanceled())
+            if (!worldObj.isRemote && !event.isCanceled() && this.worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
             {
                 if (hitPos.typeOfHit == EnumMovingObjectType.ENTITY && hitPos.entityHit != null)
                 {
@@ -127,6 +127,7 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
                     if (this.hit != null && this.hit.equals(new Vector3(hitPos)) && !this.hit.equals(new Vector3(this)))
                     {
                         this.hitTicks++;
+
                         if (hitTicks >= 6)
                         {
                             LaserEvent.onBlockMinedByLaser(this.worldObj, this, this.hit);
@@ -146,7 +147,7 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
             }
             hitSpot = new Vector3(hitPos.hitVec);
         }
-        DarkMain.proxy.renderBeam(this.worldObj, start, hitSpot, Color.ORANGE, 3);
+        DarkMain.proxy.renderBeam(this.worldObj, start, hitSpot, this.worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) ? Color.ORANGE : Color.blue, 3);
     }
 
     public Vector3 getTarget()
