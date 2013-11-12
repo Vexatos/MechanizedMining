@@ -26,7 +26,7 @@ public class BlockMiningLaser extends BlockMM
        @Override
        public TileEntity createTileEntity(World world, int metadata)
        {
-           return new TileApertureExcavator();
+           return new TileEntityMiningLaser();
        }
 
        @Override

@@ -53,48 +53,45 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
         float yaw = 0;
         float pitch = 90;
         float distacne = 20;
-        Vector3 start = RayTraceHelper.getPosFromRotation(new Vector3(this), 1.5, yaw, pitch);
-        MovingObjectPosition hit = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), yaw, pitch, distacne, false);
+        Vector3 start = RayTraceHelper.getPosFromRotation(new Vector3(this).translate(0.5), .7, yaw, pitch);
+        MovingObjectPosition hitPos = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), yaw, pitch, distacne, false);
         Vector3 hitSpot = RayTraceHelper.getPosFromRotation(new Vector3(this), distacne, yaw, pitch);
         //TODO fix sound
-        if (hit != null)
+        if (hitPos != null)
         {
-            LaserEvent event = new LaserEvent.LaserFireEvent(this, hit);
+            LaserEvent event = new LaserEvent.LaserFireEvent(this, hitPos);
             MinecraftForge.EVENT_BUS.post(event);
 
             if (!worldObj.isRemote && !event.isCanceled())
             {
-                if (hit.typeOfHit == EnumMovingObjectType.ENTITY && hit.entityHit != null)
+                if (hitPos.typeOfHit == EnumMovingObjectType.ENTITY && hitPos.entityHit != null)
                 {
                     DamageSource damageSource = TileDamageSource.doLaserDamage(this);
-                    hit.entityHit.attackEntityFrom(damageSource, 7);
-                    hit.entityHit.setFire(5);
+                    hitPos.entityHit.attackEntityFrom(damageSource, 7);
+                    hitPos.entityHit.setFire(5);
                 }
-                else if (hit.typeOfHit == EnumMovingObjectType.TILE)
+                else if (hitPos.typeOfHit == EnumMovingObjectType.TILE)
                 {
-                    if (hit != null && hit.equals(new Vector3(hit.blockX, hit.blockY, hit.blockZ)))
+                    if (this.hit != null && this.hit.equals(new Vector3(hitPos)))
                     {
                         this.hitTicks++;
-                        if (hitTicks >= 5)
+                        if (hitTicks >= 6)
                         {
-
                             this.hit.setBlock(this.worldObj, 0);
                         }
                     }
                     else
                     {
-                        this.hit = new Vector3(hit.blockX, hit.blockY, hit.blockZ);
+                        this.hitTicks = 1;
+                        this.hit = new Vector3(hitPos);
                     }
 
                 }
 
             }
-            hitSpot = new Vector3(hit.hitVec);
+            hitSpot = new Vector3(hitPos.hitVec);
         }
-        //TODO make beam brighter the longer it has been used
-        //TODO adjust the laser for the end of the gun
-        DarkMain.getInstance();
-        DarkMain.proxy.renderBeam(this.worldObj, start, hitSpot, Color.ORANGE, 1);
+        DarkMain.proxy.renderBeam(this.worldObj, start, hitSpot, Color.ORANGE, 3);
     }
 
     public Vector3 getTarget()
@@ -107,47 +104,6 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
         if (!this.worldObj.isRemote)
         {
             this.sendPowerUpdate();
-        }
-    }
-
-    @Override
-    public boolean simplePacket(String id, ByteArrayDataInput dis, Player player)
-    {
-        try
-        {
-            if (this.worldObj.isRemote)
-            {
-                if (id.equalsIgnoreCase(SimplePacketTypes.RUNNING.name))
-                {
-                    this.functioning = dis.readBoolean();
-                    return true;
-                }
-                if (id.equalsIgnoreCase(SimplePacketTypes.NBT.name))
-                {
-                    this.readFromNBT(Packet.readNBTTagCompound(dis));
-                    return true;
-                }
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
-    public Packet getDescriptionPacket()
-    {
-        return PacketHandler.instance().getPacket(this.getChannel(), this, SimplePacketTypes.RUNNING.name, this.functioning, this.getTarget());
-    }
-
-    /** Sends a simple true/false am running power update */
-    public void sendPowerUpdate()
-    {
-        if (!this.worldObj.isRemote)
-        {
-            PacketHandler.instance().sendPacketToClients(PacketHandler.instance().getPacket(this.getChannel(), this, SimplePacketTypes.RUNNING.name, this.functioning, this.getTarget()), worldObj, new Vector3(this), 64);
         }
     }
 }
