@@ -8,65 +8,70 @@ import dark.mining.MMRecipeLoader;
 import dark.mining.MechanizedMining;
 
 /** @author Archadia */
-public class TileFracker extends TileEntityEnergyMachine
-{
+public class TileFracker extends TileEntityEnergyMachine {
 
-    private Vector3 target, target2;
-    
-    public static final float STAGE_1_USAGE = 0.5f;
-    public static final float STAGE_2_USAGE = 0.5f;
-    public static final float STAGE_3_USAGE = 2.0f;
-    public static final float STAGE_4_USAGE = 4.0f;
+	private Vector3[] clearingTargets = new Vector3[9];
+	private Vector3[] pipeTargets = new Vector3[9];
 
-    public TileFracker()
-    {
-        super(0, 5);
-    }
+	public static final float STAGE_1_USAGE = 0.5f;
+	public static final float STAGE_2_USAGE = 0.5f;
+	public static final float STAGE_3_USAGE = 2.0f;
+	public static final float STAGE_4_USAGE = 4.0f;
 
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
-        if (!worldObj.isRemote) {
-        	if(this.ticks % 20 == 0) {
-    			collect();
-        	}
-    	}
-    }
-    
-    /** Returns if its finished its job */
-    public void clearArea() {
-		if (target == null) {
-			target = new Vector3(xCoord, yCoord, zCoord);
-		}
-		if(target.intY() > 0) {
-			if(this.getEnergyStored() >= STAGE_1_USAGE) {
-    			 target.translate(Vector3.DOWN());
+	public TileFracker() {
+		super(0, 5);
+	}
 
-    			 int blockID = target.getBlockID(this.worldObj);
-    			 Block block = Block.blocksList[blockID];
-    			 if (block != null && !block.isAirBlock(this.worldObj, target.intX(), target.intY(), target.intZ()) && block.getBlockHardness(this.worldObj, target.intX(), target.intY(), target.intZ()) >= 0) {
-    				 worldObj.setBlockToAir(target.intX(), target.intY(), target.intZ());
-    				 this.consumePower(STAGE_1_USAGE, true);
-    			 }
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		if (!worldObj.isRemote) {
+			if (this.ticks % 20 == 0) {
+				collect();
 			}
 		}
-    }
+	}
 
-    public void collect() {
-    	if(target2 == null) {
-    		target2 = new Vector3(xCoord, yCoord, zCoord);
-    	}
-    	if(target2.intY() > 0) {
-			if(this.getEnergyStored() >= STAGE_2_USAGE) {
-				target2.translate(Vector3.DOWN());
-	
-	   			int blockID = target2.getBlockID(this.worldObj);
-	   			Block block = Block.blocksList[blockID];
-	   			if(block == null) {
-	   				worldObj.setBlock(target2.intX(), target2.intY(), target2.intZ(), MMRecipeLoader.frackingPipe.blockID);
-	   				this.consumePower(STAGE_2_USAGE, true);
-	   			}
+	/** Returns if its finished its job */
+	public void clearArea() {
+		if (clearingTargets == null) {
+			clearingTargets = new Vector3(xCoord, yCoord, zCoord);
+		}
+		if (clearingTargets.intY() > 0) {
+			if (this.getEnergyStored() >= STAGE_1_USAGE) {
+				clearingTargets.translate(Vector3.DOWN());
+
+				int blockID = clearingTargets.getBlockID(this.worldObj);
+				Block block = Block.blocksList[blockID];
+				if (block != null
+						&& !block.isAirBlock(this.worldObj, clearingTargets.intX(),
+								clearingTargets.intY(), clearingTargets.intZ())
+						&& block.getBlockHardness(this.worldObj, clearingTargets.intX(),
+								clearingTargets.intY(), clearingTargets.intZ()) >= 0) {
+					worldObj.setBlockToAir(clearingTargets.intX(), clearingTargets.intY(),
+							clearingTargets.intZ());
+					this.consumePower(STAGE_1_USAGE, true);
+				}
 			}
-    	}
-    }
+		}
+	}
+
+	public void collect() {
+		if (pipeTargets == null) {
+			pipeTargets = new Vector3(xCoord, yCoord, zCoord);
+		}
+		if (pipeTargets.intY() > 0) {
+			if (this.getEnergyStored() >= STAGE_2_USAGE) {
+				pipeTargets.translate(Vector3.DOWN());
+
+				int blockID = pipeTargets.getBlockID(this.worldObj);
+				Block block = Block.blocksList[blockID];
+				if (block == null) {
+					worldObj.setBlock(pipeTargets.intX(), pipeTargets.intY(),
+							pipeTargets.intZ(), MMRecipeLoader.frackingPipe.blockID);
+					this.consumePower(STAGE_2_USAGE, true);
+				}
+			}
+		}
+	}
 }
