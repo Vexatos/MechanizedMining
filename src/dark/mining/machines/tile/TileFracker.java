@@ -28,7 +28,6 @@ public class TileFracker extends TileEntityEnergyMachine
         super.updateEntity();
         if (!worldObj.isRemote) {
         	if(this.ticks % 20 == 0) {
-        		//clearArea();
     			collect();
         	}
     	}
