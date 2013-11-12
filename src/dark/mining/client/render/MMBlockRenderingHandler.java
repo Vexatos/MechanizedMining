@@ -48,8 +48,9 @@ public class MMBlockRenderingHandler implements ISimpleBlockRenderingHandler
         if (MMRecipeLoader.miningLaser != null && block.blockID == MMRecipeLoader.miningLaser.blockID)
         {
             FMLClientHandler.instance().getClient().renderEngine.bindTexture(RenderMiningLaser.TEXTURE);
-            GL11.glTranslatef((float)0, (float) 1.5F, (float) 0);
+            GL11.glTranslatef((float)0, (float) 1.7F, (float) 0);
             GL11.glScalef(1.0F, -1F, -1F);
+            GL11.glRotatef(180, 0, 1, 0);
             RenderMiningLaser.model.renderAll();
         }
         GL11.glPopMatrix();
