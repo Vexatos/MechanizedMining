@@ -20,6 +20,7 @@ import dark.core.helpers.RayTraceHelper;
 import dark.core.network.PacketHandler;
 import dark.core.prefab.TileDamageSource;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
+import dark.core.prefab.machine.TileEntityMachine.SimplePacketTypes;
 
 /** @author DarkGuardsman */
 public class TileEntityMiningLaser extends TileEntityEnergyMachine
@@ -27,11 +28,10 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
     private Vector3 target;
     private Vector3 hit;
     private int hitTicks = 0;
-
-    public TileEntityMiningLaser()
-    {
-        super(.1f);
-    }
+    public float yaw = 0;
+    public float pitch = 0;
+    float range = 20;
+    float powerDrain = .1f;
 
     @Override
     public boolean canFunction()
@@ -46,17 +46,68 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
         if (this.ticks % 3 == 0 && this.isFunctioning())
         {
             this.fireLaser();
+            //this.yaw += 10;
         }
+    }
+
+    public void rotateYaw(float by)
+    {
+        this.yaw += by;
+        if (!this.worldObj.isRemote)
+        {
+            PacketHandler.instance().sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 64);
+        }
+    }
+
+    public void rotatePitch(float by)
+    {
+        this.pitch += by;
+        if (!this.worldObj.isRemote)
+        {
+            PacketHandler.instance().sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 64);
+        }
+    }
+
+    @Override
+    public boolean simplePacket(String id, ByteArrayDataInput dis, Player player)
+    {
+        try
+        {
+            if (!super.simplePacket(id, dis, player) && this.worldObj.isRemote)
+            {
+                if (id.equalsIgnoreCase("Desc"))
+                {
+                    this.functioning = dis.readBoolean();
+                    this.yaw = dis.readFloat();
+                    this.pitch = dis.readFloat();
+                    return true;
+                }
+                if (id.equalsIgnoreCase(SimplePacketTypes.NBT.name))
+                {
+                    this.readFromNBT(Packet.readNBTTagCompound(dis));
+                    return true;
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Packet getDescriptionPacket()
+    {
+        return PacketHandler.instance().getPacket(this.getChannel(), this, "Desc", this.functioning, this.yaw, this.pitch);
     }
 
     public void fireLaser()
     {
-        float yaw = 0;
-        float pitch = 90;
-        float distacne = 20;
-        Vector3 start = RayTraceHelper.getPosFromRotation(new Vector3(this).translate(0.5), .7, yaw, pitch);
-        MovingObjectPosition hitPos = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), yaw, pitch, distacne, false);
-        Vector3 hitSpot = RayTraceHelper.getPosFromRotation(new Vector3(this), distacne, yaw, pitch);
+
+        Vector3 start = RayTraceHelper.getPosFromRotation(this.worldObj, new Vector3(this).translate(0.5), .7, yaw, pitch);
+        MovingObjectPosition hitPos = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), yaw, pitch, range, false);
+        Vector3 hitSpot = RayTraceHelper.getPosFromRotation(this.worldObj, new Vector3(this), range, yaw, pitch);
         //TODO fix sound
         if (hitPos != null)
         {
@@ -73,7 +124,7 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
                 }
                 else if (hitPos.typeOfHit == EnumMovingObjectType.TILE)
                 {
-                    if (this.hit != null && this.hit.equals(new Vector3(hitPos)))
+                    if (this.hit != null && this.hit.equals(new Vector3(hitPos)) && !this.hit.equals(new Vector3(this)))
                     {
                         this.hitTicks++;
                         if (hitTicks >= 6)
