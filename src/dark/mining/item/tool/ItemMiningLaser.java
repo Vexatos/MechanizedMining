@@ -157,26 +157,26 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
                         if (miningMap.containsKey(player))
                         {
                             Pair<Vector3, Integer> lastHit = miningMap.get(player);
-                            if (lastHit != null && lastHit.left() != null && lastHit.left().equals(new Vector3(hit.blockX, hit.blockY, hit.blockZ)))
+                            if (lastHit != null && lastHit.left() != null && lastHit.left().equals(new Vector3(hit)))
                             {
                                 time = lastHit.right() + 1;
                                 if (time >= breakTime)
                                 {
 
-                                    this.onBlockMined(player.worldObj, player, new Vector3(hit.blockX, hit.blockY, hit.blockZ));
+                                    LaserEvent.onBlockMinedByLaser(player.worldObj, player, new Vector3(hit));
                                     mined = true;
                                     miningMap.remove(player);
                                 }
                                 else
                                 {
                                     //TODO get the actual hit side from the angle of the ray trace
-                                    this.handleBlock(player.worldObj, player, new Vector3(hit.blockX, hit.blockY, hit.blockZ), ForgeDirection.UP);
+                                    LaserEvent.onLaserHitBlock(player.worldObj, player, new Vector3(hit), ForgeDirection.UP);
                                 }
                             }
                         }
                         if (!mined)
                         {
-                            miningMap.put(player, new Pair<Vector3, Integer>(new Vector3(hit.blockX, hit.blockY, hit.blockZ), time));
+                            miningMap.put(player, new Pair<Vector3, Integer>(new Vector3(hit), time));
                         }
                     }
 
@@ -192,142 +192,6 @@ public class ItemMiningLaser extends ItemElectricTool implements IExtraItemInfo
             DarkMain.proxy.renderBeam(player.worldObj, new Vector3(p).translate(new Vector3(x, -.45, z)), new Vector3(playerViewOffset), Color.ORANGE, 1);
         }
 
-    }
-
-    /** Called while the block is being mined */
-    public void handleBlock(World world, EntityPlayer player, Vector3 vec, ForgeDirection side)
-    {
-        int id = vec.getBlockID(world);
-        int meta = vec.getBlockID(world);
-        Block block = Block.blocksList[id];
-
-        Vector3 faceVec = vec.clone().modifyPositionFromSide(side);
-        int id2 = faceVec.getBlockID(world);
-        Block block2 = Block.blocksList[id2];
-        if (block != null)
-        {
-            float chance = world.rand.nextFloat();
-            if (this.setFire)
-            {
-                int fireChance = block.getFlammability(world, vec.intX(), vec.intY(), vec.intZ(), meta, side);
-                if ((fireChance / 300) >= chance && (block2 == null || block2.isAirBlock(world, vec.intX(), vec.intY(), vec.intZ())))
-                {
-                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.fire.blockID, 0, 3);
-                    return;
-                }
-            }
-            if (block.blockID == Block.grass.blockID && (block2 == null || block2.isAirBlock(world, vec.intX(), vec.intY() + 1, vec.intZ())))
-            {
-                world.setBlock(vec.intX(), vec.intY() + 1, vec.intZ(), Block.fire.blockID, 0, 3);
-                world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.dirt.blockID, 0, 3);
-                return;
-            }
-            if (chance > 0.8f)
-            {
-                //TODO turn water into steam
-                if (block.blockID == Block.sand.blockID)
-                {
-                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.glass.blockID, 0, 3);
-                    return;
-                }
-                else if (block.blockID == Block.cobblestone.blockID)
-                {
-                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), 1, 0, 3);
-                    return;
-                }
-                else if (block.blockID == Block.ice.blockID)
-                {
-                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.waterStill.blockID, 15, 3);
-                    return;
-                }
-                else if (block.blockID == Block.obsidian.blockID && this.createLava)
-                {
-                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.lavaStill.blockID, 15, 3);
-                    return;
-                }
-                else if (block.blockID == Block.tnt.blockID)
-                {
-                    world.setBlock(vec.intX(), vec.intY(), vec.intZ(), 0, 0, 3);
-                    EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) vec.intX() + 0.5F), (double) ((float) vec.intY() + 0.5F), (double) ((float) vec.intZ() + 0.5F), player);
-                    entitytntprimed.fuse = world.rand.nextInt(entitytntprimed.fuse / 4) + entitytntprimed.fuse / 8;
-                    world.spawnEntityInWorld(entitytntprimed);
-                    return;
-                }
-            }
-            MinecraftForge.EVENT_BUS.post(new LaserEvent.LaserMeltBlockEvent(world, new Vector3(player), vec, player));
-        }
-    }
-
-    /** Called when the block is actually mined */
-    public void onBlockMined(World world, EntityPlayer player, Vector3 vec)
-    {
-        int id = vec.getBlockID(world);
-        int meta = vec.getBlockID(world);
-        Block block = Block.blocksList[id];
-        //TODO make this use or call to the correct methods, and events so it can be canceled
-        if (block != null && block.getBlockHardness(world, vec.intX(), vec.intY(), vec.intZ()) >= 0 && LaserEvent.doLaserHarvestCheck(player, vec))
-        {
-            try
-            {
-
-                int id2 = vec.clone().modifyPositionFromSide(ForgeDirection.UP).getBlockID(world);
-                Block block2 = Block.blocksList[id2];
-                if (block != null)
-                {
-                    if (EnumTool.AX.effecticVsMaterials.contains(block.blockMaterial) || block.blockMaterial == Material.plants || block.blockMaterial == Material.pumpkin || block.blockMaterial == Material.cloth || block.blockMaterial == Material.web)
-                    {
-                        //TODO turn tilled dirt into dirt
-                        world.setBlock(vec.intX(), vec.intY(), vec.intZ(), Block.fire.blockID, 0, 3);
-                        return;
-                    }
-                    List<ItemStack> items = block.getBlockDropped(world, vec.intX(), vec.intY(), vec.intZ(), meta, 1);
-                    if (items == null)
-                    {
-                        items = new ArrayList<ItemStack>();
-                    }
-                    if (id == Block.glass.blockID)
-                    {
-                        items.add(new ItemStack(Block.glass, 1, meta));
-                    }
-                    if (id == Block.thinGlass.blockID)
-                    {
-                        items.add(new ItemStack(Block.thinGlass, 1));
-                    }
-                    List<ItemStack> removeList = new ArrayList<ItemStack>();
-                    for (int i = 0; i < items.size(); i++)
-                    {
-                        if (items.get(i).itemID == Block.wood.blockID)
-                        {
-                            items.set(i, new ItemStack(Item.coal, 1, 1));
-                        }
-                        else if (items.get(i).itemID == Block.wood.blockID)
-                        {
-                            if (world.rand.nextFloat() < .25f)
-                            {
-                                items.set(i, new ItemStack(Item.coal, 1, 1));
-                            }
-                            else
-                            {
-                                removeList.add(items.get(i));
-                            }
-                        }
-                    }
-                    items.removeAll(removeList);
-                    LaserEvent.LaserDropItemEvent event = new LaserEvent.LaserDropItemEvent(world, new Vector3(player), vec, items);
-                    MinecraftForge.EVENT_BUS.post(event);
-                    items = event.items;
-                    for (ItemStack stack : items)
-                    {
-                        ItemWorldHelper.dropItemStack(world, vec.translate(0.5), stack, false);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-            world.setBlockToAir(vec.intX(), vec.intY(), vec.intZ());
-        }
     }
 
     @Override

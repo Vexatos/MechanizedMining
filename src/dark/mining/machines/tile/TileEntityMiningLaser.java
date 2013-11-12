@@ -7,6 +7,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import universalelectricity.core.vector.Vector3;
 
@@ -68,7 +69,7 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
                 {
                     DamageSource damageSource = TileDamageSource.doLaserDamage(this);
                     hitPos.entityHit.attackEntityFrom(damageSource, 7);
-                    hitPos.entityHit.setFire(5);
+                    hitPos.entityHit.setFire(8);
                 }
                 else if (hitPos.typeOfHit == EnumMovingObjectType.TILE)
                 {
@@ -77,13 +78,16 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
                         this.hitTicks++;
                         if (hitTicks >= 6)
                         {
-                            this.hit.setBlock(this.worldObj, 0);
+                            LaserEvent.onBlockMinedByLaser(this.worldObj, this, this.hit);
+                            this.hit = null;
+                            this.hitTicks = 0;
                         }
                     }
                     else
                     {
                         this.hitTicks = 1;
                         this.hit = new Vector3(hitPos);
+                        LaserEvent.onLaserHitBlock(this.worldObj, this, this.hit, ForgeDirection.UP);
                     }
 
                 }
