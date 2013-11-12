@@ -35,6 +35,7 @@ public class TileApertureExcavator extends TileEntityEnergyMachine
     @Override
     public void updateEntity()
     {
+        //TODO catch player place events and prevent them from placing blocks in the path of the drill head. This will save us time in coding blocks to represent the drill shafts
         super.updateEntity();
         if (!worldObj.isRemote && this.isFunctioning())
         {
