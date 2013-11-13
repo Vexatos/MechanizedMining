@@ -1,14 +1,9 @@
 package dark.mining.machines.tile;
 
-import java.awt.Color;
-
 import net.minecraft.block.Block;
 import universalelectricity.core.vector.Vector3;
-import dark.core.common.DarkMain;
-import dark.core.common.blocks.BlockGasOre;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 import dark.mining.MMRecipeLoader;
-import dark.mining.MechanizedMining;
 
 /** @author Archadia */
 public class TileFracker extends TileEntityEnergyMachine
@@ -29,7 +24,6 @@ public class TileFracker extends TileEntityEnergyMachine
     @Override
     public void updateEntity() {
         super.updateEntity();
-		laser();
         if (!worldObj.isRemote) {
         	if(this.ticks % 20 == 0) {
         		//clearArea();
@@ -37,11 +31,7 @@ public class TileFracker extends TileEntityEnergyMachine
         	}
     	}
     }
-    
-    public void laser() {
-        DarkMain.proxy.renderBeam(this.worldObj, new Vector3(xCoord + 0.5, yCoord, zCoord + 0.5), new Vector3(xCoord + 0.5, yCoord + 10, zCoord + 0.5), Color.RED, 3);
-    }
-    
+ 
     /** Returns if its finished its job */
     public void clearArea() {
 		if (target == null) {
