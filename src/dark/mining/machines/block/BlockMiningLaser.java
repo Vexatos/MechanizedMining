@@ -12,7 +12,7 @@ import dark.core.client.renders.BlockRenderingHandler;
 import dark.mining.block.BlockMM;
 import dark.mining.client.render.MMBlockRenderingHandler;
 import dark.mining.machines.tile.TileApertureExcavator;
-import dark.mining.machines.tile.TileEntityMiningLaser;
+import dark.mining.machines.tile.laser.TileLaserMiner;
 
 /** Mining laser Prototype mainly used for crafting but can be used in the same way as Excavator.
  * Creates four lasers from the side it is pointing in to mine away blocks
@@ -29,13 +29,13 @@ public class BlockMiningLaser extends BlockMM
     @Override
     public TileEntity createTileEntity(World world, int metadata)
     {
-        return new TileEntityMiningLaser();
+        return new TileLaserMiner();
     }
 
     @Override
     public void getTileEntities(int blockID, Set<Pair<String, Class<? extends TileEntity>>> list)
     {
-        list.add(new Pair<String, Class<? extends TileEntity>>("TileMiningLaser", TileEntityMiningLaser.class));
+        list.add(new Pair<String, Class<? extends TileEntity>>("TileMiningLaser", TileLaserMiner.class));
     }
 
     @Override
@@ -44,9 +44,9 @@ public class BlockMiningLaser extends BlockMM
         if (!world.isRemote)
         {
             TileEntity ent = world.getBlockTileEntity(x, y, z);
-            if (ent instanceof TileEntityMiningLaser)
+            if (ent instanceof TileLaserMiner)
             {
-                ((TileEntityMiningLaser) ent).rotateYaw(-10);
+                ((TileLaserMiner) ent).rotateYaw(-10);
             }
         }
         return false;
@@ -58,9 +58,9 @@ public class BlockMiningLaser extends BlockMM
         if (!world.isRemote)
         {
             TileEntity ent = world.getBlockTileEntity(x, y, z);
-            if (ent instanceof TileEntityMiningLaser)
+            if (ent instanceof TileLaserMiner)
             {
-                ((TileEntityMiningLaser) ent).rotateYaw(10);
+                ((TileLaserMiner) ent).rotateYaw(10);
             }
         }
         return false;

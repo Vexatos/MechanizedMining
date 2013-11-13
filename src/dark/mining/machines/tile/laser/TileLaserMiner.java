@@ -1,4 +1,4 @@
-package dark.mining.machines.tile;
+package dark.mining.machines.tile.laser;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -22,7 +22,7 @@ import dark.core.prefab.TileDamageSource;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 
 /** @author DarkGuardsman */
-public class TileEntityMiningLaser extends TileEntityEnergyMachine
+public class TileLaserMiner extends TileEntityEnergyMachine
 {
     private Vector3 target;
     private Vector3 hit;
