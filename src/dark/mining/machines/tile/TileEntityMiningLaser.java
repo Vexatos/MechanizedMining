@@ -20,7 +20,6 @@ import dark.core.helpers.RayTraceHelper;
 import dark.core.network.PacketHandler;
 import dark.core.prefab.TileDamageSource;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
-import dark.core.prefab.machine.TileEntityMachine.SimplePacketTypes;
 
 /** @author DarkGuardsman */
 public class TileEntityMiningLaser extends TileEntityEnergyMachine
@@ -28,10 +27,10 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
     private Vector3 target;
     private Vector3 hit;
     private int hitTicks = 0;
-    public float yaw = 0;
-    public float pitch = 0;
-    float range = 20;
-    float powerDrain = .1f;
+    private float yaw = 0;
+    private float pitch = 0;
+    private float range = 20;
+    private float powerDrain = .1f;
 
     @Override
     public boolean canFunction()
@@ -46,7 +45,6 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
         if (this.ticks % 3 == 0 && this.isFunctioning())
         {
             this.fireLaser();
-            //this.yaw += 10;
         }
     }
 
@@ -57,6 +55,11 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
         {
             PacketHandler.instance().sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 64);
         }
+    }
+
+    public float getYaw()
+    {
+        return this.yaw;
     }
 
     public void rotatePitch(float by)
@@ -82,14 +85,9 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
                     this.pitch = dis.readFloat();
                     return true;
                 }
-                if (id.equalsIgnoreCase(SimplePacketTypes.NBT.name))
-                {
-                    this.readFromNBT(Packet.readNBTTagCompound(dis));
-                    return true;
-                }
             }
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -99,7 +97,7 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
     @Override
     public Packet getDescriptionPacket()
     {
-        return PacketHandler.instance().getPacket(this.getChannel(), this, "Desc", this.functioning, this.yaw, this.pitch);
+        return PacketHandler.instance().getTilePacket(this.getChannel(), this, "Desc", this.functioning, this.yaw, this.pitch);
     }
 
     public void fireLaser()
@@ -107,8 +105,8 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
 
         Vector3 start = RayTraceHelper.getPosFromRotation(this.worldObj, new Vector3(this).translate(new Vector3(0.5, 0.7, 0.5)), .7, yaw, pitch);
         MovingObjectPosition hitPos = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), yaw, pitch, range, false);
-        Vector3 hitSpot = RayTraceHelper.getPosFromRotation(this.worldObj, new Vector3(this), range, yaw, pitch);
-        //TODO fix sound
+        Vector3 hitSpot = RayTraceHelper.getPosFromRotation(this.worldObj, start, range, yaw, pitch);
+        
         if (hitPos != null)
         {
             LaserEvent event = new LaserEvent.LaserFireEvent(this, hitPos);
@@ -118,6 +116,7 @@ public class TileEntityMiningLaser extends TileEntityEnergyMachine
             {
                 if (hitPos.typeOfHit == EnumMovingObjectType.ENTITY && hitPos.entityHit != null)
                 {
+                    System.out.println("Entity hit by laser");
                     DamageSource damageSource = TileDamageSource.doLaserDamage(this);
                     hitPos.entityHit.attackEntityFrom(damageSource, 7);
                     hitPos.entityHit.setFire(8);

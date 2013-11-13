@@ -28,7 +28,7 @@ public class RenderMiningLaser extends TileEntitySpecialRenderer
         GL11.glScalef(1.0F, -1F, -1F);
         if (tileEntity instanceof TileEntityMiningLaser)
         {
-            float yaw = ((TileEntityMiningLaser) tileEntity).yaw - 90;
+            float yaw = ((TileEntityMiningLaser) tileEntity).getYaw() - 90;
             GL11.glRotatef(yaw, 0, 1, 0);
         }
         model.renderAll();
