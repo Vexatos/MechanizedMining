@@ -17,7 +17,7 @@ import dark.mining.client.render.RenderMiningLaser;
 import dark.mining.client.render.RenderMiningLaserGun;
 import dark.mining.machines.tile.TileFrackingPipe;
 import dark.mining.machines.tile.TileScanner;
-import dark.mining.machines.tile.laser.TileLaserMiner;
+import dark.mining.machines.tile.laser.TileLaserSentry;
 
 /** @author Archadia */
 public class ClientProxy extends CommonProxy
@@ -37,7 +37,7 @@ public class ClientProxy extends CommonProxy
         }
         if (MMRecipeLoader.miningLaser != null)
         {
-            ClientRegistry.bindTileEntitySpecialRenderer(TileLaserMiner.class, new RenderMiningLaser());
+            ClientRegistry.bindTileEntitySpecialRenderer(TileLaserSentry.class, new RenderMiningLaser());
         }
     }
 

@@ -22,7 +22,7 @@ import dark.core.prefab.TileDamageSource;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 
 /** @author DarkGuardsman */
-public class TileLaserMiner extends TileEntityEnergyMachine
+public class TileLaserSentry extends TileEntityEnergyMachine
 {
     private Vector3 target;
     private Vector3 hit;

@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 import dark.core.prefab.ModPrefab;
 import dark.mining.MechanizedMining;
 import dark.mining.client.model.ModelLaserTile;
-import dark.mining.machines.tile.laser.TileLaserMiner;
+import dark.mining.machines.tile.laser.TileLaserSentry;
 
 /** @author Darkguardsman */
 public class RenderMiningLaser extends TileEntitySpecialRenderer
@@ -26,9 +26,9 @@ public class RenderMiningLaser extends TileEntitySpecialRenderer
         GL11.glPushMatrix();
         GL11.glTranslatef((float) d + 0.5F, (float) d1 + 1.5F, (float) d2 + 0.5F);
         GL11.glScalef(1.0F, -1F, -1F);
-        if (tileEntity instanceof TileLaserMiner)
+        if (tileEntity instanceof TileLaserSentry)
         {
-            float yaw = ((TileLaserMiner) tileEntity).getYaw() - 90;
+            float yaw = ((TileLaserSentry) tileEntity).getYaw() - 90;
             GL11.glRotatef(yaw, 0, 1, 0);
         }
         model.renderAll();
