@@ -24,6 +24,7 @@ import dark.mining.item.tool.ItemInstaHole;
 import dark.mining.item.tool.ItemMiningLaser;
 import dark.mining.machines.block.BlockApertureExcavator;
 import dark.mining.machines.block.BlockFracker;
+import dark.mining.machines.block.BlockLaserDrill;
 import dark.mining.machines.block.BlockMiningLaser;
 import dark.mining.machines.block.BlockScanner;
 import dark.mining.privateutils.ModConfig;
@@ -106,7 +107,9 @@ public class MechanizedMining extends ModPrefab
         {
             MMRecipeLoader.frackingPipe = ModObjectRegistry.createNewBlock("frackingPipe", MOD_ID, BlockFrackingPipe.class, false);
         }
-        MMRecipeLoader.miningLaser = ModObjectRegistry.createNewBlock("MM_MiningLaser", MOD_ID, BlockMiningLaser.class, true);
+        MMRecipeLoader.laserSentry = ModObjectRegistry.createNewBlock("laserSentry", MOD_ID, BlockMiningLaser.class, true);
+        MMRecipeLoader.laserDrill = ModObjectRegistry.createNewBlock("laserDrill", MOD_ID, BlockLaserDrill.class, true);
+        
         //Items
         MMRecipeLoader.toolDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
         MMRecipeLoader.toolHoleCreator = ModObjectRegistry.createNewItem("toolHoleCreator", MOD_ID, ItemInstaHole.class, true);

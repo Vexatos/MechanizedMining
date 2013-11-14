@@ -41,11 +41,11 @@ public class MMBlockRenderingHandler implements ISimpleBlockRenderingHandler
         if (MMRecipeLoader.frackingPipe != null && block.blockID == MMRecipeLoader.frackingPipe.blockID)
         {
             FMLClientHandler.instance().getClient().renderEngine.bindTexture(RenderFrackingPipe.TEXTURE);
-            GL11.glTranslatef((float)0, (float) 1.5F, (float) 0);
+            GL11.glTranslatef((float)0, (float) 1F, (float) 0);
             GL11.glScalef(1.0F, -1F, -1F);
             RenderFrackingPipe.model.renderAll();
         }else
-        if (MMRecipeLoader.miningLaser != null && block.blockID == MMRecipeLoader.miningLaser.blockID)
+        if (MMRecipeLoader.laserSentry != null && block.blockID == MMRecipeLoader.laserSentry.blockID)
         {
             FMLClientHandler.instance().getClient().renderEngine.bindTexture(RenderMiningLaser.TEXTURE);
             GL11.glTranslatef((float)0, (float) 1.7F, (float) 0);

@@ -35,7 +35,7 @@ public class ClientProxy extends CommonProxy
         {
         	ClientRegistry.bindTileEntitySpecialRenderer(TileFrackingPipe.class, new RenderFrackingPipe());
         }
-        if (MMRecipeLoader.miningLaser != null)
+        if (MMRecipeLoader.laserSentry != null)
         {
             ClientRegistry.bindTileEntitySpecialRenderer(TileLaserSentry.class, new RenderMiningLaser());
         }
