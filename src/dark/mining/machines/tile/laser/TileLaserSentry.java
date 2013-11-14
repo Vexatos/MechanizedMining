@@ -103,9 +103,9 @@ public class TileLaserSentry extends TileEntityEnergyMachine
     public void fireLaser()
     {
 
-        Vector3 start = RayTraceHelper.getPosFromRotation(this.worldObj, new Vector3(this).translate(new Vector3(0.5, 0.7, 0.5)), .7, yaw, pitch);
+        Vector3 start = RayTraceHelper.getPosFromRotation(new Vector3(this).translate(new Vector3(0.5, 0.7, 0.5)), .7, yaw, pitch);
         MovingObjectPosition hitPos = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), yaw, pitch, range, false);
-        Vector3 hitSpot = RayTraceHelper.getPosFromRotation(this.worldObj, start, range, yaw, pitch);
+        Vector3 hitSpot = RayTraceHelper.getPosFromRotation(start, range, yaw, pitch);
         
         if (hitPos != null)
         {
