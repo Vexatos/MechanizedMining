@@ -104,47 +104,55 @@ public class TileLaserSentry extends TileEntityEnergyMachine
     {
 
         Vector3 start = RayTraceHelper.getPosFromRotation(new Vector3(this).translate(new Vector3(0.5, 0.7, 0.5)), .7, yaw, pitch);
-        MovingObjectPosition hitPos = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), yaw, pitch, range, false);
         Vector3 hitSpot = RayTraceHelper.getPosFromRotation(start, range, yaw, pitch);
+        MovingObjectPosition hitPos = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), hitSpot.toVec3(), range, false);
         
+
         if (hitPos != null)
         {
             LaserEvent event = new LaserEvent.LaserFireEvent(this, hitPos);
             MinecraftForge.EVENT_BUS.post(event);
 
-            if (!worldObj.isRemote && !event.isCanceled() && this.worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
+            if (!worldObj.isRemote && !event.isCanceled())
             {
                 if (hitPos.typeOfHit == EnumMovingObjectType.ENTITY && hitPos.entityHit != null)
                 {
                     System.out.println("Entity hit by laser");
-                    DamageSource damageSource = TileDamageSource.doLaserDamage(this);
-                    hitPos.entityHit.attackEntityFrom(damageSource, 7);
-                    hitPos.entityHit.setFire(8);
+                    if (this.worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
+                    {
+                        DamageSource damageSource = TileDamageSource.doLaserDamage(this);
+                        hitPos.entityHit.attackEntityFrom(damageSource, 7);
+                        hitPos.entityHit.setFire(8);
+                    }
                 }
                 else if (hitPos.typeOfHit == EnumMovingObjectType.TILE)
                 {
-                    if (this.hit != null && this.hit.equals(new Vector3(hitPos)) && !this.hit.equals(new Vector3(this)))
+                    if (this.worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
                     {
-                        this.hitTicks++;
-
-                        if (hitTicks >= 6)
+                        if (this.hit != null && this.hit.equals(new Vector3(hitPos)) && !this.hit.equals(new Vector3(this)))
                         {
-                            LaserEvent.onBlockMinedByLaser(this.worldObj, this, this.hit);
-                            this.hit = null;
-                            this.hitTicks = 0;
+                            this.hitTicks++;
+
+                            if (hitTicks >= 6)
+                            {
+                                LaserEvent.onBlockMinedByLaser(this.worldObj, this, this.hit);
+                                this.hit = null;
+                                this.hitTicks = 0;
+                            }
                         }
-                    }
-                    else
-                    {
-                        this.hitTicks = 1;
-                        this.hit = new Vector3(hitPos);
-                        LaserEvent.onLaserHitBlock(this.worldObj, this, this.hit, ForgeDirection.UP);
+                        else
+                        {
+                            this.hitTicks = 1;
+                            this.hit = new Vector3(hitPos);
+                            LaserEvent.onLaserHitBlock(this.worldObj, this, this.hit, ForgeDirection.UP);
+                        }
                     }
 
                 }
 
             }
             hitSpot = new Vector3(hitPos.hitVec);
+
         }
         DarkMain.proxy.renderBeam(this.worldObj, start, hitSpot, this.worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord) ? Color.ORANGE : Color.blue, 3);
     }
