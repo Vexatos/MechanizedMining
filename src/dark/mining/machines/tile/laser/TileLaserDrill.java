@@ -20,11 +20,9 @@ import dark.core.network.PacketHandler;
 import dark.core.prefab.TileDamageSource;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 
-/**
- * @author Archadia
- *
- */
-public class TileLaserDrill extends TileEntityEnergyMachine {
+/** @author Archadia */
+public class TileLaserDrill extends TileEntityEnergyMachine
+{
 
     private Vector3 target;
     private Vector3 hit;
@@ -33,10 +31,11 @@ public class TileLaserDrill extends TileEntityEnergyMachine {
     private float pitch = 90;
     private float range = 20;
 
-    public TileLaserDrill() {
-    	super(0, 4);
+    public TileLaserDrill()
+    {
+        super(0, 4);
     }
-    
+
     @Override
     public boolean canFunction()
     {
@@ -49,10 +48,11 @@ public class TileLaserDrill extends TileEntityEnergyMachine {
         super.updateEntity();
         if (this.ticks % 3 == 0 && this.isFunctioning())
         {
-        	if(this.consumePower(3, false)) {
-        		this.fireLaser();
-        		this.consumePower(2.5f, true);
-        	}
+            if (this.consumePower(3, false))
+            {
+                this.fireLaser();
+                this.consumePower(2.5f, true);
+            }
         }
     }
 
@@ -111,10 +111,10 @@ public class TileLaserDrill extends TileEntityEnergyMachine {
     public void fireLaser()
     {
 
-        Vector3 start = RayTraceHelper.getPosFromRotation(new Vector3(this).translate(new Vector3(0.5, 0.7, 0.5)), .7, yaw, pitch);
-        MovingObjectPosition hitPos = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), yaw, pitch, range, false);
+        Vector3 start = RayTraceHelper.getPosFromRotation(new Vector3(this).translate(new Vector3(0.5, 0.7, 0.5)), .7f, yaw, pitch);
         Vector3 hitSpot = RayTraceHelper.getPosFromRotation(start, range, yaw, pitch);
-        
+        MovingObjectPosition hitPos = RayTraceHelper.ray_trace_do(this.worldObj, start.toVec3(), hitSpot.toVec3(), range, false);
+
         if (hitPos != null)
         {
             LaserEvent event = new LaserEvent.LaserFireEvent(this, hitPos);
