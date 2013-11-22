@@ -1,5 +1,8 @@
 package dark.mining.vehicles;
 
+/** Design sets for the mining tank to be created by the user
+ * 
+ * @author DarkGuardsman */
 public enum EnumMiningTankUpgrade
 {
     /** DRILL arm and cab */
@@ -10,7 +13,7 @@ public enum EnumMiningTankUpgrade
     HEAVY_LASER(),
     /** Robotic arm with shovel claw for digging with */
     DIGGER(),
-    /** Roboitc arm with claws at end for ripping up buildings */
+    /** Robotic arm with claws at end for ripping up buildings */
     CLAW(),
     /** Robotic arm with saw at the end for cutting down trees */
     SAW(),
@@ -20,6 +23,5 @@ public enum EnumMiningTankUpgrade
     CANNON(),
     /** Catapult like sling design for the tank that can be used for anything */
     SLING();
-    
-    
+
 }
