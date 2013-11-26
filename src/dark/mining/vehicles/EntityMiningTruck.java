@@ -19,7 +19,6 @@ import dark.core.prefab.vehicles.EntityVehicle;
 public class EntityMiningTruck extends EntityVehicle implements IExternalInv
 {
     protected IInvBox inventory;
-    
 
     public EntityMiningTruck(World world)
     {

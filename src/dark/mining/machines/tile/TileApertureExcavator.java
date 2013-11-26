@@ -9,7 +9,6 @@ import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
 import dark.api.events.MachineMiningEvent;
 import dark.core.helpers.InvInteractionHelper;
-import dark.core.helpers.ItemWorldHelper;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
 
 /** @author Archadia */

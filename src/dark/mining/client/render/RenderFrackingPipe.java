@@ -17,6 +17,7 @@ public class RenderFrackingPipe extends TileEntitySpecialRenderer
     public static final ModelFrackingPipe model = new ModelFrackingPipe();
     public static final ResourceLocation TEXTURE = new ResourceLocation(MechanizedMining.instance.DOMAIN, ModPrefab.MODEL_DIRECTORY + "frackingpipe.png");
 
+    @Override
     public void renderTileEntityAt(TileEntity tileEntity, double d, double d1, double d2, float f)
     {
         bindTexture(TEXTURE);

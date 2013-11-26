@@ -1,10 +1,10 @@
 package dark.mining;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import cpw.mods.fml.common.registry.GameRegistry;
 import dark.core.common.CoreRecipeLoader;
 import dark.core.common.RecipeLoader;
 import dark.core.common.items.EnumMaterial;
@@ -17,6 +17,7 @@ public class MMRecipeLoader extends RecipeLoader
     public static Block machineScanner, machineFracker, rubble, frackingPipe, machineApertureExc, laserSentry, laserDrill;
     public static Item toolDrill, toolHoleCreator, toolMiningLaser;
 
+    @Override
     public void loadRecipes()
     {
         super.loadRecipes();

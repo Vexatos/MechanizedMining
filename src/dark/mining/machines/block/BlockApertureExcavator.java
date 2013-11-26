@@ -11,10 +11,7 @@ import com.builtbroken.common.Pair;
 import dark.mining.block.BlockMM;
 import dark.mining.machines.tile.TileApertureExcavator;
 
-/**
- * @author Archadia
- *
- */
+/** @author Archadia */
 public class BlockApertureExcavator extends BlockMM
 {
 

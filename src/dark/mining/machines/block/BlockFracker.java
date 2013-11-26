@@ -2,22 +2,17 @@ package dark.mining.machines.block;
 
 import java.util.Set;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import universalelectricity.core.UniversalElectricity;
 
 import com.builtbroken.common.Pair;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import dark.mining.MechanizedMining;
 import dark.mining.block.BlockMM;
 import dark.mining.machines.tile.TileFracker;
 
-/**
- * @author Archadia
- *
- */
+/** @author Archadia */
 public class BlockFracker extends BlockMM
 {
 
@@ -30,7 +25,7 @@ public class BlockFracker extends BlockMM
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d)
     {
-      //  player.openGui(MechanizedMining.instance, 1, world, x, y, z);
+        //  player.openGui(MechanizedMining.instance, 1, world, x, y, z);
         return true;
     }
 

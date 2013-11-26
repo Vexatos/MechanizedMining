@@ -109,11 +109,11 @@ public class MechanizedMining extends ModPrefab
         }
         MMRecipeLoader.laserSentry = ModObjectRegistry.createNewBlock("laserSentry", MOD_ID, BlockMiningLaser.class, true);
         MMRecipeLoader.laserDrill = ModObjectRegistry.createNewBlock("laserDrill", MOD_ID, BlockLaserDrill.class, true);
-        
+
         //Items
         MMRecipeLoader.toolDrill = ModObjectRegistry.createNewItem("handDrill", MOD_ID, ItemHandDrill.class, true);
         MMRecipeLoader.toolHoleCreator = ModObjectRegistry.createNewItem("toolHoleCreator", MOD_ID, ItemInstaHole.class, true);
-        MMRecipeLoader.toolMiningLaser = ModObjectRegistry.createNewItem("toolMiningLaser", MOD_ID, ItemMiningLaser.class, true);      
+        MMRecipeLoader.toolMiningLaser = ModObjectRegistry.createNewItem("toolMiningLaser", MOD_ID, ItemMiningLaser.class, true);
 
         confObj.save();
     }

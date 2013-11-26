@@ -9,37 +9,45 @@ import net.minecraft.world.World;
 
 import com.builtbroken.common.Pair;
 
-import dark.core.client.renders.BlockRenderingHandler;
 import dark.mining.client.render.MMBlockRenderingHandler;
 import dark.mining.machines.tile.TileFrackingPipe;
 
-/**
- * @author Archadia
- *
- */
-public class BlockFrackingPipe extends BlockMM {
+/** @author Archadia */
+public class BlockFrackingPipe extends BlockMM
+{
 
-	public BlockFrackingPipe() {
-		super("Fracking_Pipe", Material.wood);
-	}
-	
-    public void getClientTileEntityRenderers(List<Pair<Class<? extends TileEntity>, TileEntitySpecialRenderer>> list) {
-    	
+    public BlockFrackingPipe()
+    {
+        super("Fracking_Pipe", Material.wood);
     }
-    
-    public int getRenderType() {
-		return MMBlockRenderingHandler.BLOCK_RENDER_ID;
-	}
-	
-	public boolean isOpaqueCube() {
-		return false;
-	}
 
-	public boolean renderAsNormalBlock() {
-		return false;
-	}
+    @Override
+    public void getClientTileEntityRenderers(List<Pair<Class<? extends TileEntity>, TileEntitySpecialRenderer>> list)
+    {
 
-	public TileEntity createTileEntity(World world, int metadata) {
-		return new TileFrackingPipe();
-	}
+    }
+
+    @Override
+    public int getRenderType()
+    {
+        return MMBlockRenderingHandler.BLOCK_RENDER_ID;
+    }
+
+    @Override
+    public boolean isOpaqueCube()
+    {
+        return false;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
+
+    @Override
+    public TileEntity createTileEntity(World world, int metadata)
+    {
+        return new TileFrackingPipe();
+    }
 }

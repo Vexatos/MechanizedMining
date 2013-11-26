@@ -1,19 +1,13 @@
 package dark.mining.item.tool;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -27,8 +21,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import universalelectricity.core.vector.Vector3;
 
@@ -39,8 +31,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import dark.api.events.LaserEvent;
 import dark.core.common.DMCreativeTab;
 import dark.core.common.DarkMain;
-import dark.core.common.items.EnumTool;
-import dark.core.helpers.ItemWorldHelper;
 import dark.core.helpers.RayTraceHelper;
 import dark.core.interfaces.IExtraInfo.IExtraItemInfo;
 import dark.core.prefab.LaserEntityDamageSource;

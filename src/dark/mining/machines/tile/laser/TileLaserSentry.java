@@ -1,7 +1,6 @@
 package dark.mining.machines.tile.laser;
 
 import java.awt.Color;
-import java.io.IOException;
 
 import net.minecraft.network.packet.Packet;
 import net.minecraft.util.DamageSource;

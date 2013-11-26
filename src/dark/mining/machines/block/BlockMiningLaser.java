@@ -2,16 +2,15 @@ package dark.mining.machines.block;
 
 import java.util.Set;
 
-import com.builtbroken.common.Pair;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import dark.core.client.renders.BlockRenderingHandler;
+
+import com.builtbroken.common.Pair;
+
 import dark.mining.block.BlockMM;
 import dark.mining.client.render.MMBlockRenderingHandler;
-import dark.mining.machines.tile.TileApertureExcavator;
 import dark.mining.machines.tile.laser.TileLaserSentry;
 
 /** Mining laser Prototype mainly used for crafting but can be used in the same way as Excavator.
@@ -66,16 +65,19 @@ public class BlockMiningLaser extends BlockMM
         return false;
     }
 
+    @Override
     public int getRenderType()
     {
         return MMBlockRenderingHandler.BLOCK_RENDER_ID;
     }
 
+    @Override
     public boolean isOpaqueCube()
     {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock()
     {
         return false;

@@ -4,7 +4,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelFrackingPipe extends ModelBase {
+public class ModelFrackingPipe extends ModelBase
+{
     ModelRenderer Back;
     ModelRenderer Top;
     ModelRenderer Left;
@@ -12,12 +13,13 @@ public class ModelFrackingPipe extends ModelBase {
     ModelRenderer Front;
     ModelRenderer Bottom;
     ModelRenderer Pipe;
-  
-    public ModelFrackingPipe() {
-    	textureWidth = 128;
-    	textureHeight = 64;
-    
-    	Back = new ModelRenderer(this, 35, 18);
+
+    public ModelFrackingPipe()
+    {
+        textureWidth = 128;
+        textureHeight = 64;
+
+        Back = new ModelRenderer(this, 35, 18);
         Back.addBox(0F, 0F, 0F, 14, 14, 1);
         Back.setRotationPoint(-7F, 9F, 7F);
         Back.setTextureSize(128, 64);
@@ -59,34 +61,37 @@ public class ModelFrackingPipe extends ModelBase {
         Pipe.setTextureSize(128, 64);
         Pipe.mirror = true;
         setRotation(Pipe, 0F, 0F, 0F);
-  }
-  
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.render(entity, f, f1, f2, f3, f4, f5);
-    setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-  }
-  
-  public void renderAll() {
-	  Back.render(0.0625F);
-	  Top.render(0.0625F);
-	  Left.render(0.0625F);
-	  Right.render(0.0625F);
-	  Front.render(0.0625F);
-	  Bottom.render(0.0625F);
-	  Pipe.render(0.0625F);
-  }
-  
-  private void setRotation(ModelRenderer model, float x, float y, float z)
-  {
-    model.rotateAngleX = x;
-    model.rotateAngleY = y;
-    model.rotateAngleZ = z;
-  }
-  
-  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
-  {
-    super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-  }
+    }
+
+    @Override
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+    {
+        super.render(entity, f, f1, f2, f3, f4, f5);
+        setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+    }
+
+    public void renderAll()
+    {
+        Back.render(0.0625F);
+        Top.render(0.0625F);
+        Left.render(0.0625F);
+        Right.render(0.0625F);
+        Front.render(0.0625F);
+        Bottom.render(0.0625F);
+        Pipe.render(0.0625F);
+    }
+
+    private void setRotation(ModelRenderer model, float x, float y, float z)
+    {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
+
+    @Override
+    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+    {
+        super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+    }
 
 }

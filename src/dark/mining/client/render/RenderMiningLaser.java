@@ -2,7 +2,6 @@ package dark.mining.client.render;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -19,6 +18,7 @@ public class RenderMiningLaser extends TileEntitySpecialRenderer
     public static final ModelLaserTile model = new ModelLaserTile();
     public static final ResourceLocation TEXTURE = new ResourceLocation(MechanizedMining.instance.DOMAIN, ModPrefab.MODEL_DIRECTORY + "LaserTile.png");
 
+    @Override
     public void renderTileEntityAt(TileEntity tileEntity, double d, double d1, double d2, float f)
     {
         bindTexture(TEXTURE);

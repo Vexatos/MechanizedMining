@@ -13,12 +13,10 @@ import dark.mining.block.BlockMM;
 import dark.mining.machines.tile.laser.TileLaserDrill;
 import dark.mining.machines.tile.laser.TileLaserSentry;
 
-/**
- * @author Archadia
- *
- */
-public class BlockLaserDrill extends BlockMM {
-	
+/** @author Archadia */
+public class BlockLaserDrill extends BlockMM
+{
+
     public BlockLaserDrill()
     {
         super("Machine_LaserDrill", Material.iron);

@@ -103,7 +103,7 @@ public class ModelLaserTile extends ModelBase
         body6.render(f5);
         body7.render(f5);
     }
-    
+
     public void renderAll()
     {
         this.render(0.0625F);
