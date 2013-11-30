@@ -13,8 +13,8 @@ import dark.mining.client.render.MMBlockRenderingHandler;
 import dark.mining.client.render.RenderFrackingPipe;
 import dark.mining.client.render.RenderMiningLaser;
 import dark.mining.client.render.RenderMiningLaserGun;
-import dark.mining.machines.tile.TileFrackingPipe;
 import dark.mining.machines.tile.TileScanner;
+import dark.mining.machines.tile.fracker.TileFrackingPipe;
 import dark.mining.machines.tile.laser.TileLaserSentry;
 
 /** @author Archadia */

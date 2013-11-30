@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import com.builtbroken.common.Pair;
 
 import dark.mining.client.render.MMBlockRenderingHandler;
-import dark.mining.machines.tile.TileFrackingPipe;
+import dark.mining.machines.tile.fracker.TileFrackingPipe;
 
 /** @author Archadia */
 public class BlockFrackingPipe extends BlockMM

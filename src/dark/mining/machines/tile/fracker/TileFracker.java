@@ -1,7 +1,6 @@
-package dark.mining.machines.tile;
+package dark.mining.machines.tile.fracker;
 
 import net.minecraft.block.Block;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import universalelectricity.core.vector.Vector3;
 import dark.core.common.blocks.BlockGasOre;
@@ -13,7 +12,6 @@ import dark.mining.MMRecipeLoader;
 /** @author Archadia */
 public class TileFracker extends TileEntityEnergyMachine
 {
-
     GasTank tank = new GasTank(10000);
 
     private Vector3 target;
