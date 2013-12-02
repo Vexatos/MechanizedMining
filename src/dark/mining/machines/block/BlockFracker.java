@@ -10,7 +10,7 @@ import universalelectricity.core.UniversalElectricity;
 import com.builtbroken.common.Pair;
 
 import dark.mining.block.BlockMM;
-import dark.mining.machines.tile.TileFracker;
+import dark.mining.machines.tile.fracker.TileFracker;
 
 /** @author Archadia */
 public class BlockFracker extends BlockMM
