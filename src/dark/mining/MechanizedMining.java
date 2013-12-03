@@ -19,6 +19,7 @@ import dark.core.prefab.ModPrefab;
 import dark.core.registration.ModObjectRegistry;
 import dark.mining.block.BlockFrackingPipe;
 import dark.mining.block.BlockRubble;
+import dark.mining.gas.GasMethane;
 import dark.mining.item.tool.ItemHandDrill;
 import dark.mining.item.tool.ItemInstaHole;
 import dark.mining.item.tool.ItemMiningLaser;
@@ -115,6 +116,8 @@ public class MechanizedMining extends ModPrefab
         MMRecipeLoader.toolHoleCreator = ModObjectRegistry.createNewItem("toolHoleCreator", MOD_ID, ItemInstaHole.class, true);
         MMRecipeLoader.toolMiningLaser = ModObjectRegistry.createNewItem("toolMiningLaser", MOD_ID, ItemMiningLaser.class, true);
 
+        //Gas
+        MMRecipeLoader.methane = new GasMethane("methane");
         confObj.save();
     }
 

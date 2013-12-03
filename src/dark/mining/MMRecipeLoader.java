@@ -10,13 +10,15 @@ import dark.core.common.RecipeLoader;
 import dark.core.common.items.EnumMaterial;
 import dark.core.common.items.EnumOrePart;
 import dark.core.common.items.ItemParts.Parts;
+import dark.core.prefab.fluids.Gas;
 import dark.mining.item.tool.ItemMiningLaser;
 
 public class MMRecipeLoader extends RecipeLoader
 {
     public static Block machineScanner, machineFracker, rubble, frackingPipe, machineApertureExc, laserSentry, laserDrill;
     public static Item toolDrill, toolHoleCreator, toolMiningLaser;
-
+    public static Gas methane;
+    
     @Override
     public void loadRecipes()
     {

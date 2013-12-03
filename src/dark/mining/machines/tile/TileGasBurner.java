@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import dark.core.prefab.fluids.Gas;
 import dark.core.prefab.fluids.GasTank;
 import dark.core.prefab.machine.TileEntityMachine;
+import dark.mining.MMRecipeLoader;
 
 /**
  * @author Archadia
@@ -19,6 +20,10 @@ public class TileGasBurner extends TileEntityMachine implements IFluidHandler {
 
 	GasTank tank = new GasTank(5000);
 	HashSet<Fluid> validFuel = new HashSet<Fluid>();
+	
+	public TileGasBurner() {
+		validFuel.add(MMRecipeLoader.methane);
+	}
 	
 	public boolean isGasValidFuel(Fluid fluid) {
 		if(!fluid.isGaseous()) return false;
