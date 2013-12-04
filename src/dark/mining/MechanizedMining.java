@@ -19,7 +19,6 @@ import dark.core.prefab.ModPrefab;
 import dark.machines.common.DarkMain;
 import dark.mining.block.BlockFrackingPipe;
 import dark.mining.block.BlockRubble;
-import dark.mining.gas.GasMethane;
 import dark.mining.item.tool.ItemHandDrill;
 import dark.mining.item.tool.ItemInstaHole;
 import dark.mining.item.tool.ItemMiningLaser;
@@ -31,7 +30,7 @@ import dark.mining.machines.block.BlockScanner;
 import dark.mining.privateutils.ModConfig;
 
 /** Main Mod class for MechanizedMining.
- * 
+ *
  * @author Archadia */
 @Mod(modid = MechanizedMining.MOD_ID, name = MechanizedMining.MOD_NAME, version = MechanizedMining.VERSION)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
@@ -117,7 +116,6 @@ public class MechanizedMining extends ModPrefab
         MMRecipeLoader.toolMiningLaser = ModObjectRegistry.createNewItem("toolMiningLaser", MOD_ID, ItemMiningLaser.class, true);
 
         //Gas
-        MMRecipeLoader.methane = new GasMethane("methane");
         confObj.save();
     }
 

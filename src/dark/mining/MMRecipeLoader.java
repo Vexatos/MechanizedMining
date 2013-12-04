@@ -17,8 +17,7 @@ public class MMRecipeLoader extends RecipeLoader
 {
     public static Block machineScanner, machineFracker, rubble, frackingPipe, machineApertureExc, laserSentry, laserDrill;
     public static Item toolDrill, toolHoleCreator, toolMiningLaser;
-    public static Gas methane;
-    
+
     @Override
     public void loadRecipes()
     {
