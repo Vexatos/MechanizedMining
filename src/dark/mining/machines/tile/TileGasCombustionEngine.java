@@ -9,14 +9,15 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import universalelectricity.prefab.tile.IRotatable;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
-import dark.api.energy.IForceDevice;
+import dark.api.energy.IEnergyDevice;
+import dark.api.tilenetwork.ITileConnector.Connection;
 import dark.core.prefab.fluids.EnumGas;
 import dark.core.prefab.fluids.GasTank;
 
 /** Combustion engine that runs off of gas fluid such as methain, propain, and butane
- * 
+ *
  * @author DarkGuardsman, Archadia */
-public class TileGasCombustionEngine extends TileEntityAdvanced implements IFluidHandler, IForceDevice, IRotatable
+public class TileGasCombustionEngine extends TileEntityAdvanced implements IFluidHandler, IEnergyDevice, IRotatable
 {
     /** Tank which fuel is stored. */
     protected GasTank fuelTank = new GasTank(1000);
@@ -88,35 +89,7 @@ public class TileGasCombustionEngine extends TileEntityAdvanced implements IFlui
      * Force calculation stuff
      * 888888888888888888888888888888888888888888888888888888888888 */
 
-    @Override
-    public float applyForce(ForgeDirection side, float force)
-    {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public float supplyForce(ForgeDirection side)
-    {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public float getForceOut(ForgeDirection side)
-    {
-        if (side == face)
-        {
-            return this.force;
-        }
-        return 0;
-    }
-
-    @Override
-    public float getForceLoad(ForgeDirection side)
-    {
-        return 0;
-    }
+    //TODO re-add
 
     /* 8888888888888888888888888888888888888888888888888888888888888
      *Fluid Tank Stuff

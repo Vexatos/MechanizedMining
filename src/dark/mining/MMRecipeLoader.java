@@ -5,7 +5,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dark.core.prefab.fluids.Gas;
 import dark.machines.common.CoreRecipeLoader;
 import dark.machines.common.RecipeLoader;
 import dark.machines.common.items.EnumMaterial;

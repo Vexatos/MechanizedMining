@@ -10,7 +10,6 @@ import net.minecraftforge.fluids.IFluidHandler;
 import dark.core.prefab.fluids.EnumGas;
 import dark.core.prefab.fluids.GasTank;
 import dark.core.prefab.machine.TileEntityMachine;
-import dark.mining.MMRecipeLoader;
 
 /**
  * @author Archadia
