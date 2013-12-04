@@ -18,7 +18,7 @@ import dark.core.helpers.RayTraceHelper;
 import dark.core.network.PacketHandler;
 import dark.core.prefab.TileDamageSource;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
-import dark.machines.common.DarkMain;
+import dark.machines.DarkMain;
 
 /** @author Archadia */
 public class TileLaserDrill extends TileEntityEnergyMachine

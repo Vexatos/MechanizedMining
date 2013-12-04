@@ -5,11 +5,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dark.machines.common.CoreRecipeLoader;
-import dark.machines.common.RecipeLoader;
-import dark.machines.common.items.EnumMaterial;
-import dark.machines.common.items.EnumOrePart;
-import dark.machines.common.items.ItemParts.Parts;
+import dark.core.basics.EnumMaterial;
+import dark.core.basics.EnumOrePart;
+import dark.core.basics.ItemParts.Parts;
+import dark.core.prefab.RecipeLoader;
+import dark.machines.CoreRecipeLoader;
 import dark.mining.item.tool.ItemMiningLaser;
 
 public class MMRecipeLoader extends RecipeLoader

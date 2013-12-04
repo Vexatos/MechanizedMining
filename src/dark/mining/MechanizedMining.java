@@ -16,7 +16,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import dark.core.ModObjectRegistry;
 import dark.core.prefab.ModPrefab;
-import dark.machines.common.DarkMain;
+import dark.machines.DarkMain;
 import dark.mining.block.BlockFrackingPipe;
 import dark.mining.block.BlockRubble;
 import dark.mining.item.tool.ItemHandDrill;
