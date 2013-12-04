@@ -29,11 +29,11 @@ import com.builtbroken.common.Pair;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dark.api.events.LaserEvent;
-import dark.core.common.DMCreativeTab;
-import dark.core.common.DarkMain;
 import dark.core.helpers.RayTraceHelper;
 import dark.core.interfaces.IExtraInfo.IExtraItemInfo;
 import dark.core.prefab.LaserEntityDamageSource;
+import dark.machines.common.DMCreativeTab;
+import dark.machines.common.DarkMain;
 
 /** Stream laser mining tool, When held down it will slowly mine away at the block in front of it.
  * 

@@ -5,8 +5,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import dark.core.interfaces.IExternalInv;
 import dark.core.interfaces.IInvBox;
+import dark.core.prefab.entities.EntityVehicle;
 import dark.core.prefab.invgui.InvChest;
-import dark.core.prefab.vehicles.EntityVehicle;
 
 /** Simple extension of the test car to provide small base inventory and options for upgrades.
  * Upgrades should be more inventory space, chargers for tools, or mobile machines for processing.

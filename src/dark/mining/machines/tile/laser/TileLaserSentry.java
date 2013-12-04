@@ -14,11 +14,11 @@ import com.google.common.io.ByteArrayDataInput;
 
 import cpw.mods.fml.common.network.Player;
 import dark.api.events.LaserEvent;
-import dark.core.common.DarkMain;
 import dark.core.helpers.RayTraceHelper;
 import dark.core.network.PacketHandler;
 import dark.core.prefab.TileDamageSource;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
+import dark.machines.common.DarkMain;
 
 /** @author DarkGuardsman */
 public class TileLaserSentry extends TileEntityEnergyMachine

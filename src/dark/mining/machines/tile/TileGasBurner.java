@@ -7,7 +7,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import dark.core.prefab.fluids.Gas;
 import dark.core.prefab.fluids.GasTank;
 import dark.core.prefab.machine.TileEntityMachine;
 import dark.mining.MMRecipeLoader;

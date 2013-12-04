@@ -3,10 +3,10 @@ package dark.mining.machines.tile.fracker;
 import net.minecraft.block.Block;
 import net.minecraftforge.fluids.FluidStack;
 import universalelectricity.core.vector.Vector3;
-import dark.core.common.blocks.BlockGasOre;
 import dark.core.prefab.fluids.EnumGas;
 import dark.core.prefab.fluids.GasTank;
 import dark.core.prefab.machine.TileEntityEnergyMachine;
+import dark.machines.common.blocks.BlockGasOre;
 import dark.mining.MMRecipeLoader;
 
 /** @author Archadia */

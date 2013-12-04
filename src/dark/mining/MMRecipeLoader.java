@@ -5,12 +5,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dark.core.common.CoreRecipeLoader;
-import dark.core.common.RecipeLoader;
-import dark.core.common.items.EnumMaterial;
-import dark.core.common.items.EnumOrePart;
-import dark.core.common.items.ItemParts.Parts;
 import dark.core.prefab.fluids.Gas;
+import dark.machines.common.CoreRecipeLoader;
+import dark.machines.common.RecipeLoader;
+import dark.machines.common.items.EnumMaterial;
+import dark.machines.common.items.EnumOrePart;
+import dark.machines.common.items.ItemParts.Parts;
 import dark.mining.item.tool.ItemMiningLaser;
 
 public class MMRecipeLoader extends RecipeLoader

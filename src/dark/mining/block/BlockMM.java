@@ -3,8 +3,8 @@ package dark.mining.block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
-import dark.core.common.DMCreativeTab;
 import dark.core.prefab.machine.BlockMachine;
+import dark.machines.common.DMCreativeTab;
 import dark.mining.privateutils.ModConfig;
 
 /** @author Archadia */

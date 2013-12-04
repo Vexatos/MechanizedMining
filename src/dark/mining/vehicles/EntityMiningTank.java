@@ -1,7 +1,7 @@
 package dark.mining.vehicles;
 
 import net.minecraft.world.World;
-import dark.core.prefab.vehicles.EntityVehicle;
+import dark.core.prefab.entities.EntityVehicle;
 
 /** Platform for heavy mining gear to be used from. Should look like an orange no-armor tank about 4
  * blocks wide, and 6 blocks long.
