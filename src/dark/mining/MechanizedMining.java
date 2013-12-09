@@ -14,6 +14,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import dark.core.ModObjectRegistry;
 import dark.core.prefab.ModPrefab;
 import dark.machines.DarkMain;
@@ -36,6 +37,7 @@ import dark.mining.privateutils.ModConfig;
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class MechanizedMining extends ModPrefab
 {
+	public static final String[] languages = new String[] {"en_US", "de_DE"};
 
     @Instance(MechanizedMining.MOD_ID)
     public static MechanizedMining instance;
@@ -86,6 +88,10 @@ public class MechanizedMining extends ModPrefab
     {
         super.postInit(event);
         proxy.postInit();
+        
+        for(String language : languages) {
+			LanguageRegistry.instance().loadLocalization("/assets/mechanizedmining/lang/" + language + ".properties", language, false);
+		}
     }
 
     @Override
